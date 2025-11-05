@@ -1,0 +1,11 @@
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-black: #1a1a1a;
+  --color-primary: #f2ff3c;
+  --color-secondary: #ced300;
+  --color-tertiary: #fcfcf0;
+  --color-sky: #cffaff;
+  --color-btn-blue: #3197ec;
+  --color-beige: #f9f9eb;
+}

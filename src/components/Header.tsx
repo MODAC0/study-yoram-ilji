@@ -1,8 +1,17 @@
 "use client";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/react";
+import {
+  Button,
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+} from "@heroui/react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 
 export default function Header() {
+  const { theme, setTheme } = useTheme();
+
   return (
     <Navbar className="mb-8 border-b">
       <NavbarBrand>
@@ -19,6 +28,11 @@ export default function Header() {
         </NavbarItem>
         <NavbarItem>
           <Link href="/portfolio">포트폴리오</Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Button onPress={() => setTheme(theme === "dark" ? "light" : "dark")}>
+            Toggle Theme
+          </Button>
         </NavbarItem>
       </NavbarContent>
     </Navbar>

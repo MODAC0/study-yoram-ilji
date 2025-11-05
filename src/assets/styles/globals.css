@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@import "./tailwind.config.css";
+@plugin "../../../hero.ts";
+@source '../../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+
+@font-face {
+  font-family: "pretendard";
+  src: url("/assets/fonts/PretendardVariable.woff2");
+}
+
+* {
+  font-family: "pretendard", sans-serif;
+}

@@ -1,15 +1,7 @@
 import AppProvider from "@/components/AppProvider";
 import Header from "@/components/Header";
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
-
-const pretendard = localFont({
-  src: "../assets/fonts/PretendardVariable.woff2",
-  display: "swap",
-  weight: "45 920",
-  variable: "--font-pretendard",
-});
+import "../assets/styles/globals.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,11 +14,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={pretendard.variable}>
+    <html lang="en" suppressHydrationWarning>
+      <body>
         <AppProvider>
           <Header />
-          <main className="container mx-auto px-4">{children}</main>
+          <main className="container mx-auto px-4 min-h-screen">
+            {children}
+          </main>
         </AppProvider>
       </body>
     </html>
