@@ -1,7 +1,8 @@
 "use client";
 
 import { NotionPage, NotionTitleProperty } from "@/types/notion";
-import { Badge, Card } from "@heroui/react";
+import { Badge } from "@heroui/react";
+import Link from "next/link";
 
 interface BlogPostProps {
   posts: NotionPage[];
@@ -29,7 +30,11 @@ export default function BlogList({ posts }: BlogPostProps) {
         const createdDate = formatDate(post.properties.작성일.date?.start);
 
         return (
-          <Card key={post.id} className="p-6 hover:shadow-lg transition-shadow">
+          <Link
+            href={`/blog/${post.id}`}
+            key={post.id}
+            className="p-6 cursor-pointer"
+          >
             <h2 className="text-2xl font-semibold mb-3">{title}</h2>
             <p className="text-gray-600 mb-4">{createdDate}</p>
             <div className="flex flex-wrap gap-2">
@@ -39,7 +44,7 @@ export default function BlogList({ posts }: BlogPostProps) {
                 </Badge>
               ))}
             </div>
-          </Card>
+          </Link>
         );
       })}
     </div>

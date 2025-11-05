@@ -11,7 +11,6 @@ export default async function PostPage({
   const { id } = await params;
   const post = (await getPost(id)) as NotionPage;
   const content = await getPostContent(id);
-
   return (
     <div className="max-w-4xl mx-auto py-20 px-4">
       <h1 className="text-4xl font-bold mb-4">
