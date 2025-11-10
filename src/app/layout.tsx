@@ -1,7 +1,5 @@
 import AppProvider from "@/components/AppProvider";
 import Header from "@/components/Header";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
-import "@ant-design/v5-patch-for-react-19";
 import type { Metadata } from "next";
 import "../assets/styles/globals.css";
 
@@ -17,7 +15,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" suppressHydrationWarning>
-      <AntdRegistry>
         <body>
           <AppProvider>
             <Header />
@@ -26,7 +23,6 @@ export default function RootLayout({
             </main>
           </AppProvider>
         </body>
-      </AntdRegistry>
     </html>
   );
 }
