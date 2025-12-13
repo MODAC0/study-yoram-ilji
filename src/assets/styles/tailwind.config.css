@@ -8,4 +8,11 @@
   --color-sky: #cffaff;
   --color-btn-blue: #3197ec;
   --color-beige: #f9f9eb;
+  --w-9xl: 1600px;
+}
+
+@layer utilities {
+  .max-w-9xl {
+    max-width: var(--w-9xl);
+  }
 }

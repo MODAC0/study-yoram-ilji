@@ -1,40 +1,16 @@
 "use client";
-import {
-  Button,
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-} from "@heroui/react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { Logo } from "./SvgIcons";
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <Navbar className="mb-8 border-b">
-      <NavbarBrand>
-        <Link href="/" className="font-bold text-xl">
-          Yoram Ilji
-        </Link>
-      </NavbarBrand>
-      <NavbarContent>
-        <NavbarItem>
-          <Link href="/">홈</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link href="/blog">블로그</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link href="/portfolio">포트폴리오</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button onPress={() => setTheme(theme === "dark" ? "light" : "dark")}>
-            Toggle Theme
-          </Button>
-        </NavbarItem>
-      </NavbarContent>
-    </Navbar>
+    <nav className="absolute top-0 left-0 right-0 z-10 px-6 py-4 max-w-9xl mx-auto">
+      <Link href="/" className="font-bold text-xl text-gray-800 w-12 h-12">
+        <Logo />
+      </Link>
+    </nav>
   );
 }

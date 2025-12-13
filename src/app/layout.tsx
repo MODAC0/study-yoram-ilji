@@ -18,9 +18,7 @@ export default function RootLayout({
       <body>
         <AppProvider>
           <Header />
-          <main className="container mx-auto px-4 min-h-screen">
-            {children}
-          </main>
+          <main className=" mx-auto px-4 min-h-screen">{children}</main>
         </AppProvider>
       </body>
     </html>
