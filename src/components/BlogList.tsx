@@ -46,6 +46,7 @@ export default function BlogList({ posts }: BlogPostProps) {
         const tags = post.properties.태그.multi_select;
         const createdDate = formatDate(post.properties.작성일.date?.start);
         const coverImageUrl = getCoverImageUrl(post);
+
         return (
           <Link
             href={`/blog/${post.id}`}
@@ -54,7 +55,7 @@ export default function BlogList({ posts }: BlogPostProps) {
           >
             {coverImageUrl && (
               <div className="relative w-full h-48 bg-gray-100">
-                {/* Next.js Image 컴포넌트를 사용하고, layout/fill을 적용하여 크기 조정 */}
+         
                 <Image
                   src={coverImageUrl}
                   alt={title}

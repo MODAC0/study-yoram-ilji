@@ -3,6 +3,9 @@ import NotionBlock from "@/components/NotionBlock";
 import { NotionPage } from "@/types/notion";
 import { BlockObjectResponse } from "@notionhq/client";
 
+// ISR: 60초마다 재검증하여 Notion 변경사항 반영
+export const revalidate = 60;
+
 export default async function PostPage({
   params,
 }: {
