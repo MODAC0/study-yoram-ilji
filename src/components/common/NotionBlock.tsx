@@ -3,6 +3,7 @@
 "use client";
 import { Accordion, AccordionItem, Alert, Checkbox } from "@heroui/react";
 import { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import Image from "next/image";
 import React from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
@@ -120,7 +121,7 @@ export default function NotionBlock({
 
       return (
         <figure className="my-6">
-          <img
+          <Image
             src={src}
             alt={caption.length > 0 ? caption[0].plain_text : "Notion Image"}
             className="w-full h-auto object-cover"
