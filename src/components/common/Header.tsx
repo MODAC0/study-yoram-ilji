@@ -9,7 +9,7 @@ import { Logo } from "./SvgIcons";
 
 export default function Header() {
   const { scrollY } = useScroll();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [hidden, setHidden] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -58,10 +58,12 @@ export default function Header() {
             <div className="border border-r border-gray-200 h-4" />
             <button
               className="p-1 rounded-md group cursor-pointer hover:text-gray-500 transition-all duration-300"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              onClick={() =>
+                setTheme(resolvedTheme === "dark" ? "light" : "dark")
+              }
             >
               {mounted &&
-                (theme === "dark" ? (
+                (resolvedTheme === "dark" ? (
                   <MoonIcon className="size-6" />
                 ) : (
                   <SunIcon className="size-6" />
