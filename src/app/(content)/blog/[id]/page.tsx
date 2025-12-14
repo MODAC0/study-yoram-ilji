@@ -1,4 +1,3 @@
-import { getBlogPosts, getPost, getPostContent } from "@/api/notion";
 import ViewCounter from "@/components/blog/ViewCounter";
 import NotionBlock from "@/components/common/NotionBlock";
 import {
@@ -6,6 +5,7 @@ import {
   generateSeoMetadata,
   siteConfig,
 } from "@/lib/seo";
+import { getBlogPosts, getPost, getPostContent } from "@/services/notion";
 import { NotionPage } from "@/types/notion";
 import { getNotionBlogImageUrl, getNotionBlogTitle } from "@/utils/getResource";
 import { BlockObjectResponse } from "@notionhq/client";

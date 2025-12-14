@@ -1,5 +1,5 @@
-import { getBlogPosts } from "@/api/notion";
 import BlogList from "@/components/blog/BlogList";
+import { getBlogPosts } from "@/services/notion";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

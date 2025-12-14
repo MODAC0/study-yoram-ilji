@@ -1,5 +1,5 @@
-import { getBlogPosts } from "@/api/notion";
 import { siteConfig } from "@/lib/seo";
+import { getBlogPosts } from "@/services/notion";
 import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

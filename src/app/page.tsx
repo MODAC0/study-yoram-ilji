@@ -1,7 +1,7 @@
-import { getBlogPosts } from "@/api/notion";
 import HeroSection from "@/components/home/HeroSection";
 import LastestBlogSection from "@/components/home/LastestBlogSection";
 import { getAllViewCounts } from "@/lib/firebase-admin";
+import { getBlogPosts } from "@/services/notion";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
