@@ -39,7 +39,7 @@ export default function Header() {
     >
       <nav className="max-w-9xl mx-auto">
         <div className="flex items-center justify-between">
-          <Link href="/" className="font-bold text-xl text-gray-800 w-12 h-12">
+          <Link href="/" className="font-bold text-xl w-12 h-12">
             <Logo />
           </Link>
           <div className="flex items-center gap-6 hover:cursor-pointer">

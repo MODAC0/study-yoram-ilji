@@ -9,6 +9,8 @@ export const metadata: Metadata = {
     "개발과 프로젝트에 대한 기록을 담은 블로그입니다. 최신 포스트와 프로젝트를 확인하세요.",
 };
 
+export const revalidate = 60;
+
 export default async function MainPage() {
   const posts = await getBlogPosts();
 
