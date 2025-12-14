@@ -108,7 +108,7 @@ export interface NotionSelectProperty extends NotionPropertyBase {
 export interface NotionDateProperty extends NotionPropertyBase {
   type: "date";
   date: NotionDate | null;
-  created_time: string;
+  last_edited_time: string;
 }
 
 /**

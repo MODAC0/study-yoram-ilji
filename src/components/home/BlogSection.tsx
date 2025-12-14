@@ -1,6 +1,6 @@
 "use client";
 
-import { NotionPage } from "@/types/notion";
+import { NotionPage } from "@/types/notion.type";
 import { getNotionBlogImageUrl, getNotionBlogTitle } from "@/utils/getResource";
 import dayjs from "dayjs";
 import { AnimatePresence, motion, PanInfo } from "framer-motion";
@@ -8,27 +8,27 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import BlogCard from '../common/BlogCard';
 
-const ITEMS_PER_PAGE = 3;
+const ITEMS_PER_PAGE = 4;
 
 interface Props {
   posts: NotionPage[];
   viewCounts: Record<string, number>;
 }
 
-export default function LastestBlogSection({ posts, viewCounts }: Props) {
+export default function BlogSection({ posts, viewCounts }: Props) {
   const [currentPage, setCurrentPage] = useState(0);
 
   const displayPosts = useMemo(
     () =>
       posts
-        // 조회수 내림차순 정렬 (조회수가 같으면 최신순)
         .sort((a, b) => {
           const viewsA = viewCounts[a.id] || 0;
           const viewsB = viewCounts[b.id] || 0;
           if (viewsB !== viewsA) return viewsB - viewsA;
-          return dayjs(b.properties.작성일.created_time).diff(
-            dayjs(a.properties.작성일.created_time)
+          return dayjs(b.properties.작성일.last_edited_time).diff(
+            dayjs(a.properties.작성일.last_edited_time)
           );
         })
         .slice(0, 6),
@@ -60,14 +60,18 @@ export default function LastestBlogSection({ posts, viewCounts }: Props) {
   );
 
   return (
-    <section className="w-full py-16 px-4 md:px-8">
+    <section className="w-full py-16 px-6">
       <div className="max-w-7xl mx-auto">
         {/* 섹션 헤더 */}
         <div className="flex items-center justify-between mb-10">
           <div className="flex flex-col gap-2 text-start">
-            <h2 className="text-3xl md:text-4xl font-bold">Latest Blog</h2>
-            <p className="text-gray-500 dark:text-gray-400">
-              최신 블로그 포스트를 확인하세요
+            <Link href="/blog" className="group">
+              <h2 className="text-3xl md:text-4xl font-bold group-hover:text-point transition-all duration-300">
+                최신 인기 블로그
+              </h2>
+            </Link>
+            <p className="text-dark-300 dark:text-dark-500">
+              최신 인기 블로그 포스트를 확인하세요
             </p>
           </div>
 
@@ -114,10 +118,14 @@ export default function LastestBlogSection({ posts, viewCounts }: Props) {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
               >
                 {currentPosts.map((post) => (
-                  <BlogCard key={post.id} post={post} />
+                  <BlogCard
+                    key={post.id}
+                    post={post}
+                    viewCount={viewCounts[post.id]}
+                  />
                 ))}
               </motion.div>
             </AnimatePresence>
@@ -143,61 +151,5 @@ export default function LastestBlogSection({ posts, viewCounts }: Props) {
         )}
       </div>
     </section>
-  );
-}
-
-function BlogCard({ post }: { post: NotionPage }) {
-  const title = getNotionBlogTitle(post);
-  const coverImageUrl = getNotionBlogImageUrl(post);
-  const category = post.properties.카테고리.select?.name;
-  const createdDate = dayjs(post.properties.작성일.created_time).format(
-    "YYYY.MM.DD"
-  );
-
-  return (
-    <Link href={`/blog/${post.id}`} className="group block">
-      <motion.article className="flex flex-col h-full bg-white dark:bg-gray-900 overflow-hidden transition-shadow duration-300">
-        {/* 이미지 영역 */}
-        <div className="relative aspect-4/3 overflow-hidden bg-linear-to-br from-gray-100 rounded-2xl to-gray-200 dark:from-gray-800 dark:to-gray-700">
-          {coverImageUrl ? (
-            <Image
-              src={coverImageUrl}
-              alt={title}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            />
-          ) : (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-4xl">📝</span>
-            </div>
-          )}
-
-          {/* 카테고리 태그 */}
-          {category && (
-            <div className="absolute top-3 left-3">
-              <span
-                className="px-3 py-1 text-xs font-medium bg-white/90 dark:bg-black/70 
-                             text-gray-800 dark:text-gray-200 rounded-full backdrop-blur-sm"
-              >
-                {category}
-              </span>
-            </div>
-          )}
-
-          <div className="absolute bottom-0 left-0 flex flex-col text-start flex-1 p-4 z-10 bg-white/65 backdrop-blur-xs w-full">
-            <h3
-              className="font-semibold text-lg line-clamp-2 mb-2 text-primary
-                        group-hover:text-point transition-all duration-300"
-            >
-              {title}
-            </h3>
-            <p className="text-sm text-secondary dark:text-secondary mt-auto">
-              {createdDate}
-            </p>
-          </div>
-        </div>
-      </motion.article>
-    </Link>
   );
 }

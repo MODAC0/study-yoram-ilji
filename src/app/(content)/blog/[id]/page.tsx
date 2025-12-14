@@ -5,10 +5,11 @@ import {
   generateSeoMetadata,
   siteConfig,
 } from "@/lib/seo";
-import { getBlogPosts, getPost, getPostContent } from "@/services/notion";
-import { NotionPage } from "@/types/notion";
+import { getBlogPosts, getPost, getPostContent } from "@/services/notion.api";
+import { NotionPage } from "@/types/notion.type";
 import { getNotionBlogImageUrl, getNotionBlogTitle } from "@/utils/getResource";
 import { BlockObjectResponse } from "@notionhq/client";
+import dayjs from "dayjs";
 import { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -47,7 +48,8 @@ export default async function PostPage({ params }: Props) {
 
   const title = getNotionBlogTitle(post);
   const coverImage = getNotionBlogImageUrl(post);
-  const publishedTime = post.properties.발행일.date?.start || post.created_time;
+  const publishedTime =
+    post.properties.발행일.date?.start || post.last_edited_time;
 
   const jsonLd = generateArticleJsonLd({
     title,
@@ -69,8 +71,14 @@ export default async function PostPage({ params }: Props) {
         <h1 className="text-4xl font-bold mb-4">
           {post.properties.제목.title[0].plain_text}
         </h1>
-        <div className="flex items-center text-gray-600 mb-8 gap-2">
-          <span>{post.properties.발행일.date?.start}</span>
+        <div className="flex items-center mb-8 gap-2 text-dark-400">
+          <span>
+            발행일: {dayjs(post.created_time).format("YYYY년 MM월 DD일")}
+          </span>
+          <span>·</span>
+          <span>
+            수정일: {dayjs(post.last_edited_time).format("YYYY년 MM월 DD일")}
+          </span>
           <span>·</span>
           <span>{post.properties.카테고리.select?.name}</span>
           <span>·</span>

@@ -1,20 +1,18 @@
 "use client";
 
-import { NotionPage } from "@/types/notion";
-import { getNotionBlogImageUrl, getNotionBlogTitle } from "@/utils/getResource";
-import dayjs from "dayjs";
+import { NotionPage } from "@/types/notion.type";
+import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import BlogCard from "../common/BlogCard";
 
-interface BlogPostProps {
+interface Props {
   posts: NotionPage[];
+  viewCounts: Record<string, number>;
 }
-
 const ITEMS_PER_LOAD = 9;
 
-export default function BlogList({ posts }: BlogPostProps) {
+export default function BlogList({ posts, viewCounts }: Props) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [displayCount, setDisplayCount] = useState(ITEMS_PER_LOAD);
   const loaderRef = useRef<HTMLDivElement>(null);
@@ -82,11 +80,14 @@ export default function BlogList({ posts }: BlogPostProps) {
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => handleCategoryChange(null)}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-            selectedCategory === null
-              ? "bg-point text-white"
-              : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-          }`}
+          className={clsx(
+            "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer",
+            {
+              "bg-point text-white": selectedCategory === null,
+              "bg-light-400 dark:bg-dark-600 text-dark-600 dark:text-light-300 hover:bg-point-light dark:hover:bg-point-dark":
+                selectedCategory !== null,
+            }
+          )}
         >
           전체
         </button>
@@ -94,11 +95,14 @@ export default function BlogList({ posts }: BlogPostProps) {
           <button
             key={category}
             onClick={() => handleCategoryChange(category)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-              selectedCategory === category
-                ? "bg-point text-white"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-            }`}
+            className={clsx(
+              "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer",
+              {
+                "bg-point text-white": selectedCategory === category,
+                "bg-light-300 dark:bg-dark-700 text-dark-600 dark:text-light-300 hover:bg-point-light dark:hover:bg-point-dark":
+                  selectedCategory !== category,
+              }
+            )}
           >
             {category}
           </button>
@@ -106,7 +110,7 @@ export default function BlogList({ posts }: BlogPostProps) {
       </div>
 
       {/* 필터 결과 카운트 */}
-      <p className="text-sm text-secondary">
+      <p className="text-sm text-dark-600 pb-6 border-b border-dark-400/30">
         {filteredPosts.length}개의 포스트
       </p>
 
@@ -130,7 +134,7 @@ export default function BlogList({ posts }: BlogPostProps) {
                 delay: (index % ITEMS_PER_LOAD) * 0.05,
               }}
             >
-              <BlogCard post={post} />
+              <BlogCard post={post} viewCount={viewCounts[post.id]} />
             </motion.div>
           ))}
         </motion.div>
@@ -160,67 +164,11 @@ export default function BlogList({ posts }: BlogPostProps) {
       {filteredPosts.length === 0 && (
         <div className="flex flex-col items-center justify-center py-16 text-center">
           <span className="text-4xl mb-4">📭</span>
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-dark-300 dark:text-dark-500">
             해당 카테고리에 포스트가 없습니다.
           </p>
         </div>
       )}
     </div>
-  );
-}
-
-function BlogCard({ post }: { post: NotionPage }) {
-  const title = getNotionBlogTitle(post);
-  const coverImageUrl = getNotionBlogImageUrl(post);
-  const category = post.properties.카테고리.select?.name;
-  const createdDate = dayjs(post.properties.작성일.created_time).format(
-    "YYYY.MM.DD"
-  );
-
-  return (
-    <Link href={`/blog/${post.id}`} className="group block">
-      <motion.article className="flex flex-col h-full bg-white dark:bg-gray-900 overflow-hidden transition-shadow duration-300">
-        {/* 이미지 영역 */}
-        <div className="relative aspect-4/3 overflow-hidden bg-linear-to-br from-gray-100 rounded-2xl to-gray-200 dark:from-gray-800 dark:to-gray-700">
-          {coverImageUrl ? (
-            <Image
-              src={coverImageUrl}
-              alt={title}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            />
-          ) : (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-4xl">📝</span>
-            </div>
-          )}
-
-          {/* 카테고리 태그 */}
-          {category && (
-            <div className="absolute top-3 left-3">
-              <span
-                className="px-3 py-1 text-xs font-medium bg-white/90 dark:bg-black/70 
-                             text-gray-800 dark:text-gray-200 rounded-full backdrop-blur-sm"
-              >
-                {category}
-              </span>
-            </div>
-          )}
-
-          <div className="absolute bottom-0 left-0 flex flex-col text-start flex-1 p-4 z-10 bg-white/65 backdrop-blur-xs w-full">
-            <h3
-              className="font-semibold text-lg line-clamp-2 mb-2 text-primary
-                        group-hover:text-point transition-all duration-300"
-            >
-              {title}
-            </h3>
-            <p className="text-sm text-secondary dark:text-secondary mt-auto">
-              {createdDate}
-            </p>
-          </div>
-        </div>
-      </motion.article>
-    </Link>
   );
 }

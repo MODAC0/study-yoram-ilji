@@ -10,3 +10,7 @@
 *::after {
   font-family: "pretendard", sans-serif;
 }
+
+body {
+  @apply bg-light-100 dark:bg-dark-900;
+}

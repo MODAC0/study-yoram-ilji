@@ -1,5 +1,6 @@
 import BlogList from "@/components/blog/BlogList";
-import { getBlogPosts } from "@/services/notion";
+import { getAllViewCounts } from "@/lib/firebase-admin";
+import { getBlogPosts } from "@/services/notion.api";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,12 +16,15 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function BlogPage() {
-  const posts = await getBlogPosts();
+  const [posts, viewCounts] = await Promise.all([
+    getBlogPosts(),
+    getAllViewCounts(),
+  ]);
 
   return (
     <div>
       <h1 className="text-4xl font-bold mb-8">블로그</h1>
-      <BlogList posts={posts} />
+      <BlogList posts={posts} viewCounts={viewCounts} />
     </div>
   );
 }

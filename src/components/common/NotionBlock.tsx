@@ -59,7 +59,7 @@ export default function NotionBlock({
         <div className="flex items-center my-2">
           <Checkbox checked={block.to_do.checked} readOnly />
           <span
-            className={block.to_do.checked ? "line-through text-gray-400" : ""}
+            className={block.to_do.checked ? "line-through text-dark-500" : ""}
           >
             <RichText richTexts={block.to_do.rich_text} />
           </span>
@@ -132,7 +132,7 @@ export default function NotionBlock({
             />
           </div>
           {caption.length > 0 && (
-            <figcaption className="text-center text-sm text-gray-500 mt-2">
+            <figcaption className="text-center text-sm text-dark-300 mt-2">
               <RichText richTexts={caption} />
             </figcaption>
           )}

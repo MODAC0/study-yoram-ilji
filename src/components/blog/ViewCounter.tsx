@@ -39,7 +39,7 @@ export default function ViewCounter({
 
   if (views === null) {
     return (
-      <span className="flex items-center gap-1 text-sm text-gray-500">
+      <span className="flex items-center gap-1 text-sm">
         <Eye className="w-4 h-4" />
         <span className="animate-pulse">...</span>
       </span>
@@ -47,7 +47,7 @@ export default function ViewCounter({
   }
 
   return (
-    <span className="flex items-center gap-1 text-sm text-gray-500">
+    <span className="flex items-center gap-1 text-sm">
       <Eye className="w-4 h-4" />
       <span>{views.toLocaleString()}</span>
     </span>

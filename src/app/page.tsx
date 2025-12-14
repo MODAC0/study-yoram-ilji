@@ -1,7 +1,7 @@
+import BlogSection from "@/components/home/BlogSection";
 import HeroSection from "@/components/home/HeroSection";
-import LastestBlogSection from "@/components/home/LastestBlogSection";
 import { getAllViewCounts } from "@/lib/firebase-admin";
-import { getBlogPosts } from "@/services/notion";
+import { getBlogPosts } from "@/services/notion.api";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export default async function MainPage() {
   return (
     <div className="flex flex-col items-center justify-center text-center">
       <HeroSection />
-      <LastestBlogSection posts={posts} viewCounts={viewCounts} />
+      <BlogSection posts={posts} viewCounts={viewCounts} />
     </div>
   );
 }

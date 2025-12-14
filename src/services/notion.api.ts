@@ -1,5 +1,9 @@
-import { NotionPage } from "@/types/notion";
-import { Client, GetPageResponse, ListBlockChildrenResponse } from "@notionhq/client";
+import { NotionPage } from "@/types/notion.type";
+import {
+  Client,
+  GetPageResponse,
+  ListBlockChildrenResponse,
+} from "@notionhq/client";
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -54,7 +58,9 @@ export const getPost = async (id: string): Promise<GetPageResponse> => {
   return response;
 };
 
-export const getPostContent = async (id: string): Promise<ListBlockChildrenResponse> => {
+export const getPostContent = async (
+  id: string
+): Promise<ListBlockChildrenResponse> => {
   const response = await notion.blocks.children.list({ block_id: id });
   return response;
 };

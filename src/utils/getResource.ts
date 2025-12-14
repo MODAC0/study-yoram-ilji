@@ -1,4 +1,4 @@
-import { NotionPage } from "@/types/notion";
+import { NotionPage } from "@/types/notion.type";
 
 export const getNotionBlogImageUrl = (post: NotionPage): string | null => {
   const cover = post.cover;

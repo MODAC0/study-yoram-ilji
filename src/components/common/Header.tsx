@@ -45,25 +45,25 @@ export default function Header() {
           <div className="flex items-center gap-6 hover:cursor-pointer">
             <Link
               href="/blog"
-              className="hover:text-gray-500 transition-all duration-300"
+              className="hover:text-dark-300 transition-all duration-300"
             >
               <p>블로그</p>
             </Link>
             <Link
               href="/portfolio"
-              className="hover:text-gray-500 transition-all duration-300"
+              className="hover:text-dark-300 transition-all duration-300"
             >
               <p>포트폴리오</p>
             </Link>
             <Link
               href="/profile"
-              className="hover:text-gray-500 transition-all duration-300" 
+              className="hover:text-dark-300 transition-all duration-300"
             >
               <p>프로필</p>
             </Link>
             <div className="border border-r border-gray-200 h-4" />
             <button
-              className="p-1 rounded-md group cursor-pointer hover:text-gray-500 transition-all duration-300"
+              className="p-1 rounded-md group cursor-pointer hover:text-dark-300 transition-all duration-300"
               onClick={() =>
                 setTheme(resolvedTheme === "dark" ? "light" : "dark")
               }

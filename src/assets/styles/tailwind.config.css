@@ -1,13 +1,32 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-black: #1a1a1a;
-  --color-primary: #3a3a3a;
-  --color-secondary: #7d7d7d;
-  --color-sky: #cffaff;
-  --color-btn-blue: #3197ec;
-  --color-beige: #f9f9eb;
-  --color-point: #ff675b;
+  /* Point Color - 다홍색/코랄 */
+  --color-point: #f56a33;
+  --color-point-light: #ff8c5a;
+  --color-point-dark: #d4521f;
+
+  --color-dark-950: #0c0c0b;
+  --color-dark-900: #141413;
+  --color-dark-800: #1f1e1d;
+  --color-dark-700: #2d2c2a;
+  --color-dark-600: #4a4845;
+  --color-dark-500: #6b6864;
+  --color-dark-400: #8d8a85;
+  --color-dark-300: #b0ada7;
+
+  --color-light-50: #ffffff;
+  --color-light-100: #fdfcfa;
+  --color-light-200: #f8f6f3;
+  --color-light-300: #f0ede8;
+  --color-light-400: #e5e1da;
+  --color-light-500: #d4cfc5;
+
+  /* Accent Colors */
+  --color-sky-500: #4da6ff;
+  --color-sky-600: #2b8ce6;
+
+  /* sizes */
   --w-9xl: 1600px;
 }
 
