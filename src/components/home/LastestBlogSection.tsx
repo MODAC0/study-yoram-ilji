@@ -11,19 +11,28 @@ import { useMemo, useState } from "react";
 
 const ITEMS_PER_PAGE = 3;
 
-export default function LastestBlogSection({ posts }: { posts: NotionPage[] }) {
+interface Props {
+  posts: NotionPage[];
+  viewCounts: Record<string, number>;
+}
+
+export default function LastestBlogSection({ posts, viewCounts }: Props) {
   const [currentPage, setCurrentPage] = useState(0);
 
   const displayPosts = useMemo(
     () =>
       posts
-        .sort((a, b) =>
-          dayjs(b.properties.작성일.created_time).diff(
+        // 조회수 내림차순 정렬 (조회수가 같으면 최신순)
+        .sort((a, b) => {
+          const viewsA = viewCounts[a.id] || 0;
+          const viewsB = viewCounts[b.id] || 0;
+          if (viewsB !== viewsA) return viewsB - viewsA;
+          return dayjs(b.properties.작성일.created_time).diff(
             dayjs(a.properties.작성일.created_time)
-          )
-        )
+          );
+        })
         .slice(0, 6),
-    [posts]
+    [posts, viewCounts]
   );
   const totalPages = Math.ceil(displayPosts.length / ITEMS_PER_PAGE);
 

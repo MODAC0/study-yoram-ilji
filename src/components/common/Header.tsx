@@ -55,6 +55,12 @@ export default function Header() {
             >
               <p>포트폴리오</p>
             </Link>
+            <Link
+              href="/profile"
+              className="hover:text-gray-500 transition-all duration-300" 
+            >
+              <p>프로필</p>
+            </Link>
             <div className="border border-r border-gray-200 h-4" />
             <button
               className="p-1 rounded-md group cursor-pointer hover:text-gray-500 transition-all duration-300"

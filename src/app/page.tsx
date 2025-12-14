@@ -1,6 +1,7 @@
 import { getBlogPosts } from "@/api/notion";
 import HeroSection from "@/components/home/HeroSection";
 import LastestBlogSection from "@/components/home/LastestBlogSection";
+import { getAllViewCounts } from "@/lib/firebase-admin";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,12 +13,15 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function MainPage() {
-  const posts = await getBlogPosts();
+  const [posts, viewCounts] = await Promise.all([
+    getBlogPosts(),
+    getAllViewCounts(),
+  ]);
 
   return (
     <div className="flex flex-col items-center justify-center text-center">
       <HeroSection />
-      <LastestBlogSection posts={posts} />
+      <LastestBlogSection posts={posts} viewCounts={viewCounts} />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { getBlogPosts, getPost, getPostContent } from "@/api/notion";
+import ViewCounter from "@/components/blog/ViewCounter";
 import NotionBlock from "@/components/common/NotionBlock";
 import {
   generateArticleJsonLd,
@@ -68,10 +69,12 @@ export default async function PostPage({ params }: Props) {
         <h1 className="text-4xl font-bold mb-4">
           {post.properties.제목.title[0].plain_text}
         </h1>
-        <div className="flex items-center text-gray-600 mb-8">
+        <div className="flex items-center text-gray-600 mb-8 gap-2">
           <span>{post.properties.발행일.date?.start}</span>
-          <span className="mx-2">·</span>
+          <span>·</span>
           <span>{post.properties.카테고리.select?.name}</span>
+          <span>·</span>
+          <ViewCounter postId={id} />
         </div>
         <article>
           {content.results.map((block) => (

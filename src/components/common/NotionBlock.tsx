@@ -121,11 +121,16 @@ export default function NotionBlock({
 
       return (
         <figure className="my-6">
-          <Image
-            src={src}
-            alt={caption.length > 0 ? caption[0].plain_text : "Notion Image"}
-            className="w-full h-auto object-cover"
-          />
+          <div className="relative w-full aspect-video">
+            <Image
+              src={src}
+              alt={caption.length > 0 ? caption[0].plain_text : "Notion Image"}
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+              unoptimized
+            />
+          </div>
           {caption.length > 0 && (
             <figcaption className="text-center text-sm text-gray-500 mt-2">
               <RichText richTexts={caption} />
