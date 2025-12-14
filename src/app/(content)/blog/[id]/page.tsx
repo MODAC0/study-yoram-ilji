@@ -1,4 +1,4 @@
-import { getPost, getPostContent } from "@/api/notion";
+import { getBlogPosts, getPost, getPostContent } from "@/api/notion";
 import NotionBlock from "@/components/common/NotionBlock";
 import {
   generateArticleJsonLd,
@@ -10,7 +10,14 @@ import { getNotionBlogImageUrl, getNotionBlogTitle } from "@/utils/getResource";
 import { BlockObjectResponse } from "@notionhq/client";
 import { Metadata } from "next";
 
-// ISR: 60초마다 재검증하여 Notion 변경사항 반영
+export async function generateStaticParams() {
+  const posts = await getBlogPosts();
+
+  return posts.map((post) => ({
+    id: post.id,
+  }));
+}
+
 export const revalidate = 60;
 
 type Props = {

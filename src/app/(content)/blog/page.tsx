@@ -12,7 +12,6 @@ export const metadata: Metadata = {
   },
 };
 
-// ISR: 60초마다 재검증하여 Notion 변경사항 반영
 export const revalidate = 60;
 
 export default async function BlogPage() {
