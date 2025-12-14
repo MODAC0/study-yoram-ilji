@@ -3,11 +3,11 @@
 @theme {
   --color-black: #1a1a1a;
   --color-primary: #3a3a3a;
-  --color-secondary: #ced300;
-  --color-tertiary: #fcfcf0;
+  --color-secondary: #7d7d7d;
   --color-sky: #cffaff;
   --color-btn-blue: #3197ec;
   --color-beige: #f9f9eb;
+  --color-point: #ff675b;
   --w-9xl: 1600px;
 }
 

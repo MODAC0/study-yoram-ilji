@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "blog.kakaocdn.net",
       },
+      {
+        protocol: "https",
+        hostname: "www.notion.so",
+      },
     ],
   },
   turbopack: {

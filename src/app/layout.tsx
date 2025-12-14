@@ -1,5 +1,5 @@
 import AppProvider from "@/components/AppProvider";
-import Header from "@/components/Header";
+import Header from "@/components/common/Header";
 import type { Metadata } from "next";
 import "../assets/styles/globals.css";
 

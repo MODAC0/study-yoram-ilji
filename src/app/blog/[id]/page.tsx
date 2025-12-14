@@ -1,5 +1,5 @@
 import { getPost, getPostContent } from "@/api/notion";
-import NotionBlock from "@/components/NotionBlock";
+import NotionBlock from "@/components/common/NotionBlock";
 import { NotionPage } from "@/types/notion";
 import { BlockObjectResponse } from "@notionhq/client";
 

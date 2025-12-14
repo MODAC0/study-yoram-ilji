@@ -42,7 +42,7 @@ export default function RichText({
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-500 hover:underline"
+              className="text-point hover:underline"
             >
               {content}
             </a>

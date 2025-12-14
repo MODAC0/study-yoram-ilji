@@ -108,6 +108,7 @@ export interface NotionSelectProperty extends NotionPropertyBase {
 export interface NotionDateProperty extends NotionPropertyBase {
   type: "date";
   date: NotionDate | null;
+  created_time: string;
 }
 
 /**
@@ -147,15 +148,15 @@ export interface NotionMultiSelectProperty extends NotionPropertyBase {
  * (가장 중요한 타입)
  */
 export interface MyDatabaseProperties {
-  "작성자": NotionUrlProperty;
-  "카테고리": NotionSelectProperty;
-  "작성일": NotionDateProperty;
-  "발행일": NotionDateProperty;
-  "조회수": NotionNumberProperty;
-  "상태": NotionStatusProperty;
-  "발행": NotionCheckboxProperty;
-  "태그": NotionMultiSelectProperty;
-  "제목": NotionTitleProperty;
+  작성자: NotionUrlProperty;
+  카테고리: NotionSelectProperty;
+  작성일: NotionDateProperty;
+  발행일: NotionDateProperty;
+  조회수: NotionNumberProperty;
+  상태: NotionStatusProperty;
+  발행: NotionCheckboxProperty;
+  태그: NotionMultiSelectProperty;
+  제목: NotionTitleProperty;
   // 여기에 없는 'rich_text', 'people', 'files' 등의 다른 속성 타입도
   // API 응답에 따라 추가될 수 있습니다.
 }
