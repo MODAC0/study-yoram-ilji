@@ -74,7 +74,7 @@ const CustomGeometryParticles = ({
         value: lightness,
       },
     }),
-    [saturation, lightness]
+    []
   );
 
   useFrame(({ clock }) => {
