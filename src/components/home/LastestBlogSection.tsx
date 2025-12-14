@@ -14,7 +14,17 @@ const ITEMS_PER_PAGE = 3;
 export default function LastestBlogSection({ posts }: { posts: NotionPage[] }) {
   const [currentPage, setCurrentPage] = useState(0);
 
-  const displayPosts = useMemo(() => posts.slice(0, 6), [posts]);
+  const displayPosts = useMemo(
+    () =>
+      posts
+        .sort((a, b) =>
+          dayjs(b.properties.작성일.created_time).diff(
+            dayjs(a.properties.작성일.created_time)
+          )
+        )
+        .slice(0, 6),
+    [posts]
+  );
   const totalPages = Math.ceil(displayPosts.length / ITEMS_PER_PAGE);
 
   const handleDragEnd = (
