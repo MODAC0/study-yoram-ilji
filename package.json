@@ -52,5 +52,14 @@
   "main": "index.js",
   "repository": "https://github.com/MODAC0/yoram-ilji.git",
   "author": "modac <115679647+MODAC0@users.noreply.github.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp",
+      "protobufjs",
+      "@heroui/shared-utils",
+      "@firebase/util",
+      "unrs-resolver"
+    ]
+  }
 }
