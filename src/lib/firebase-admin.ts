@@ -4,18 +4,58 @@ import { Database, getDatabase } from "firebase-admin/database";
 let app: App | undefined;
 let database: Database | undefined;
 
-// Firebase 환경변수 확인
-function isFirebaseConfigured(): boolean {
-  return !!(
+// 서비스 계정 정보를 파싱
+function getServiceAccount(): {
+  projectId: string;
+  clientEmail: string;
+  privateKey: string;
+  databaseURL: string;
+} | null {
+  // 방법 1: Base64 인코딩된 서비스 계정 JSON (권장)
+  if (process.env.FIREBASE_SERVICE_ACCOUNT_BASE64) {
+    try {
+      const decoded = Buffer.from(
+        process.env.FIREBASE_SERVICE_ACCOUNT_BASE64,
+        "base64"
+      ).toString("utf-8");
+      const serviceAccount = JSON.parse(decoded);
+
+      return {
+        projectId: serviceAccount.project_id,
+        clientEmail: serviceAccount.client_email,
+        privateKey: serviceAccount.private_key,
+        databaseURL:
+          process.env.FIREBASE_DATABASE_URL ||
+          `https://${serviceAccount.project_id}-default-rtdb.firebaseio.com`,
+      };
+    } catch (error) {
+      console.error("Failed to parse FIREBASE_SERVICE_ACCOUNT_BASE64:", error);
+      return null;
+    }
+  }
+
+  // 방법 2: 개별 환경변수 (레거시 호환)
+  if (
     process.env.FIREBASE_PROJECT_ID &&
     process.env.FIREBASE_CLIENT_EMAIL &&
     process.env.FIREBASE_PRIVATE_KEY &&
     process.env.FIREBASE_DATABASE_URL
-  );
+  ) {
+    return {
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+      databaseURL: process.env.FIREBASE_DATABASE_URL,
+    };
+  }
+
+  return null;
 }
 
 function getFirebaseApp(): App | null {
-  if (!isFirebaseConfigured()) {
+  const serviceAccount = getServiceAccount();
+
+  if (!serviceAccount) {
     console.warn("Firebase is not configured. View counts will not work.");
     return null;
   }
@@ -28,18 +68,22 @@ function getFirebaseApp(): App | null {
     return app;
   }
 
-  // Firebase Admin SDK 초기화
-  app = initializeApp({
-    credential: cert({
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      // private key의 \n 문자열을 실제 줄바꿈으로 변환
-      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-    }),
-    databaseURL: process.env.FIREBASE_DATABASE_URL,
-  });
+  try {
+    // Firebase Admin SDK 초기화
+    app = initializeApp({
+      credential: cert({
+        projectId: serviceAccount.projectId,
+        clientEmail: serviceAccount.clientEmail,
+        privateKey: serviceAccount.privateKey,
+      }),
+      databaseURL: serviceAccount.databaseURL,
+    });
 
-  return app;
+    return app;
+  } catch (error) {
+    console.error("Failed to initialize Firebase:", error);
+    return null;
+  }
 }
 
 export function getFirebaseDatabase(): Database | null {
