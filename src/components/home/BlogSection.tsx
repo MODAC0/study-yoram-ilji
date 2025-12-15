@@ -1,14 +1,12 @@
 "use client";
 
 import { NotionPage } from "@/types/notion.type";
-import { getNotionBlogImageUrl, getNotionBlogTitle } from "@/utils/getResource";
 import dayjs from "dayjs";
 import { AnimatePresence, motion, PanInfo } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import BlogCard from '../common/BlogCard';
+import BlogCard from "../common/BlogCard";
 
 const ITEMS_PER_PAGE = 4;
 
@@ -60,7 +58,7 @@ export default function BlogSection({ posts, viewCounts }: Props) {
   );
 
   return (
-    <section className="w-full py-16 px-6">
+    <section className="w-full py-32 px-6">
       <div className="max-w-7xl mx-auto">
         {/* 섹션 헤더 */}
         <div className="flex items-center justify-between mb-10">

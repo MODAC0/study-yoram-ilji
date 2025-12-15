@@ -7,13 +7,13 @@ export default function HeroSection() {
   return (
     <div className="relative w-full bg-white dark:bg-[#111112]">
       <BubbleModelScene />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div className="flex flex-col gap-4 w-full">
-          <p className="text-xl text-dark-500 dark:text-light-500">
-            안녕하세요. 요람일지입니다.
+      <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+        <div className="flex flex-col gap-4 w-full whitespace-nowrap max-md:whitespace-pre-line">
+          <p className="text-xl text-dark-500 dark:text-light-500  max-sm:text-base">
+            {`안녕하세요. \n 요람일지입니다.`}
           </p>
-          <h1 className="text-5xl text-dark-600 dark:text-light-500 font-bold whitespace-nowrap max-md:whitespace-normal">
-            어떤 프로젝트가 궁금하세요?
+          <h1 className="text-5xl text-dark-600 dark:text-light-500 font-bold max-sm:text-4xl">
+            {`어떤 프로젝트가 \n 궁금하세요?`}
           </h1>
         </div>
       </div>

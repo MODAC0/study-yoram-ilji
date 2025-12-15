@@ -1,10 +1,11 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useTheme } from "next-themes";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
+import { RendererCleanup } from "@/components/common/RendererCleanup";
 import fragmentShader from "./fragmentShader.glsl";
 import vertexShader from "./vertexShader.glsl";
 
@@ -21,28 +22,41 @@ export default function BubbleModelScene() {
 
   return (
     <div style={{ width: "100%", height: "100vh" }}>
-      <Canvas camera={{ position: [0, 0, 4], fov: 50 }}>
+      <Canvas
+        camera={{ position: [0, 0, 4], fov: 50 }}
+        style={{ width: "100%", height: "100vh" }}
+      >
         <ambientLight intensity={0.5} />
-        <CustomGeometryParticles
-          count={50000}
-          saturation={saturation}
-          lightness={lightness}
-        />
+        <ResponsiveParticles saturation={saturation} lightness={lightness} />
+        <RendererCleanup />
       </Canvas>
     </div>
   );
 }
 
-const CustomGeometryParticles = ({
-  count,
-  saturation,
-  lightness,
-}: {
-  count: number;
+const ResponsiveParticles = (props: {
   saturation: number;
   lightness: number;
 }) => {
+  const { viewport } = useThree();
+
+  const scale = Math.max(0.5, viewport.width / 6);
+
+  return <CustomGeometryParticles {...props} scale={scale} />;
+};
+
+const CustomGeometryParticles = ({
+  saturation,
+  lightness,
+  scale,
+}: {
+  saturation: number;
+  lightness: number;
+  scale: number;
+}) => {
   const points = useRef<THREE.Points>(null!);
+  const initialCount = 20000;
+  const count = Math.floor(initialCount * scale);
 
   const particlesPosition = useMemo(() => {
     const positions = new Float32Array(count * 3);
@@ -84,7 +98,7 @@ const CustomGeometryParticles = ({
   });
 
   return (
-    <points ref={points}>
+    <points ref={points} scale={scale}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
