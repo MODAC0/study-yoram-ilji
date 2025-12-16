@@ -65,7 +65,7 @@ const itemVariants: Variants = {
 
 export default function ContactSection() {
   return (
-    <div className=" h-full flex items-center justify-center text-center">
+    <div className="h-full flex items-center justify-center text-center relative z-10 pointer-events-auto">
       <motion.div
         variants={containerVariants}
         initial="hidden"

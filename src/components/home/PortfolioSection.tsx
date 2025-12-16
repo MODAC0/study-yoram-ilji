@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { useState } from "react";
 
 // 포트폴리오 목업 데이터
@@ -96,7 +97,7 @@ const getCardStyle = (index: number, centerIndex: number, total: number) => {
   return { x, y, rotate, scale, opacity, zIndex };
 };
 
-export default function PortfolioCarousel() {
+export default function PortfolioSection() {
   const [centerIndex, setCenterIndex] = useState(3); // Book Recs가 중앙
 
   const handleCardClick = (index: number) => {
@@ -104,12 +105,17 @@ export default function PortfolioCarousel() {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-6 py-16">
+    <div className="w-full max-w-7xl mx-auto px-6 py-16 relative z-10 pointer-events-auto">
       {/* 섹션 헤더 */}
       <div className="mb-20">
-        <h2 className="text-start text-3xl md:text-4xl font-semibold mb-2 text-dark-800 dark:text-light-100">
-          Start from scratch or explore our gallery
-        </h2>
+        <Link href="/portfolio" className="group">
+          <h2 className="text-3xl md:text-4xl font-bold group-hover:text-point transition-all duration-300">
+            포트폴리오
+          </h2>
+        </Link>
+        <p className="text-dark-300 dark:text-dark-500">
+          다양한 프로젝트를 경험해보세요.
+        </p>
       </div>
 
       {/* 카드 갤러리 */}
@@ -188,13 +194,6 @@ export default function PortfolioCarousel() {
             );
           })}
         </div>
-      </div>
-
-      {/* Try now 버튼 */}
-      <div className="text-center mt-8">
-        <button className="px-6 py-2 text-sm font-medium text-dark-600 dark:text-light-300 hover:text-dark-800 dark:hover:text-light-100 transition-colors underline underline-offset-4">
-          Try now
-        </button>
       </div>
     </div>
   );

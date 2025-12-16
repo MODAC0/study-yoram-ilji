@@ -183,6 +183,21 @@ export default function BubbleModelScene() {
       {showTextOverlay && (
         <TextOverlay section={section} sectionProgress={sectionProgress} />
       )}
+
+      {/* 스크롤 힌트 - 첫 번째 섹션에서만 표시 */}
+      {section === 0 && (
+        <div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-500"
+          style={{ opacity: 1 - sectionProgress * 2 }}
+        >
+          <span className="text-sm text-dark-400 dark:text-light-500">
+            Scroll to explore
+          </span>
+          <div className="w-6 h-10 rounded-full border-2 border-dark-300 dark:border-light-500 flex justify-center pt-2">
+            <div className="w-1.5 h-3 rounded-full bg-dark-400 dark:bg-light-400 animate-bounce" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

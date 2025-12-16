@@ -58,10 +58,10 @@ export default function BlogSection({ posts, viewCounts }: Props) {
   );
 
   return (
-    <div className="max-w-7xl w-full px-6">
+    <div className="max-w-7xl w-full px-6 relative z-10 pointer-events-auto">
       {/* 섹션 헤더 */}
-      <div className="flex items-center justify-between mb-10">
-        <div className="flex flex-col gap-2 text-start">
+      <div className="flex items-center justify-center flex-col gap-4 mb-10">
+        <div className="flex flex-col gap-2">
           <Link href="/blog" className="group">
             <h2 className="text-3xl md:text-4xl font-bold group-hover:text-point transition-all duration-300">
               최신 인기 블로그
