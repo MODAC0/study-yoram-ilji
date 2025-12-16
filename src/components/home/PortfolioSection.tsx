@@ -119,7 +119,7 @@ export default function PortfolioSection() {
       </div>
 
       {/* 카드 갤러리 */}
-      <div className="relative h-[550px] flex items-center justify-center overflow-visible">
+      <div className="relative h-[550px] flex items-center justify-center">
         <div
           className="relative w-full h-full"
           style={{ perspective: "1400px" }}

@@ -21,7 +21,7 @@ export default async function MainPage() {
   ]);
 
   return (
-    <div className="relative flex flex-col items-center justify-center text-center overflow-y-hidden">
+    <div className="relative flex flex-col items-center justify-center text-center">
       <section className="w-full h-screen" aria-label="Text Section 1" />
       <section className="w-full h-screen" aria-label="Text Section 2" />
       <section className="w-full h-screen" aria-label="Text Section 3" />
