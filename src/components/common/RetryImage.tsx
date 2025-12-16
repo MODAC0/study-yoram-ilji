@@ -26,18 +26,15 @@ export default function RetryImage({
 
   const handleError = useCallback(() => {
     if (retryCount < maxRetries) {
-      // 지연 후 재시도
       setTimeout(() => {
         setRetryCount((prev) => prev + 1);
-        setKey((prev) => prev + 1); // key 변경으로 Image 컴포넌트 리마운트
+        setKey((prev) => prev + 1);
       }, retryDelay);
     } else {
-      // 최대 재시도 초과 시 에러 상태로 전환
       setHasError(true);
     }
   }, [retryCount, maxRetries, retryDelay]);
 
-  // 에러 상태일 때 fallback 표시
   if (hasError) {
     return (
       fallback ?? (
@@ -48,7 +45,6 @@ export default function RetryImage({
     );
   }
 
-  // 재시도 시 캐시 우회를 위해 timestamp 추가
   const srcWithRetry =
     retryCount > 0 && typeof src === "string"
       ? `${src}${src.includes("?") ? "&" : "?"}retry=${retryCount}`
