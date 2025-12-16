@@ -1,4 +1,7 @@
 uniform float uTime;
+uniform float uMorph;      // 0 = 일렁이는 blob, 1 = 완벽한 구체
+uniform float uSpread;     // 0 = 모임, 1 = 퍼짐
+uniform vec3 uPositionOffset; // 오브젝트 위치 오프셋
 out float uNoise;
 
 // Source: https://github.com/dmnsgn/glsl-rotate/blob/main/rotation-3d-y.glsl.js
@@ -105,10 +108,32 @@ float snoise(vec4 v) {
 }
 
 void main() {
+    // 노이즈 계산
     uNoise = snoise(vec4(position / 1.5, uTime));
-    vec3 uPos = position + normalize(position) * uNoise / 6.0;
+    
+    // 기본 구체 위치
+    vec3 spherePos = normalize(position);
+    
+    // 노이즈가 적용된 blob 위치 (일렁이는 효과)
+    float noiseAmount = (1.0 - uMorph) / 6.0; // morph가 1이면 노이즈 없음
+    vec3 blobPos = spherePos + normalize(spherePos) * uNoise * noiseAmount;
+    
+    // spread 효과 (퍼짐)
+    float spreadAmount = uSpread * 2.0; // 최대 2배까지 퍼짐
+    vec3 spreadPos = blobPos * (1.0 + spreadAmount);
+    
+    // 랜덤 방향으로 퍼지는 효과 추가
+    vec3 randomOffset = vec3(
+        sin(position.x * 10.0 + uTime * 0.5) * uSpread,
+        cos(position.y * 10.0 + uTime * 0.3) * uSpread,
+        sin(position.z * 10.0 + uTime * 0.4) * uSpread
+    );
+    spreadPos += randomOffset * 0.5;
+    
+    // 위치 오프셋 적용
+    vec3 finalPos = spreadPos + uPositionOffset;
 
-    vec4 modelPosition = modelMatrix * vec4(uPos, 1.0);
+    vec4 modelPosition = modelMatrix * vec4(finalPos, 1.0);
     vec4 viewPosition = viewMatrix * modelPosition;
     vec4 projectedPosition = projectionMatrix * viewPosition;
 

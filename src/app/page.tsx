@@ -1,5 +1,7 @@
 import BlogSection from "@/components/home/BlogSection";
 import BubbleModelScene from "@/components/home/BubbleModel/BubbleModelScene";
+import ContactSection from "@/components/home/ContactSection";
+import PortfolioCarousel from "@/components/home/PortfolioCarousel";
 import { getAllViewCounts } from "@/lib/firebase-admin";
 import { getBlogPosts } from "@/services/notion.api";
 import { Metadata } from "next";
@@ -20,19 +22,37 @@ export default async function MainPage() {
 
   return (
     <div className="relative flex flex-col items-center justify-center text-center">
-      {/* 3D 배경 */}
+      {/* 3D 배경 - fixed로 화면에 고정 */}
       <BubbleModelScene />
 
-      {/* 스크롤 섹션들 - 각 섹션마다 100vh 높이, snap-start로 스냅 */}
-      <section className="w-full h-screen snap-start" aria-label="Section 1" />
-      <section className="w-full h-screen snap-start" aria-label="Section 2" />
-      <section className="w-full h-screen snap-start" aria-label="Section 3" />
-      <section className="w-full h-screen snap-start" aria-label="Section 4" />
+      <section className="w-full h-screen" aria-label="Text Section 1" />
+      <section className="w-full h-screen" aria-label="Text Section 2" />
+      <section className="w-full h-screen" aria-label="Text Section 3" />
+      <section className="w-full h-screen" aria-label="Text Section 4" />
 
-      {/* 블로그 섹션 */}
-      <div className="w-full h-screen snap-start flex items-center justify-center">
+      {/* 섹션 3: 블로그 */}
+      <section
+        className="w-full min-h-screen flex items-center justify-center py-20"
+        aria-label="Blog Section"
+      >
         <BlogSection posts={posts} viewCounts={viewCounts} />
-      </div>
+      </section>
+
+      {/* 섹션 4: 포트폴리오 캐러셀 (구체로 변환) */}
+      <section
+        className="w-full min-h-screen flex items-center justify-center py-20 pointer-events-auto"
+        aria-label="Portfolio Section"
+      >
+        <PortfolioCarousel />
+      </section>
+
+      {/* 섹션 5: Contact Us (구체가 왼쪽으로) */}
+      <section
+        className="w-full h-screen relative pointer-events-auto"
+        aria-label="Contact Section"
+      >
+        <ContactSection />
+      </section>
     </div>
   );
 }
