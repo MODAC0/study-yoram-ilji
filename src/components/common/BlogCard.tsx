@@ -4,8 +4,8 @@ import { NotionPage } from "@/types/notion.type";
 import { getNotionBlogImageUrl, getNotionBlogTitle } from "@/utils/getResource";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
+import RetryImage from "./RetryImage";
 
 export default function BlogCard({
   post,
@@ -27,12 +27,17 @@ export default function BlogCard({
         {/* 이미지 영역 */}
         <div className="relative aspect-4/3 overflow-hidden bg-linear-to-br from-gray-100 rounded-2xl to-gray-200 dark:from-gray-800 dark:to-gray-700">
           {coverImageUrl ? (
-            <Image
+            <RetryImage
               src={coverImageUrl}
               alt={title}
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-110"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              fallback={
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-4xl">📝</span>
+                </div>
+              }
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
