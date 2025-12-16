@@ -5,9 +5,9 @@ import { getBlogPosts } from "@/services/notion.api";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "홈",
+  title: "요람일지",
   description:
-    "개발과 프로젝트에 대한 기록을 담은 블로그입니다. 최신 포스트와 프로젝트를 확인하세요.",
+    "프론트엔드 개발, 디자인, 프로젝트 경험을 담은 준희의 요람일지입니다. 최신 포스트와 프로젝트를 확인하세요.",
 };
 
 export const revalidate = 60;
