@@ -2,6 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import { Github, Instagram, Linkedin, LucideIcon, Mail } from "lucide-react";
+import Link from "next/link";
 
 // 연락처 정보 (임의의 플레이스홀더)
 const contactInfo = {
@@ -74,12 +75,13 @@ export default function ContactSection() {
         className="max-w-md"
       >
         {/* 제목 */}
-        <motion.div variants={itemVariants}>
-          <p className="text-point font-medium mb-2">Get in Touch</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            Contact Me
-          </h2>
-        </motion.div>
+        <div className="mb-6 flex flex-col gap-2">
+          <Link href="/portfolio" className="group">
+            <h2 className="text-3xl md:text-4xl font-bold group-hover:text-point transition-all duration-300">
+              더 알아보기
+            </h2>
+          </Link>
+        </div>
 
         {/* 이메일 */}
         <motion.a
