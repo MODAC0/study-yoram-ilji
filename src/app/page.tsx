@@ -1,3 +1,4 @@
+import AboutSection from "@/components/home/AboutSection";
 import BlogSection from "@/components/home/BlogSection";
 import HeroSection from "@/components/home/HeroSection";
 import { getAllViewCounts } from "@/lib/firebase-admin";
@@ -21,6 +22,7 @@ export default async function MainPage() {
   return (
     <div className="flex flex-col items-center justify-center text-center">
       <HeroSection />
+      <AboutSection />
       <BlogSection posts={posts} viewCounts={viewCounts} />
     </div>
   );
