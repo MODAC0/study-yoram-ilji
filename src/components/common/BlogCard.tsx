@@ -23,7 +23,7 @@ export default function BlogCard({
 
   return (
     <Link href={`/blog/${post.id}`} className="group block">
-      <motion.article className="flex flex-col h-full bg-white dark:bg-gray-900 overflow-hidden transition-shadow duration-300">
+      <motion.article className="flex flex-col h-full overflow-hidden transition-shadow duration-300">
         {/* 이미지 영역 */}
         <div className="relative aspect-4/3 overflow-hidden bg-linear-to-br from-gray-100 rounded-2xl to-gray-200 dark:from-gray-800 dark:to-gray-700">
           {coverImageUrl ? (

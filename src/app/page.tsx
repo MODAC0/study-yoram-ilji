@@ -1,6 +1,5 @@
-import AboutSection from "@/components/home/AboutSection";
 import BlogSection from "@/components/home/BlogSection";
-import HeroSection from "@/components/home/HeroSection";
+import BubbleModelScene from "@/components/home/BubbleModel/BubbleModelScene";
 import { getAllViewCounts } from "@/lib/firebase-admin";
 import { getBlogPosts } from "@/services/notion.api";
 import { Metadata } from "next";
@@ -20,10 +19,20 @@ export default async function MainPage() {
   ]);
 
   return (
-    <div className="flex flex-col items-center justify-center text-center">
-      <HeroSection />
-      <AboutSection />
-      <BlogSection posts={posts} viewCounts={viewCounts} />
+    <div className="relative flex flex-col items-center justify-center text-center">
+      {/* 3D 배경 */}
+      <BubbleModelScene />
+
+      {/* 스크롤 섹션들 - 각 섹션마다 100vh 높이, snap-start로 스냅 */}
+      <section className="w-full h-screen snap-start" aria-label="Section 1" />
+      <section className="w-full h-screen snap-start" aria-label="Section 2" />
+      <section className="w-full h-screen snap-start" aria-label="Section 3" />
+      <section className="w-full h-screen snap-start" aria-label="Section 4" />
+
+      {/* 블로그 섹션 */}
+      <div className="w-full h-screen snap-start flex items-center justify-center">
+        <BlogSection posts={posts} viewCounts={viewCounts} />
+      </div>
     </div>
   );
 }

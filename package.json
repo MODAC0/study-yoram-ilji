@@ -30,8 +30,7 @@
     "react-syntax-highlighter": "^16.1.0",
     "simplex-noise": "^4.0.3",
     "tailwindcss": "4.1.16",
-    "three": "^0.182.0",
-    "typescript": "^5"
+    "three": "^0.182.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
@@ -47,7 +46,8 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.16",
-    "raw-loader": "^4.0.2"
+    "raw-loader": "^4.0.2",
+    "typescript": "^5"
   },
   "main": "index.js",
   "repository": "https://github.com/MODAC0/yoram-ilji.git",

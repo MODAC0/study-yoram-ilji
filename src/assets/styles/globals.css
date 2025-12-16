@@ -11,6 +11,11 @@
   font-family: "pretendard", sans-serif;
 }
 
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
 body {
   @apply bg-light-100 dark:bg-dark-900;
 }

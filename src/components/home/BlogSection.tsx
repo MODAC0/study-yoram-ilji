@@ -58,96 +58,94 @@ export default function BlogSection({ posts, viewCounts }: Props) {
   );
 
   return (
-    <section className="w-full py-32 px-6">
-      <div className="max-w-7xl mx-auto">
-        {/* 섹션 헤더 */}
-        <div className="flex items-center justify-between mb-10">
-          <div className="flex flex-col gap-2 text-start">
-            <Link href="/blog" className="group">
-              <h2 className="text-3xl md:text-4xl font-bold group-hover:text-point transition-all duration-300">
-                최신 인기 블로그
-              </h2>
-            </Link>
-            <p className="text-dark-300 dark:text-dark-500">
-              최신 인기 블로그 포스트를 확인하세요
-            </p>
-          </div>
-
-          {/* 네비게이션 버튼 */}
-          {totalPages > 1 && (
-            <div className="flex gap-2">
-              <button
-                onClick={() => goToPage(currentPage - 1)}
-                disabled={currentPage === 0}
-                className="p-2 rounded-full border border-gray-300 dark:border-gray-600 
-                         disabled:opacity-30 disabled:cursor-not-allowed 
-                         hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                aria-label="이전 페이지"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                onClick={() => goToPage(currentPage + 1)}
-                disabled={currentPage === totalPages - 1}
-                className="p-2 rounded-full border border-gray-300 dark:border-gray-600 
-                         disabled:opacity-30 disabled:cursor-not-allowed 
-                         hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                aria-label="다음 페이지"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
-          )}
+    <div className="max-w-7xl w-full px-6">
+      {/* 섹션 헤더 */}
+      <div className="flex items-center justify-between mb-10">
+        <div className="flex flex-col gap-2 text-start">
+          <Link href="/blog" className="group">
+            <h2 className="text-3xl md:text-4xl font-bold group-hover:text-point transition-all duration-300">
+              최신 인기 블로그
+            </h2>
+          </Link>
+          <p className="text-dark-300 dark:text-dark-500">
+            최신 인기 블로그 포스트를 확인하세요
+          </p>
         </div>
 
-        {/* 스와이프 가능한 카드 영역 */}
-        <div className="overflow-hidden">
-          <motion.div
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.2}
-            onDragEnd={handleDragEnd}
-            className="cursor-grab active:cursor-grabbing"
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentPage}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-              >
-                {currentPosts.map((post) => (
-                  <BlogCard
-                    key={post.id}
-                    post={post}
-                    viewCount={viewCounts[post.id]}
-                  />
-                ))}
-              </motion.div>
-            </AnimatePresence>
-          </motion.div>
-        </div>
-
-        {/* 페이지 인디케이터 */}
+        {/* 네비게이션 버튼 */}
         {totalPages > 1 && (
-          <div className="flex justify-center gap-2 mt-8">
-            {Array.from({ length: totalPages }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToPage(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  currentPage === index
-                    ? "w-6 bg-point"
-                    : "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400"
-                }`}
-                aria-label={`페이지 ${index + 1}로 이동`}
-              />
-            ))}
+          <div className="flex gap-2">
+            <button
+              onClick={() => goToPage(currentPage - 1)}
+              disabled={currentPage === 0}
+              className="p-2 rounded-full border border-gray-300 dark:border-gray-600 
+                         disabled:opacity-30 disabled:cursor-not-allowed 
+                         hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              aria-label="이전 페이지"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => goToPage(currentPage + 1)}
+              disabled={currentPage === totalPages - 1}
+              className="p-2 rounded-full border border-gray-300 dark:border-gray-600 
+                         disabled:opacity-30 disabled:cursor-not-allowed 
+                         hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              aria-label="다음 페이지"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
         )}
       </div>
-    </section>
+
+      {/* 스와이프 가능한 카드 영역 */}
+      <div className="overflow-hidden">
+        <motion.div
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.2}
+          onDragEnd={handleDragEnd}
+          className="cursor-grab active:cursor-grabbing"
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentPage}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              {currentPosts.map((post) => (
+                <BlogCard
+                  key={post.id}
+                  post={post}
+                  viewCount={viewCounts[post.id]}
+                />
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
+      </div>
+
+      {/* 페이지 인디케이터 */}
+      {totalPages > 1 && (
+        <div className="flex justify-center gap-2 mt-8">
+          {Array.from({ length: totalPages }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToPage(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                currentPage === index
+                  ? "w-6 bg-point"
+                  : "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400"
+              }`}
+              aria-label={`페이지 ${index + 1}로 이동`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
