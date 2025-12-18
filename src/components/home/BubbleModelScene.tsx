@@ -187,14 +187,47 @@ export default function BubbleModelScene() {
       {/* 스크롤 힌트 - 첫 번째 섹션에서만 표시 */}
       {section === 0 && (
         <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-500"
+          className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 transition-opacity duration-500"
           style={{ opacity: 1 - sectionProgress * 2 }}
         >
-          <span className="text-sm text-dark-400 dark:text-light-500">
-            Scroll to explore
-          </span>
-          <div className="w-6 h-10 rounded-full border-2 border-dark-300 dark:border-light-500 flex justify-center pt-2">
-            <div className="w-1.5 h-3 rounded-full bg-dark-400 dark:bg-light-400 animate-bounce" />
+          {/* O shape */}
+          <div className="w-6 h-8 rounded-full border-2 border-dark-400 dark:border-light-500" />
+
+          {/* Animated chevrons */}
+          <div className="flex flex-col items-center -mt-1">
+            <svg
+              className="w-5 h-3 text-dark-400 dark:text-light-500 animate-scroll-chevron-1"
+              viewBox="0 0 20 12"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M2 2 L10 10 L18 2" />
+            </svg>
+            <svg
+              className="w-5 h-3 text-dark-400 dark:text-light-500 animate-scroll-chevron-2 -mt-1"
+              viewBox="0 0 20 12"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M2 2 L10 10 L18 2" />
+            </svg>
+            <svg
+              className="w-5 h-3 text-dark-400 dark:text-light-500 animate-scroll-chevron-3 -mt-1"
+              viewBox="0 0 20 12"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M2 2 L10 10 L18 2" />
+            </svg>
           </div>
         </div>
       )}
@@ -303,7 +336,7 @@ const TextOverlay = ({
   // Y 위치 계산 (스크롤에 따라 위로 이동)
   const getTransform = (targetSection: number) => {
     if (section === targetSection) {
-      const offset = (sectionProgress - 0.5) * -50; // -25px ~ +25px
+      const offset = (sectionProgress - 0.5) * -40; // -25px ~ +25px
       return `translateY(${offset}px)`;
     }
     return "translateY(50px)";

@@ -18,3 +18,31 @@ html {
 body {
   @apply bg-light-100 dark:bg-dark-900;
 }
+
+/* Scroll chevron animations */
+@keyframes scroll-chevron {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(4px);
+  }
+}
+
+.animate-scroll-chevron-1 {
+  animation: scroll-chevron 1.5s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+.animate-scroll-chevron-2 {
+  animation: scroll-chevron 1.5s ease-in-out infinite;
+  animation-delay: 0.15s;
+}
+
+.animate-scroll-chevron-3 {
+  animation: scroll-chevron 1.5s ease-in-out infinite;
+  animation-delay: 0.3s;
+}

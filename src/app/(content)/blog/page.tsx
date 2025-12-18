@@ -22,7 +22,7 @@ export default async function BlogPage() {
   ]);
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto">
       <h1 className="text-4xl font-bold mb-8">블로그</h1>
       <BlogList posts={posts} viewCounts={viewCounts} />
     </div>

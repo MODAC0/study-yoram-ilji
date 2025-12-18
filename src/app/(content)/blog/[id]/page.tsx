@@ -11,6 +11,7 @@ import { getNotionBlogImageUrl, getNotionBlogTitle } from "@/utils/getResource";
 import { BlockObjectResponse } from "@notionhq/client";
 import dayjs from "dayjs";
 import { Metadata } from "next";
+import Image from "next/image";
 
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
@@ -45,7 +46,7 @@ export default async function PostPage({ params }: Props) {
   const { id } = await params;
   const post = (await getPost(id)) as NotionPage;
   const content = await getPostContent(id);
-
+  const category = post.properties.카테고리.select?.name;
   const title = getNotionBlogTitle(post);
   const coverImage = getNotionBlogImageUrl(post);
   const publishedTime =
@@ -61,16 +62,37 @@ export default async function PostPage({ params }: Props) {
     url: `${siteConfig.url}/blog/${id}`,
   });
 
+  console.log(content);
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <div className="relative h-[calc(50vh)] overflow-hidden">
+        {/* <div className="absolute inset-0 bg-linear-to-br from-[#833AB4] via-[#FD1D1D] to-transparent opacity-50" /> */}
+        {coverImage && (
+          <Image
+            src={coverImage}
+            alt={title}
+            width={1920}
+            height={1080}
+            className="h-full w-full object-cover"
+          />
+        )}
+      </div>
       <div className="max-w-4xl mx-auto py-20 px-4">
-        <h1 className="text-4xl font-bold mb-4">
-          {post.properties.제목.title[0].plain_text}
-        </h1>
+        <div className="flex flex-col gap-2">
+          {category && (
+            <span className="w-fit text-xs font-medium rounded-full backdrop-blur-sm px-2 py-1 border-point-light border text-point-light">
+              {category}
+            </span>
+          )}
+          <h1 className="text-4xl font-bold mb-4">
+            {post.properties.제목.title[0].plain_text}
+          </h1>
+        </div>
         <div className="flex items-center mb-8 gap-2 text-dark-400">
           <span>
             발행일: {dayjs(post.created_time).format("YYYY년 MM월 DD일")}
@@ -79,8 +101,6 @@ export default async function PostPage({ params }: Props) {
           <span>
             수정일: {dayjs(post.last_edited_time).format("YYYY년 MM월 DD일")}
           </span>
-          <span>·</span>
-          <span>{post.properties.카테고리.select?.name}</span>
           <span>·</span>
           <ViewCounter postId={id} />
         </div>
