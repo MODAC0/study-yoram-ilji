@@ -1,8 +1,11 @@
+import PortfolioListClient from "@/components/portfolio/PortfolioListClient";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "포트폴리오 | 요람일지",
+  description: "개발 및 디자인 프로젝트 경험과 작업물을 확인하세요.",
+};
+
 export default function PortfolioPage() {
-  return (
-    <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold mb-8">포트폴리오</h1>
-      <p>여기에 포트폴리오 내용을 구성합니다.</p>
-    </div>
-  );
+  return <PortfolioListClient />;
 }
