@@ -178,56 +178,28 @@ export default function BubbleModelScene() {
         />
         <RendererCleanup />
       </Canvas>
-
       {/* 텍스트 오버레이 - 텍스트 섹션에서만 표시 */}
       {showTextOverlay && (
         <TextOverlay section={section} sectionProgress={sectionProgress} />
       )}
-
       {/* 스크롤 힌트 - 첫 번째 섹션에서만 표시 */}
       {section === 0 && (
         <div
-          className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 transition-opacity duration-500"
-          style={{ opacity: 1 - sectionProgress * 2 }}
+          className="absolute inset-0 flex items-center justify-center"
+          style={{ opacity: 1 - sectionProgress * 5 }}
         >
-          {/* O shape */}
-          <div className="w-6 h-8 rounded-full border-2 border-dark-400 dark:border-light-500" />
-
-          {/* Animated chevrons */}
-          <div className="flex flex-col items-center -mt-1">
-            <svg
-              className="w-5 h-3 text-dark-400 dark:text-light-500 animate-scroll-chevron-1"
-              viewBox="0 0 20 12"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M2 2 L10 10 L18 2" />
-            </svg>
-            <svg
-              className="w-5 h-3 text-dark-400 dark:text-light-500 animate-scroll-chevron-2 -mt-1"
-              viewBox="0 0 20 12"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M2 2 L10 10 L18 2" />
-            </svg>
-            <svg
-              className="w-5 h-3 text-dark-400 dark:text-light-500 animate-scroll-chevron-3 -mt-1"
-              viewBox="0 0 20 12"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M2 2 L10 10 L18 2" />
-            </svg>
+          <div className="absolute flex flex-col gap-4 items-center justify-center transition-all duration-300 ease-out">
+            <p className="text-2xl text-dark-500 dark:text-light-500 max-sm:text-base">
+              안녕하세요. 요람일지입니다.
+            </p>
+            <h2 className="text-5xl text-dark-600 dark:text-light-500 font-bold max-sm:text-3xl">
+              스크롤을 내려주세요.
+            </h2>
+          </div>
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-500">
+            <div className="w-6 h-10 rounded-full border-2 border-point flex justify-center pt-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-point-light animate-bounce" />
+            </div>
           </div>
         </div>
       )}
