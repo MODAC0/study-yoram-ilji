@@ -95,10 +95,14 @@ export default function ContactSection() {
             )}
             <span>{copied ? "복사됨!" : "이메일 복사"}</span>
           </button>
-          <button className="rounded-full flex items-center gap-3 prounded-full px-8 py-3 border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-dark-700 text-slate-900 dark:text-white font-medium transition-colors group cursor-pointer">
+          <Link
+            href={contactInfo.github}
+            target="_blank"
+            className="rounded-full flex items-center gap-3 prounded-full px-8 py-3 border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-dark-700 text-slate-900 dark:text-white font-medium transition-colors group cursor-pointer"
+          >
             <Github className="w-6 h-6" />
             <span>깃허브</span>
-          </button>
+          </Link>
         </div>
 
         <motion.p

@@ -2,6 +2,7 @@ import "@/assets/styles/globals.css";
 import AppProvider from "@/components/AppProvider";
 import Header from "@/components/common/Header";
 import RouteChangeLoader from "@/components/common/RouteChangeLoader";
+import CursorTrail from "@/components/effects/CursorTrail";
 import { siteConfig } from "@/lib/seo";
 import type { Metadata, Viewport } from "next";
 
@@ -59,6 +60,7 @@ export default function RootLayout({
     <html lang="ko" suppressHydrationWarning>
       <body>
         <AppProvider>
+          <CursorTrail />
           <RouteChangeLoader />
           <Header />
           <main className="min-h-screen">{children}</main>

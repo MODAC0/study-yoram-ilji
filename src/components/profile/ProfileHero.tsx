@@ -64,17 +64,6 @@ export function ProfileHero() {
                 </div>
               </div>
             </div>
-
-            {/* Buttons */}
-            {/* <div className="flex flex-wrap gap-3">
-              <button className="rounded-full px-8 py-3 bg-slate-900 dark:bg-slate-100 hover:bg-slate-800 dark:hover:bg-white text-white dark:text-slate-900 font-medium transition-colors">
-                Contact Me
-              </button>
-              <button className="rounded-full px-8 py-3 border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-dark-700 text-slate-900 dark:text-white font-medium transition-colors group flex items-center">
-                View Portfolio
-                <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div> */}
           </motion.div>
         </div>
 
