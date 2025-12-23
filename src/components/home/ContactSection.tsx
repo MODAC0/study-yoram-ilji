@@ -63,8 +63,8 @@ export default function ContactSection() {
         viewport={{ once: true, amount: 0.3 }}
         className="max-w-md"
       >
-        <div className="flex flex-col gap-2 mb-6 items-center justify-center">
-          <Link href="/contact" className="group flex items-center gap-2">
+        <div className="flex mb-6 items-center justify-center">
+          <Link href="/profile" className="group flex items-center gap-2">
             <h2 className="text-3xl md:text-4xl font-bold group-hover:text-point transition-all duration-300">
               Contact Me
             </h2>
@@ -82,16 +82,11 @@ export default function ContactSection() {
               />
             </svg>
           </Link>
-          <p className="text-dark-300 dark:text-dark-500">
-            최신 인기 블로그 포스트를 확인하세요
-          </p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
-          <motion.button
-            variants={itemVariants}
+          <button
+            className="flex items-center gap-3 rounded-full px-8 py-3 bg-slate-900 dark:bg-slate-100 hover:bg-slate-800 dark:hover:bg-white text-white dark:text-slate-900 font-medium transition-colors cursor-pointer"
             onClick={handleCopyEmail}
-            className="flex items-center gap-3 px-6 py-4 rounded-xl bg-linear-to-r from-point to-point-light text-white shadow-lg shadow-point/30 hover:shadow-xl hover:shadow-point/40 hover:scale-105 transition-all duration-300 cursor-pointer"
           >
             {copied ? (
               <Check className="w-5 h-5" />
@@ -99,17 +94,13 @@ export default function ContactSection() {
               <Copy className="w-5 h-5" />
             )}
             <span>{copied ? "복사됨!" : "이메일 복사"}</span>
-          </motion.button>
-
-          <motion.a
-            variants={itemVariants}
-            href={`${contactInfo.github}`}
-            className="flex items-center gap-3 px-6 py-4 rounded-xl bg-linear-to-r from-point to-point-light text-white shadow-lg shadow-point/30 hover:shadow-xl hover:shadow-point/40 hover:scale-105 transition-all duration-300"
-          >
+          </button>
+          <button className="rounded-full flex items-center gap-3 prounded-full px-8 py-3 border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-dark-700 text-slate-900 dark:text-white font-medium transition-colors group cursor-pointer">
             <Github className="w-6 h-6" />
             <span>깃허브</span>
-          </motion.a>
+          </button>
         </div>
+
         <motion.p
           variants={itemVariants}
           className="mt-12 text-sm text-dark-300 dark:text-dark-600"
