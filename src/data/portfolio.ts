@@ -55,6 +55,24 @@ export function isDesignPortfolio(
 export const portfolioProjects: PortfolioProject[] = [
   // 디자인 포트폴리오
   {
+    id: "anneklein",
+    category: "design",
+    title: "ANNE KLEIN Promotion",
+    subtitle: "앤클라인 프로모션 페이지 디자인",
+    description:
+      "2021 시즌의 룩북 촬영을 보조하고 선별된 컷을 활용하여 프로모션 페이지를 디자인했습니다. 세련된 비주얼과 셀링 포인트를 강조하여 브랜드 인지도를 높였습니다.",
+    period: "2021",
+    role: "웹 디자인",
+    type: "웹사이트 UI/UX",
+    tools: ["Figma", "Adobe Photoshop"],
+    images: Array.from(
+      { length: 3 },
+      (_, i) => `/portfolio/anneklein/${i + 1}.webp`
+    ),
+    color: "#1C1C1C",
+    thumbnail: "/portfolio/anneklein/1.webp",
+  },
+  {
     id: "youandus",
     category: "design",
     title: "YOUANDUS",
