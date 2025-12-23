@@ -30,31 +30,25 @@ export default function PortfolioListClient() {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12">
-      <div className="mb-12">
-        <h1 className="text-4xl font-bold mb-4">포트폴리오</h1>
-        <p className="text-dark-400 dark:text-dark-500 mb-8">
-          다양한 프로젝트를 경험해보세요.
-        </p>
-
-        {/* 카테고리 필터 */}
-        <div className="flex gap-2">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                activeCategory === category
-                  ? "bg-point text-white"
-                  : "bg-light-300 dark:bg-dark-700 text-dark-600 dark:text-dark-300 hover:bg-light-400 dark:hover:bg-dark-600"
-              }`}
-            >
-              {category === "all" ? "전체" : categoryLabels[category]}
-            </button>
-          ))}
-        </div>
+    <div className="flex flex-col gap-8">
+      <div className="flex flex-wrap gap-2">
+        {categories.map((category) => (
+          <button
+            key={category}
+            onClick={() => setActiveCategory(category)}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              activeCategory === category
+                ? "bg-point text-white"
+                : "bg-light-300 dark:bg-dark-700 text-dark-600 dark:text-dark-300 hover:bg-light-400 dark:hover:bg-dark-600"
+            }`}
+          >
+            {category === "all" ? "전체" : categoryLabels[category]}
+          </button>
+        ))}
       </div>
-
+      <p className="text-sm text-dark-600 pb-6 border-b border-dark-400/30">
+        {filteredProjects.length}개의 프로젝트
+      </p>
       <motion.div
         layout
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"

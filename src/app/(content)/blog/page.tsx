@@ -1,4 +1,4 @@
-import BlogList from "@/components/blog/BlogList";
+import BlogListClient from "@/components/blog/BlogListClient";
 import { getAllViewCounts } from "@/lib/firebase-admin";
 import { getBlogPosts } from "@/services/notion.api";
 import { Metadata } from "next";
@@ -24,7 +24,7 @@ export default async function BlogPage() {
   return (
     <div className="max-w-7xl mx-auto">
       <h1 className="text-4xl font-bold mb-8">블로그</h1>
-      <BlogList posts={posts} viewCounts={viewCounts} />
+      <BlogListClient posts={posts} viewCounts={viewCounts} />
     </div>
   );
 }

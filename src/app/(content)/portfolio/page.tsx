@@ -7,5 +7,10 @@ export const metadata: Metadata = {
 };
 
 export default function PortfolioPage() {
-  return <PortfolioListClient />;
+  return (
+    <div className="max-w-7xl mx-auto">
+      <h1 className="text-4xl font-bold mb-8">포트폴리오</h1>
+      <PortfolioListClient />
+    </div>
+  );
 }

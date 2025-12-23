@@ -24,7 +24,7 @@ export default function DesignPortfolioDetail({ project }: Props) {
           {/* 뒤로가기 */}
           <Link
             href="/portfolio"
-            className="inline-flex items-center gap-2 text-dark-500 hover:text-point transition-colors mb-8 group"
+            className="inline-flex items-center gap-2 text-dark-500 hover:text-point transition-colors mb-12 group"
           >
             <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
             <span>포트폴리오로 돌아가기</span>
@@ -34,7 +34,7 @@ export default function DesignPortfolioDetail({ project }: Props) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center"
+            className="max-w-2xl"
           >
             {/* 카테고리 뱃지 */}
             <span
@@ -48,36 +48,21 @@ export default function DesignPortfolioDetail({ project }: Props) {
             <h1 className="text-4xl md:text-5xl font-bold mb-3">
               {project.title}
             </h1>
-            <p className="text-xl text-dark-400 dark:text-dark-500 mb-6">
+            <p className="text-xl text-dark-400 dark:text-dark-500">
               {project.subtitle}
             </p>
 
-            {/* 설명 */}
-            <p className="text-dark-500 dark:text-dark-400 leading-relaxed max-w-2xl mx-auto mb-8">
-              {project.description}
-            </p>
-
-            {/* 메타 정보 */}
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-dark-500 dark:text-dark-400">
-              <div>
-                <span className="font-semibold text-dark-700 dark:text-dark-300 block">
-                  기간
-                </span>
-                <span>{project.period}</span>
-              </div>
-              <div>
-                <span className="font-semibold text-dark-700 dark:text-dark-300 block">
-                  역할
-                </span>
-                <span>{project.role}</span>
-              </div>
-              <div>
-                <span className="font-semibold text-dark-700 dark:text-dark-300 block">
-                  도구
-                </span>
+            <div className="py-6 flex flex-wrap gap-6 text-sm text-dark-500 dark:text-dark-400">
+              <div className="flex items-center gap-5">
+                <span>{project.period}</span>·<span>{project.role}</span>·
                 <span>{project.tools.join(", ")}</span>
               </div>
             </div>
+
+            {/* 설명 */}
+            <p className="text-dark-500 dark:text-dark-400 leading-relaxed mb-8">
+              {project.description}
+            </p>
           </motion.div>
         </div>
       </section>

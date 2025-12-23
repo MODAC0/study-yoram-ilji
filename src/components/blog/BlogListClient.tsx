@@ -12,7 +12,7 @@ interface Props {
 }
 const ITEMS_PER_LOAD = 9;
 
-export default function BlogList({ posts, viewCounts }: Props) {
+export default function BlogListClient({ posts, viewCounts }: Props) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [displayCount, setDisplayCount] = useState(ITEMS_PER_LOAD);
   const loaderRef = useRef<HTMLDivElement>(null);

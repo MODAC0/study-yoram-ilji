@@ -1,62 +1,14 @@
 "use client";
 
+import {
+  categoryLabels,
+  isDesignPortfolio,
+  portfolioProjects,
+} from "@/data/portfolio";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
-// 포트폴리오 목업 데이터
-const portfolioItems = [
-  {
-    id: 1,
-    title: "Spelling Bee",
-    description: "Learn spelling through fun word games and challenges",
-    image: "/images/portfolio/yoram-ilji.png",
-    color: "#E8D5C4",
-  },
-  {
-    id: 2,
-    title: "Video Marketer",
-    description: "Create engaging marketing videos with AI assistance",
-    image: "/images/portfolio/ai-chat.png",
-    color: "#1C3A4F",
-  },
-  {
-    id: 3,
-    title: "Blog Post Writer",
-    description: "Generate high-quality blog content effortlessly",
-    image: "/images/portfolio/dashboard.png",
-    color: "#A8B87C",
-  },
-  {
-    id: 4,
-    title: "Book Recs",
-    description:
-      "Get book recommendations and discover your next favorite read",
-    image: "/images/portfolio/ecommerce.png",
-    color: "#6B6B6B",
-  },
-  {
-    id: 5,
-    title: "Business Profiler",
-    description: "Create professional business profiles instantly",
-    image: "/images/portfolio/business.png",
-    color: "#F5D5D5",
-  },
-  {
-    id: 6,
-    title: "City Builder",
-    description: "Design and build your dream city from scratch",
-    image: "/images/portfolio/city.png",
-    color: "#D4C4B0",
-  },
-  {
-    id: 7,
-    title: "Fashion Stylist",
-    description: "Get personalized fashion advice and outfit ideas",
-    image: "/images/portfolio/fashion.png",
-    color: "#F0E6E0",
-  },
-];
 
 // 카드 위치 및 스타일 설정 (아치형 배치)
 const getCardStyle = (index: number, centerIndex: number, total: number) => {
@@ -75,13 +27,13 @@ const getCardStyle = (index: number, centerIndex: number, total: number) => {
     };
   }
 
-  const xSpacing = 320;
+  const xSpacing = 300;
   const x = offset * xSpacing;
 
-  const archHeight = 400; // 더 둥근 아치형
+  const archHeight = 350;
   const y = absOffset * absOffset * (archHeight / 9);
 
-  const rotate = offset * 12;
+  const rotate = offset * 10;
 
   // 크기 (중앙이 가장 큼)
   const scale =
@@ -98,48 +50,67 @@ const getCardStyle = (index: number, centerIndex: number, total: number) => {
 };
 
 export default function PortfolioSection() {
-  const [centerIndex, setCenterIndex] = useState(3); // Book Recs가 중앙
+  const [centerIndex, setCenterIndex] = useState(
+    Math.floor(portfolioProjects.length / 2)
+  );
 
   const handleCardClick = (index: number) => {
     setCenterIndex(index);
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-6 py-16 relative z-10 pointer-events-auto">
+    <div className="w-full mx-auto px-6 py-16 relative z-10 pointer-events-auto">
       {/* 섹션 헤더 */}
       <div className="mb-20">
-        <Link href="/portfolio" className="group">
+        <Link
+          href="/portfolio"
+          className="group inline-flex items-center gap-2"
+        >
           <h2 className="text-3xl md:text-4xl font-bold group-hover:text-point transition-all duration-300">
             포트폴리오
           </h2>
+          <svg
+            className="w-6 h-6 text-dark-400 group-hover:text-point group-hover:translate-x-1 transition-all duration-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
         </Link>
-        <p className="text-dark-300 dark:text-dark-500">
-          다양한 프로젝트를 경험해보세요.
+        <p className="text-dark-300 dark:text-dark-500 mt-2">
+          디자인과 개발, 다양한 프로젝트를 경험해보세요.
         </p>
       </div>
 
       {/* 카드 갤러리 */}
-      <div className="relative h-[550px] flex items-center justify-center">
+      <div className="relative h-[800px] flex items-center justify-center overflow-hidden">
         <div
           className="relative w-full h-full"
           style={{ perspective: "1400px" }}
         >
-          {portfolioItems.map((item, index) => {
+          {portfolioProjects.map((project, index) => {
             const style = getCardStyle(
               index,
               centerIndex,
-              portfolioItems.length
+              portfolioProjects.length
             );
             const isCenter = index === centerIndex;
+            const isDesign = isDesignPortfolio(project);
 
             return (
               <motion.div
-                key={item.id}
+                key={project.id}
                 className="absolute left-1/2 top-1/2 cursor-pointer"
                 initial={false}
                 animate={{
                   x: style.x,
-                  y: style.y - 140,
+                  y: style.y - 160,
                   rotate: style.rotate,
                   scale: style.scale,
                   opacity: style.opacity,
@@ -151,49 +122,119 @@ export default function PortfolioSection() {
                   damping: 30,
                 }}
                 style={{
-                  marginLeft: "-120px",
-                  marginTop: "-150px",
+                  marginLeft: "-140px",
+                  marginTop: "-180px",
                 }}
                 onClick={() => handleCardClick(index)}
                 whileHover={
                   !isCenter
-                    ? { scale: style.scale * 1.05, y: style.y - 150 }
+                    ? { scale: style.scale * 1.05, y: style.y - 170 }
                     : {}
                 }
               >
                 <div
-                  className={`w-[240px] rounded-2xl overflow-hidden shadow-xl transition-shadow duration-300 ${
-                    isCenter ? "shadow-2xl" : "hover:shadow-2xl"
+                  className={`w-[280px] rounded-2xl overflow-hidden transition-all duration-300 ${
+                    isCenter
+                      ? "shadow-2xl ring-2 ring-white/30 dark:ring-white/20"
+                      : "shadow-xl hover:shadow-2xl"
                   }`}
-                  style={{ backgroundColor: item.color }}
+                  style={{ backgroundColor: project.color }}
                 >
-                  <div className="relative h-[200px] flex items-center justify-center p-3">
-                    <div className="w-full h-full rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                      <span className="text-3xl font-bold text-white/60">
-                        {item.title.charAt(0)}
+                  {/* 썸네일 이미지 */}
+                  <div className="relative h-[200px] overflow-hidden">
+                    <Image
+                      src={project.thumbnail}
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-transform duration-500"
+                      style={{
+                        transform: isCenter ? "scale(1.05)" : "scale(1)",
+                      }}
+                    />
+                    {/* 오버레이 그라데이션 */}
+                    <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
+
+                    {/* 카테고리 배지 */}
+                    <div className="absolute top-3 left-3">
+                      <span
+                        className={`px-2.5 py-1 text-xs font-semibold rounded-full backdrop-blur-md shadow-lg ${
+                          isDesign
+                            ? "bg-linear-to-r from-purple-500/90 to-pink-500/90 text-white"
+                            : "bg-linear-to-r from-blue-500/90 to-cyan-500/90 text-white"
+                        }`}
+                      >
+                        {categoryLabels[project.category]}
+                      </span>
+                    </div>
+
+                    {/* 기간 배지 */}
+                    <div className="absolute top-3 right-3">
+                      <span className="px-2 py-1 text-[10px] font-medium rounded-full bg-black/40 text-white/90 backdrop-blur-sm">
+                        {project.period}
                       </span>
                     </div>
                   </div>
 
-                  {/* 중앙 카드일 때 확장된 정보 표시 */}
-                  {isCenter && (
-                    <motion.div
-                      exit={{ opacity: 1, height: "auto" }}
-                      className="px-4 pb-4 pt-2"
-                    >
-                      <h3 className="text-lg font-bold text-white mb-1">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs text-white/80 leading-relaxed">
-                        {item.description}
-                      </p>
-                    </motion.div>
-                  )}
+                  {/* 카드 정보 */}
+                  <div className="p-4 bg-linear-to-b from-black/70 to-black/90">
+                    <h3 className="text-lg font-bold text-white mb-1 line-clamp-1">
+                      {project.title}
+                    </h3>
+                    <p className="text-xs text-white/70 line-clamp-1 mb-2">
+                      {project.subtitle}
+                    </p>
+
+                    {/* 중앙 카드일 때 확장된 정보 표시 */}
+                    {isCenter && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="mt-2 pt-3 border-t border-white/20"
+                      >
+                        <Link
+                          href={`/portfolio/${project.id}`}
+                          className="flex items-center justify-center w-full py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white text-sm font-medium transition-all duration-200 group"
+                        >
+                          <span>자세히 보기</span>
+                          <svg
+                            className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 5l7 7-7 7"
+                            />
+                          </svg>
+                        </Link>
+                      </motion.div>
+                    )}
+                  </div>
                 </div>
               </motion.div>
             );
           })}
         </div>
+      </div>
+
+      {/* 네비게이션 도트 */}
+      <div className="flex justify-center gap-2 mt-8">
+        {portfolioProjects.map((project, index) => (
+          <button
+            key={project.id}
+            onClick={() => handleCardClick(index)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              index === centerIndex
+                ? "bg-point w-6"
+                : "bg-dark-300/30 hover:bg-dark-300/50"
+            }`}
+            aria-label={`${project.title}로 이동`}
+          />
+        ))}
       </div>
     </div>
   );
