@@ -60,7 +60,7 @@ export function ProfileHero() {
                 </div>
                 <div className="flex items-center gap-1.5">
                   <Mail className="size-4" />
-                  <span>hello@example.com</span>
+                  <span>modac0302@gmail.com</span>
                 </div>
               </div>
             </div>
