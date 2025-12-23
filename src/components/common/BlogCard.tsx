@@ -2,6 +2,7 @@
 
 import { NotionPage } from "@/types/notion.type";
 import { getNotionBlogImageUrl, getNotionBlogTitle } from "@/utils/getResource";
+import { getProxiedCoverUrl } from "@/utils/notion-image-url";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -15,7 +16,8 @@ export default function BlogCard({
   viewCount: number;
 }) {
   const title = getNotionBlogTitle(post);
-  const coverImageUrl = getNotionBlogImageUrl(post);
+  const originalCoverUrl = getNotionBlogImageUrl(post);
+  const coverImageUrl = getProxiedCoverUrl(originalCoverUrl, post.id);
   const category = post.properties.카테고리.select?.name;
   const createdDate = dayjs(post.properties.작성일.last_edited_time).format(
     "YYYY.MM.DD"

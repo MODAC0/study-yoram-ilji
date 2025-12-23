@@ -1,6 +1,7 @@
 // components/NotionBlock.tsx
 
 "use client";
+import { getBlockImageProxyUrl, isNotionS3Url } from "@/utils/notion-image-url";
 import { Accordion, AccordionItem, Alert, Checkbox } from "@heroui/react";
 import { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import Image from "next/image";
@@ -11,8 +12,10 @@ import RichText from "./RechText";
 
 export default function NotionBlock({
   block,
+  pageId,
 }: {
   block: BlockObjectResponse;
+  pageId?: string;
   children?: React.ReactNode;
 }) {
   if (!("type" in block)) {
@@ -113,17 +116,23 @@ export default function NotionBlock({
       );
 
     case "image":
-      const src =
+      const originalSrc =
         block.image.type === "file"
           ? block.image.file.url
           : block.image.external.url;
       const caption = block.image.caption;
 
+      // S3 임시 URL인 경우 프록시 사용
+      const imageSrc =
+        pageId && isNotionS3Url(originalSrc)
+          ? getBlockImageProxyUrl(pageId, block.id)
+          : originalSrc;
+
       return (
         <figure className="my-6">
           <div className="relative w-full aspect-video">
             <Image
-              src={src}
+              src={imageSrc}
               alt={caption.length > 0 ? caption[0].plain_text : "Notion Image"}
               fill
               className="object-contain"

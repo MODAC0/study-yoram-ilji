@@ -12,12 +12,21 @@ interface RetryImageProps extends Omit<ImageProps, "onError"> {
   fallback?: React.ReactNode;
 }
 
+// 프록시 URL인지 확인
+function isProxyUrl(src: string | object): boolean {
+  if (typeof src === "string") {
+    return src.startsWith("/api/notion-image");
+  }
+  return false;
+}
+
 export default function RetryImage({
   src,
   alt,
   maxRetries = 3,
   retryDelay = 1000,
   fallback,
+  unoptimized,
   ...props
 }: RetryImageProps) {
   const [retryCount, setRetryCount] = useState(0);
@@ -50,12 +59,16 @@ export default function RetryImage({
       ? `${src}${src.includes("?") ? "&" : "?"}retry=${retryCount}`
       : src;
 
+  // 프록시 URL인 경우 unoptimized 강제 적용
+  const shouldUnoptimize = unoptimized || isProxyUrl(src);
+
   return (
     <Image
       key={key}
       src={srcWithRetry}
       alt={alt}
       onError={handleError}
+      unoptimized={shouldUnoptimize}
       {...props}
     />
   );

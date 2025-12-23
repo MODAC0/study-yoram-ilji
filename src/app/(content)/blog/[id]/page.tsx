@@ -8,6 +8,7 @@ import {
 import { getBlogPosts, getPost, getPostContent } from "@/services/notion.api";
 import { NotionPage } from "@/types/notion.type";
 import { getNotionBlogImageUrl, getNotionBlogTitle } from "@/utils/getResource";
+import { getProxiedCoverUrl } from "@/utils/notion-image-url";
 import { BlockObjectResponse } from "@notionhq/client";
 import dayjs from "dayjs";
 import { Metadata } from "next";
@@ -48,7 +49,8 @@ export default async function PostPage({ params }: Props) {
   const content = await getPostContent(id);
   const category = post.properties.카테고리.select?.name;
   const title = getNotionBlogTitle(post);
-  const coverImage = getNotionBlogImageUrl(post);
+  const originalCoverImage = getNotionBlogImageUrl(post);
+  const coverImage = getProxiedCoverUrl(originalCoverImage, id);
   const publishedTime =
     post.properties.발행일.date?.start || post.last_edited_time;
 
@@ -79,6 +81,7 @@ export default async function PostPage({ params }: Props) {
             width={1920}
             height={1080}
             className="h-full w-full object-cover"
+            unoptimized
           />
         )}
       </div>
@@ -106,7 +109,11 @@ export default async function PostPage({ params }: Props) {
         </div>
         <article>
           {content.results.map((block) => (
-            <NotionBlock key={block.id} block={block as BlockObjectResponse} />
+            <NotionBlock
+              key={block.id}
+              block={block as BlockObjectResponse}
+              pageId={id}
+            />
           ))}
         </article>
       </div>
