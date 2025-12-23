@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Mail, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { SphereModel } from "../common/SphereModel";
 
 export function ProfileHero() {
@@ -66,7 +66,7 @@ export function ProfileHero() {
             </div>
 
             {/* Buttons */}
-            <div className="flex flex-wrap gap-3">
+            {/* <div className="flex flex-wrap gap-3">
               <button className="rounded-full px-8 py-3 bg-slate-900 dark:bg-slate-100 hover:bg-slate-800 dark:hover:bg-white text-white dark:text-slate-900 font-medium transition-colors">
                 Contact Me
               </button>
@@ -74,7 +74,7 @@ export function ProfileHero() {
                 View Portfolio
                 <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-transform" />
               </button>
-            </div>
+            </div> */}
           </motion.div>
         </div>
 
