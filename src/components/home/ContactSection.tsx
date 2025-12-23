@@ -1,9 +1,9 @@
 "use client";
 
-import dayjs from "dayjs";
 import { motion, Variants } from "framer-motion";
-import { Github, LucideIcon, Mail } from "lucide-react";
+import { Check, Copy, Github, LucideIcon } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 // 연락처 정보 (임의의 플레이스홀더)
 const contactInfo = {
@@ -42,6 +42,18 @@ const itemVariants: Variants = {
 };
 
 export default function ContactSection() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(contactInfo.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy email:", err);
+    }
+  };
+
   return (
     <div className="h-full flex items-center justify-center text-center relative z-10 pointer-events-auto">
       <motion.div
@@ -76,14 +88,18 @@ export default function ContactSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
-          <motion.a
+          <motion.button
             variants={itemVariants}
-            href={`mailto:${contactInfo.email}`}
-            className="flex items-center gap-3 px-6 py-4 rounded-xl bg-linear-to-r from-point to-point-light text-white shadow-lg shadow-point/30 hover:shadow-xl hover:shadow-point/40 hover:scale-105 transition-all duration-300"
+            onClick={handleCopyEmail}
+            className="flex items-center gap-3 px-6 py-4 rounded-xl bg-linear-to-r from-point to-point-light text-white shadow-lg shadow-point/30 hover:shadow-xl hover:shadow-point/40 hover:scale-105 transition-all duration-300 cursor-pointer"
           >
-            <Mail className="w-5 h-5" />
-            <span>이메일</span>
-          </motion.a>
+            {copied ? (
+              <Check className="w-5 h-5" />
+            ) : (
+              <Copy className="w-5 h-5" />
+            )}
+            <span>{copied ? "복사됨!" : "이메일 복사"}</span>
+          </motion.button>
 
           <motion.a
             variants={itemVariants}
@@ -98,7 +114,7 @@ export default function ContactSection() {
           variants={itemVariants}
           className="mt-12 text-sm text-dark-300 dark:text-dark-600"
         >
-          ©{dayjs().year()} 요람일지. All rights reserved.
+          ©2025 요람일지. All rights reserved.
         </motion.p>
       </motion.div>
     </div>
