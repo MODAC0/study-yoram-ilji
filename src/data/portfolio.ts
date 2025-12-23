@@ -75,7 +75,7 @@ export const portfolioProjects: PortfolioProject[] = [
   {
     id: "ottogimall",
     category: "design",
-    title: "Ottogi Ecommerce Website",
+    title: "Ottogi Mall",
     subtitle: "오뚜기 이커머스 웹사이트 리뉴얼 프로젝트",
     description:
       "사용자 경험을 중심으로 한 직관적인 UI/UX 개선과 브랜드 아이덴티티를 살린 현대적인 디자인 시스템 구축을 통한 이커머스 웹사이트 리뉴얼 프로젝트입니다.",
@@ -92,22 +92,22 @@ export const portfolioProjects: PortfolioProject[] = [
   },
 
   // 개발 포트폴리오 예시 (추후 추가용)
-  {
-    id: "example-dev",
-    category: "development",
-    title: "개발 프로젝트 예시",
-    subtitle: "풀스택 웹 애플리케이션",
-    description: "...",
-    period: "2024.01 - 2024.06",
-    role: "프론트엔드 개발",
-    team: "3인",
-    techStack: ["Next.js", "TypeScript", "Prisma"],
-    features: ["기능1", "기능2"],
-    links: { github: "https://github.com/...", live: "https://..." },
-    images: [],
-    color: "#4A90D9",
-    thumbnail: "/portfolio/youandus/1.webp",
-  },
+  // {
+  //   id: "example-dev",
+  //   category: "development",
+  //   title: "개발 프로젝트 예시",
+  //   subtitle: "풀스택 웹 애플리케이션",
+  //   description: "...",
+  //   period: "2024.01 - 2024.06",
+  //   role: "프론트엔드 개발",
+  //   team: "3인",
+  //   techStack: ["Next.js", "TypeScript", "Prisma"],
+  //   features: ["기능1", "기능2"],
+  //   links: { github: "https://github.com/...", live: "https://..." },
+  //   images: [],
+  //   color: "#4A90D9",
+  //   thumbnail: "/portfolio/youandus/1.webp",
+  // },
 ];
 
 export function getPortfolioById(id: string): PortfolioProject | undefined {
