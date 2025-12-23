@@ -62,10 +62,23 @@ export default function BlogSection({ posts, viewCounts }: Props) {
       {/* 섹션 헤더 */}
       <div className="flex items-center justify-center flex-col gap-4 mb-10">
         <div className="flex flex-col gap-2">
-          <Link href="/blog" className="group">
+          <Link href="/blog" className="group inline-flex items-center gap-2">
             <h2 className="text-3xl md:text-4xl font-bold group-hover:text-point transition-all duration-300">
               최신 인기 블로그
             </h2>
+            <svg
+              className="w-6 h-6 text-dark-400 group-hover:text-point group-hover:translate-x-1 transition-all duration-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
           </Link>
           <p className="text-dark-300 dark:text-dark-500">
             최신 인기 블로그 포스트를 확인하세요

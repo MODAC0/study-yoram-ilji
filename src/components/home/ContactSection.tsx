@@ -1,15 +1,14 @@
 "use client";
 
+import dayjs from "dayjs";
 import { motion, Variants } from "framer-motion";
-import { Github, Instagram, Linkedin, LucideIcon, Mail } from "lucide-react";
+import { Github, LucideIcon, Mail } from "lucide-react";
 import Link from "next/link";
 
 // 연락처 정보 (임의의 플레이스홀더)
 const contactInfo = {
-  email: "contact@yoram-ilji.com",
-  github: "https://github.com/username",
-  linkedin: "https://linkedin.com/in/username",
-  instagram: "https://instagram.com/username",
+  email: "modac0302@gmail.com",
+  github: "https://github.com/modac0",
 };
 
 interface SocialLink {
@@ -18,28 +17,6 @@ interface SocialLink {
   icon: LucideIcon;
   color: string;
 }
-
-const socialLinks: SocialLink[] = [
-  {
-    name: "GitHub",
-    href: contactInfo.github,
-    icon: Github,
-    color: "hover:bg-[#333] hover:text-white",
-  },
-  {
-    name: "LinkedIn",
-    href: contactInfo.linkedin,
-    icon: Linkedin,
-    color: "hover:bg-[#0077B5] hover:text-white",
-  },
-  {
-    name: "Instagram",
-    href: contactInfo.instagram,
-    icon: Instagram,
-    color:
-      "hover:bg-gradient-to-br hover:from-[#833AB4] hover:via-[#FD1D1D] hover:to-[#F77737] hover:text-white",
-  },
-];
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -74,52 +51,54 @@ export default function ContactSection() {
         viewport={{ once: true, amount: 0.3 }}
         className="max-w-md"
       >
-        {/* 제목 */}
-        <div className="mb-6 flex flex-col gap-2">
-          <Link href="/portfolio" className="group">
+        <div className="flex flex-col gap-2 mb-6 items-center justify-center">
+          <Link href="/contact" className="group flex items-center gap-2">
             <h2 className="text-3xl md:text-4xl font-bold group-hover:text-point transition-all duration-300">
-              더 알아보기
+              Contact Me
             </h2>
+            <svg
+              className="w-6 h-6 text-dark-400 group-hover:text-point group-hover:translate-x-1 transition-all duration-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
           </Link>
+          <p className="text-dark-300 dark:text-dark-500">
+            최신 인기 블로그 포스트를 확인하세요
+          </p>
         </div>
 
-        {/* 이메일 */}
-        <motion.a
-          variants={itemVariants}
-          href={`mailto:${contactInfo.email}`}
-          className="inline-flex items-center gap-3 px-6 py-4 rounded-2xl bg-linear-to-r from-point to-point-light text-white font-medium text-lg shadow-lg shadow-point/30 hover:shadow-xl hover:shadow-point/40 hover:scale-105 transition-all duration-300 mb-8"
-        >
-          <Mail className="w-5 h-5" />
-          <span>{contactInfo.email}</span>
-        </motion.a>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+          <motion.a
+            variants={itemVariants}
+            href={`mailto:${contactInfo.email}`}
+            className="flex items-center gap-3 px-6 py-4 rounded-xl bg-linear-to-r from-point to-point-light text-white shadow-lg shadow-point/30 hover:shadow-xl hover:shadow-point/40 hover:scale-105 transition-all duration-300"
+          >
+            <Mail className="w-5 h-5" />
+            <span>이메일</span>
+          </motion.a>
 
-        <motion.div
-          variants={itemVariants}
-          className="flex justify-center gap-4"
-        >
-          {socialLinks.map((link) => {
-            const IconComponent = link.icon;
-            return (
-              <a
-                key={link.name}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`p-3 rounded-xl bg-light-200 dark:bg-dark-800 transition-all duration-300 hover:scale-110 ${link.color}`}
-                aria-label={link.name}
-              >
-                <IconComponent className="w-6 h-6" />
-              </a>
-            );
-          })}
-        </motion.div>
-
-        {/* 추가 문구 */}
+          <motion.a
+            variants={itemVariants}
+            href={`${contactInfo.github}`}
+            className="flex items-center gap-3 px-6 py-4 rounded-xl bg-linear-to-r from-point to-point-light text-white shadow-lg shadow-point/30 hover:shadow-xl hover:shadow-point/40 hover:scale-105 transition-all duration-300"
+          >
+            <Github className="w-6 h-6" />
+            <span>깃허브</span>
+          </motion.a>
+        </div>
         <motion.p
           variants={itemVariants}
           className="mt-12 text-sm text-dark-300 dark:text-dark-600"
         >
-          © 2024 요람일지. All rights reserved.
+          ©{dayjs().year()} 요람일지. All rights reserved.
         </motion.p>
       </motion.div>
     </div>
