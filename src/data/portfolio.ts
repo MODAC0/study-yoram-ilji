@@ -108,60 +108,6 @@ export const portfolioProjects: PortfolioProject[] = [
     color: "#D4C4B0",
     thumbnail: "/portfolio/ottogimall/1.webp",
   },
-  {
-    id: "anneklein1",
-    category: "design",
-    title: "ANNE KLEIN Promotion",
-    subtitle: "앤클라인 프로모션 페이지 디자인",
-    description:
-      "2021 시즌의 룩북 촬영을 보조하고 선별된 컷을 활용하여 프로모션 페이지를 디자인했습니다. 세련된 비주얼과 셀링 포인트를 강조하여 브랜드 인지도를 높였습니다.",
-    period: "2021",
-    role: "웹 디자인",
-    type: "Promotion Design",
-    tools: ["Figma", "Adobe Photoshop"],
-    images: Array.from(
-      { length: 3 },
-      (_, i) => `/portfolio/anneklein/${i + 1}.webp`
-    ),
-    color: "#1C1C1C",
-    thumbnail: "/portfolio/anneklein/1.webp",
-  },
-  {
-    id: "youandus1",
-    category: "design",
-    title: "YOUANDUS",
-    subtitle: "하이엔드 인테리어 큐레이션 브랜드 웹사이트",
-    description:
-      "30여 년의 노하우를 바탕으로 패브릭, 카펫, 바닥재, 벽 마감재, 주방, 가구에 이르기까지 하이엔드 공간을 위한 토탈 큐레이션 브랜드의 웹사이트 디자인입니다. 세련된 비주얼과 직관적인 네비게이션으로 브랜드 아이덴티티를 효과적으로 전달합니다.",
-    period: "2021",
-    role: "웹 디자인",
-    type: "UI&UX Design",
-    tools: ["Figma", "Adobe Photoshop"],
-    images: Array.from(
-      { length: 25 },
-      (_, i) => `/portfolio/youandus/${i + 1}.webp`
-    ),
-    color: "#1C1C1C",
-    thumbnail: "/portfolio/youandus/1.webp",
-  },
-  {
-    id: "ottogimall1",
-    category: "design",
-    title: "Ottogi Mall",
-    subtitle: "오뚜기 이커머스 웹사이트 리뉴얼 프로젝트",
-    description:
-      "사용자 경험을 중심으로 한 직관적인 UI/UX 개선과 브랜드 아이덴티티를 살린 현대적인 디자인 시스템 구축을 통한 이커머스 웹사이트 리뉴얼 프로젝트입니다.",
-    period: "2022",
-    role: "웹 디자인",
-    type: "UI&UX Design",
-    tools: ["Figma", "Adobe Photoshop"],
-    images: Array.from(
-      { length: 3 },
-      (_, i) => `/portfolio/ottogimall/${i + 1}.webp`
-    ),
-    color: "#1C1C1C",
-    thumbnail: "/portfolio/ottogimall/1.webp",
-  },
   // 개발 포트폴리오 예시 (추후 추가용)
   // {
   //   id: "example-dev",
