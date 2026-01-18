@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Mail, MapPin } from "lucide-react";
-import { SphereModel } from "../common/SphereModel";
+import { motion } from 'framer-motion';
+import { Mail, MapPin } from 'lucide-react';
+import { SphereModel } from '../common/SphereModel';
 
 export function ProfileHero() {
   return (
@@ -12,8 +12,7 @@ export function ProfileHero() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
+            transition={{ duration: 0.5, delay: 0.2 }}>
             <div className="text-center pb-6 mb-6 border-b border-slate-200 dark:border-slate-800">
               <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
                 JUNHEI KIM
@@ -32,7 +31,8 @@ export function ProfileHero() {
                 저만의 무기입니다.
                 <br />
                 <br />
-                도전을 성과로 증명하는 적응력 익숙한 React 대신 사내 기술 스택인
+                첫 실무를 경험했던 프로젝트에서는 도전을 성과로 증명하는
+                적응력을 보여주었습니다. 익숙한 React 대신 사내 기술 스택인
                 Angular/Ionic을 빠르게 습득하여 부동산 앱의 핵심 기능(지도
                 뷰포트 렌더링, 서버리스 DSR 계산기)을 고도화했습니다. 이후
                 이직한 회사에서는 대규모 LMS 구축을 통해 대용량 데이터 처리
@@ -40,11 +40,11 @@ export function ProfileHero() {
                 투입되었습니다.
                 <br />
                 <br />
-                기술의 깊이를 더하다: AI와 Three.js 특히 최근 5개월간은 LLM
-                백엔드와 통신하는 3D 시각화(Three.js) 프로젝트를 전담했습니다.
-                생소한 분야였지만 철저한 기술 검증과 목업 제작을 통해 AI
-                에이전트 서비스를 성공적으로 구현했으며, Next.js 기반의
-                인증/결제 시스템까지 붙여 실제 비즈니스 모델이 작동하는 데모를
+                최근 5개월간은 LLM 백엔드와 통신하는 채팅 서비스와 3D 상품
+                전시를 시각화(Three.js)하는 프로젝트를 전담했습니다. 생소한
+                분야였지만 철저한 기술 검증과 목업 제작을 통해 AI 에이전트
+                서비스를 성공적으로 구현했으며, Next.js 기반의 인증/결제
+                시스템까지 붙여 실제 비즈니스 모델이 작동하는 데모를
                 완성했습니다.
                 <br />
                 <br />
