@@ -25,8 +25,8 @@ export default function BlogSection({ posts, viewCounts }: Props) {
           const viewsA = viewCounts[a.id] || 0;
           const viewsB = viewCounts[b.id] || 0;
           if (viewsB !== viewsA) return viewsB - viewsA;
-          return dayjs(b.properties.생성일.last_edited_time).diff(
-            dayjs(a.properties.생성일.last_edited_time),
+          return dayjs(b.properties.발행일.last_edited_time).diff(
+            dayjs(a.properties.발행일.last_edited_time),
           );
         })
         .slice(0, 6),
