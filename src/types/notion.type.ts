@@ -32,7 +32,7 @@ export interface NotionAnnotations {
  * Notion의 RichText 객체 (Title, RichText 타입에서 사용)
  */
 export interface RichTextItem {
-  type: "text"; // "mention", "equation" 등도 가능
+  type: 'text'; // "mention", "equation" 등도 가능
   text: {
     content: string;
     link: { url: string } | null;
@@ -46,7 +46,7 @@ export interface RichTextItem {
  * Notion 사용자 객체
  */
 export interface NotionUser {
-  object: "user";
+  object: 'user';
   id: string;
 }
 
@@ -55,19 +55,17 @@ export interface NotionUser {
  * "emoji", "file" 타입도 존재할 수 있습니다.
  */
 export interface NotionIcon {
-  type: "external";
+  type: 'external';
   external: {
     url: string;
   };
-  // type: "emoji"; emoji: string;
-  // | ...
 }
 
 /**
  * Notion Parent 객체 (예시 기준)
  */
 export interface NotionParent {
-  type: "data_source_id"; // "database_id", "page_id" 등도 가능
+  type: 'data_source_id'; // "database_id", "page_id" 등도 가능
   data_source_id: string;
   database_id: string;
 }
@@ -82,90 +80,63 @@ export interface NotionPropertyBase {
  * "제목" 속성 (type: "title")
  */
 export interface NotionTitleProperty extends NotionPropertyBase {
-  type: "title";
+  type: 'title';
   title: RichTextItem[];
-}
-
-/**
- * "작성자" 속성 (type: "url")
- */
-export interface NotionUrlProperty extends NotionPropertyBase {
-  type: "url";
-  url: string | null;
 }
 
 /**
  * "카테고리" 속성 (type: "select")
  */
 export interface NotionSelectProperty extends NotionPropertyBase {
-  type: "select";
+  type: 'select';
   select: NotionSelectOption | null;
 }
 
 /**
- * "작성일", "발행일" 속성 (type: "date")
+ * "생성일", "발행일" 속성 (type: "date")
  */
-export interface NotionDateProperty extends NotionPropertyBase {
-  type: "date";
-  date: NotionDate | null;
+export interface NotionUpdateDateProperty extends NotionPropertyBase {
+  id: string;
   last_edited_time: string;
+  type: 'last_edited_time';
+}
+
+export interface NotionCreateDateProperty extends NotionPropertyBase {
+  id: string;
+  created_time: string;
+  type: 'created_time';
 }
 
 /**
  * "조회수" 속성 (type: "number")
  */
 export interface NotionNumberProperty extends NotionPropertyBase {
-  type: "number";
+  type: 'number';
   number: number | null;
-}
-
-/**
- * "상태" 속성 (type: "status")
- */
-export interface NotionStatusProperty extends NotionPropertyBase {
-  type: "status";
-  status: NotionSelectOption | null; // SelectOption과 구조가 동일
 }
 
 /**
  * "발행" 속성 (type: "checkbox")
  */
 export interface NotionCheckboxProperty extends NotionPropertyBase {
-  type: "checkbox";
+  type: 'checkbox';
   checkbox: boolean;
 }
 
-/**
- * "태그" 속성 (type: "multi_select")
- */
-export interface NotionMultiSelectProperty extends NotionPropertyBase {
-  type: "multi_select";
-  multi_select: NotionSelectOption[];
-}
-
-/**
- * 제공된 데이터베이스의 'properties' 객체 스키마
- * (가장 중요한 타입)
- */
 export interface MyDatabaseProperties {
-  작성자: NotionUrlProperty;
   카테고리: NotionSelectProperty;
-  작성일: NotionDateProperty;
-  발행일: NotionDateProperty;
+  생성일: NotionCreateDateProperty;
+  발행일: NotionUpdateDateProperty;
   조회수: NotionNumberProperty;
-  상태: NotionStatusProperty;
   발행: NotionCheckboxProperty;
-  태그: NotionMultiSelectProperty;
-  제목: NotionTitleProperty;
-  // 여기에 없는 'rich_text', 'people', 'files' 등의 다른 속성 타입도
-  // API 응답에 따라 추가될 수 있습니다.
+  이름: NotionTitleProperty;
 }
 
 /**
  * Notion 페이지 객체 (Page Object)
  */
 export interface NotionPage {
-  object: "page";
+  object: 'page';
   id: string;
   created_time: string; // ISO 8601 date string
   last_edited_time: string; // ISO 8601 date string
@@ -186,11 +157,11 @@ export interface NotionPage {
  * Notion 데이터베이스 Query API의 최상위 응답 객체
  */
 export interface NotionQueryResponse {
-  object: "list";
+  object: 'list';
   results: NotionPage[]; // 페이지 객체의 배열
   next_cursor: string | null;
   has_more: boolean;
-  type: "page_or_data_source";
+  type: 'page_or_data_source';
   page_or_data_source: object; // 또는 Record<string, unknown>
   request_id: string;
 }

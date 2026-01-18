@@ -1,18 +1,18 @@
-import ViewCounter from "@/components/blog/ViewCounter";
-import NotionBlock from "@/components/common/NotionBlock";
+import ViewCounter from '@/components/blog/ViewCounter';
+import NotionBlock from '@/components/common/NotionBlock';
 import {
   generateArticleJsonLd,
   generateSeoMetadata,
   siteConfig,
-} from "@/lib/seo";
-import { getBlogPosts, getPost, getPostContent } from "@/services/notion.api";
-import { NotionPage } from "@/types/notion.type";
-import { getNotionBlogImageUrl, getNotionBlogTitle } from "@/utils/getResource";
-import { getProxiedCoverUrl } from "@/utils/notion-image-url";
-import { BlockObjectResponse } from "@notionhq/client";
-import dayjs from "dayjs";
-import { Metadata } from "next";
-import Image from "next/image";
+} from '@/lib/seo';
+import { getBlogPosts, getPost, getPostContent } from '@/services/notion.api';
+import { NotionPage } from '@/types/notion.type';
+import { getNotionBlogImageUrl, getNotionBlogTitle } from '@/utils/getResource';
+import { getProxiedCoverUrl } from '@/utils/notion-image-url';
+import { BlockObjectResponse } from '@notionhq/client';
+import dayjs from 'dayjs';
+import { Metadata } from 'next';
+import Image from 'next/image';
 
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return generateSeoMetadata({
     title,
-    description: `${category ? `[${category}] ` : ""}${title}`,
+    description: `${category ? `[${category}] ` : ''}${title}`,
     image: coverImage,
     pathname: `/blog/${id}`,
   });
@@ -52,7 +52,8 @@ export default async function PostPage({ params }: Props) {
   const originalCoverImage = getNotionBlogImageUrl(post);
   const coverImage = getProxiedCoverUrl(originalCoverImage, id);
   const publishedTime =
-    post.properties.발행일.date?.start || post.last_edited_time;
+    post.properties.생성일.created_time ||
+    post.properties.발행일.last_edited_time;
 
   const jsonLd = generateArticleJsonLd({
     title,
@@ -93,16 +94,16 @@ export default async function PostPage({ params }: Props) {
             </span>
           )}
           <h1 className="text-4xl font-bold mb-4">
-            {post.properties.제목.title[0].plain_text}
+            {post.properties.이름.title[0].plain_text}
           </h1>
         </div>
         <div className="flex items-center mb-8 gap-2 text-dark-400">
           <span>
-            발행일: {dayjs(post.created_time).format("YYYY년 MM월 DD일")}
+            발행일: {dayjs(post.created_time).format('YYYY년 MM월 DD일')}
           </span>
           <span>·</span>
           <span>
-            수정일: {dayjs(post.last_edited_time).format("YYYY년 MM월 DD일")}
+            수정일: {dayjs(post.last_edited_time).format('YYYY년 MM월 DD일')}
           </span>
           <span>·</span>
           <ViewCounter postId={id} />

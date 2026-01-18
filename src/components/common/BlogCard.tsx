@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { NotionPage } from "@/types/notion.type";
-import { getNotionBlogImageUrl, getNotionBlogTitle } from "@/utils/getResource";
-import { getProxiedCoverUrl } from "@/utils/notion-image-url";
-import dayjs from "dayjs";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import RetryImage from "./RetryImage";
+import { NotionPage } from '@/types/notion.type';
+import { getNotionBlogImageUrl, getNotionBlogTitle } from '@/utils/getResource';
+import { getProxiedCoverUrl } from '@/utils/notion-image-url';
+import dayjs from 'dayjs';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import RetryImage from './RetryImage';
 
 export default function BlogCard({
   post,
@@ -19,8 +19,8 @@ export default function BlogCard({
   const originalCoverUrl = getNotionBlogImageUrl(post);
   const coverImageUrl = getProxiedCoverUrl(originalCoverUrl, post.id);
   const category = post.properties.카테고리.select?.name;
-  const createdDate = dayjs(post.properties.작성일.last_edited_time).format(
-    "YYYY.MM.DD"
+  const createdDate = dayjs(post.properties.생성일.created_time).format(
+    'YYYY.MM.DD',
   );
 
   return (
@@ -52,8 +52,7 @@ export default function BlogCard({
             <div className="absolute top-3 left-3">
               <span
                 className="px-3 py-1 text-xs font-medium bg-white/90 dark:bg-black/70 
-                             text-gray-800 dark:text-gray-200 rounded-full backdrop-blur-sm"
-              >
+                             text-gray-800 dark:text-gray-200 rounded-full backdrop-blur-sm">
                 {category}
               </span>
             </div>
@@ -62,8 +61,7 @@ export default function BlogCard({
           <div className="absolute bottom-0 left-0 flex flex-col text-start flex-1 p-4 z-10 bg-white/65 backdrop-blur-xs w-full">
             <h3
               className="font-semibold text-lg line-clamp-2 mb-2 text-dark-900
-                        group-hover:text-point transition-all duration-300"
-            >
+                        group-hover:text-point transition-all duration-300">
               {title}
             </h3>
             <div className="flex items-center gap-2">

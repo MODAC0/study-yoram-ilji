@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { NotionPage } from "@/types/notion.type";
-import dayjs from "dayjs";
-import { AnimatePresence, motion, PanInfo } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import Link from "next/link";
-import { useMemo, useState } from "react";
-import BlogCard from "../common/BlogCard";
+import { NotionPage } from '@/types/notion.type';
+import dayjs from 'dayjs';
+import { AnimatePresence, motion, PanInfo } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { useMemo, useState } from 'react';
+import BlogCard from '../common/BlogCard';
 
 const ITEMS_PER_PAGE = 3;
 
@@ -25,18 +25,18 @@ export default function BlogSection({ posts, viewCounts }: Props) {
           const viewsA = viewCounts[a.id] || 0;
           const viewsB = viewCounts[b.id] || 0;
           if (viewsB !== viewsA) return viewsB - viewsA;
-          return dayjs(b.properties.작성일.last_edited_time).diff(
-            dayjs(a.properties.작성일.last_edited_time)
+          return dayjs(b.properties.생성일.last_edited_time).diff(
+            dayjs(a.properties.생성일.last_edited_time),
           );
         })
         .slice(0, 6),
-    [posts, viewCounts]
+    [posts, viewCounts],
   );
   const totalPages = Math.ceil(displayPosts.length / ITEMS_PER_PAGE);
 
   const handleDragEnd = (
     _: MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo
+    info: PanInfo,
   ) => {
     const threshold = 50;
     if (info.offset.x < -threshold && currentPage < totalPages - 1) {
@@ -54,7 +54,7 @@ export default function BlogSection({ posts, viewCounts }: Props) {
 
   const currentPosts = displayPosts.slice(
     currentPage * ITEMS_PER_PAGE,
-    (currentPage + 1) * ITEMS_PER_PAGE
+    (currentPage + 1) * ITEMS_PER_PAGE,
   );
 
   return (
@@ -70,8 +70,7 @@ export default function BlogSection({ posts, viewCounts }: Props) {
               className="w-6 h-6 text-dark-400 group-hover:text-point group-hover:translate-x-1 transition-all duration-300"
               fill="none"
               stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+              viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -94,8 +93,7 @@ export default function BlogSection({ posts, viewCounts }: Props) {
               className="p-2 rounded-full border border-gray-300 dark:border-gray-600 
                          disabled:opacity-30 disabled:cursor-not-allowed 
                          hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              aria-label="이전 페이지"
-            >
+              aria-label="이전 페이지">
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
@@ -104,8 +102,7 @@ export default function BlogSection({ posts, viewCounts }: Props) {
               className="p-2 rounded-full border border-gray-300 dark:border-gray-600 
                          disabled:opacity-30 disabled:cursor-not-allowed 
                          hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              aria-label="다음 페이지"
-            >
+              aria-label="다음 페이지">
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
@@ -119,17 +116,15 @@ export default function BlogSection({ posts, viewCounts }: Props) {
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.2}
           onDragEnd={handleDragEnd}
-          className="cursor-grab active:cursor-grabbing"
-        >
+          className="cursor-grab active:cursor-grabbing">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentPage}
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-            >
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {currentPosts.map((post) => (
                 <BlogCard
                   key={post.id}
@@ -151,8 +146,8 @@ export default function BlogSection({ posts, viewCounts }: Props) {
               onClick={() => goToPage(index)}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                 currentPage === index
-                  ? "w-6 bg-point"
-                  : "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400"
+                  ? 'w-6 bg-point'
+                  : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400'
               }`}
               aria-label={`페이지 ${index + 1}로 이동`}
             />
