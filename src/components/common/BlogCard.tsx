@@ -60,14 +60,14 @@ export default function BlogCard({
 
           <div className="absolute bottom-0 left-0 flex flex-col text-start flex-1 p-4 z-10 bg-white/65 backdrop-blur-xs w-full">
             <h3
-              className="font-semibold text-lg line-clamp-2 mb-2 text-dark-900
+              className="font-semibold line-clamp-2 leading-tight mb-2 text-dark-900!
                         group-hover:text-point transition-all duration-300">
               {title}
             </h3>
-            <div className="flex items-center gap-2">
-              <p className="text-sm text-dark-400 mt-auto">{createdDate}</p>
-              <span className="text-sm text-dark-400 mt-auto">·</span>
-              <span className="text-sm text-dark-400 mt-auto">
+            <div className="flex items-center text-sm gap-2">
+              <p className="text-dark-400! mt-auto">{createdDate}</p>
+              <span className="text-dark-400! mt-auto">·</span>
+              <span className="text-dark-400! mt-auto">
                 {viewCount ?? 0} view
               </span>
             </div>
