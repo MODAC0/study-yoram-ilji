@@ -1,9 +1,10 @@
 'use client';
 
 import { motion, Variants } from 'framer-motion';
-import { Check, Copy, Github, LucideIcon } from 'lucide-react';
+import { Github, LucideIcon, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import EmailModal from '../common/EmailModal';
 
 // 연락처 정보 (임의의 플레이스홀더)
 const contactInfo = {
@@ -43,6 +44,7 @@ const itemVariants: Variants = {
 
 export default function ContactSection() {
   const [copied, setCopied] = useState(false);
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
 
   const handleCopyEmail = async () => {
     try {
@@ -82,21 +84,19 @@ export default function ContactSection() {
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+          {/* 이메일 보내기 버튼 */}
           <button
-            className="flex items-center gap-3 rounded-full px-8 py-3 font-medium transition-colors cursor-pointer"
-            onClick={handleCopyEmail}>
-            {copied ? (
-              <Check className="w-5 h-5" />
-            ) : (
-              <Copy className="w-5 h-5" />
-            )}
-            <span>{copied ? '복사됨!' : '이메일 복사'}</span>
+            onClick={() => setIsEmailModalOpen(true)}
+            className="flex items-center justify-center gap-3 rounded-full px-6 py-3 bg-point hover:bg-point-dark text-white font-medium transition-colors cursor-pointer">
+            <Mail className="w-5 h-5" />
+            <span>이메일 보내기</span>
           </button>
+          {/* 깃허브 링크 */}
           <Link
             href={contactInfo.github}
             target="_blank"
-            className="rounded-full flex items-center gap-3 prounded-full px-8 py-3 border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-dark-700 text-slate-900 dark:text-white font-medium transition-colors group cursor-pointer">
-            <Github className="w-6 h-6" />
+            className="rounded-full flex items-center justify-center gap-3 px-6 py-3 border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-dark-700 text-slate-900 dark:text-white font-medium transition-colors group cursor-pointer">
+            <Github className="w-5 h-5" />
             <span>깃허브</span>
           </Link>
         </div>
@@ -107,6 +107,12 @@ export default function ContactSection() {
           ©2025 요람일지. All rights reserved.
         </motion.p>
       </motion.div>
+
+      {/* 이메일 모달 */}
+      <EmailModal
+        isOpen={isEmailModalOpen}
+        onClose={() => setIsEmailModalOpen(false)}
+      />
     </div>
   );
 }
