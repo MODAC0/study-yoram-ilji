@@ -43,31 +43,6 @@ export default function DevelopmentHeroSection() {
   return (
     <div className="w-full h-full flex items-center justify-center relative z-10 pointer-events-auto px-6">
       <div className="max-w-7xl w-full">
-        <div className="mb-8">
-          <Link
-            href="/portfolio?category=development"
-            className="group inline-flex items-center gap-2">
-            <h2 className="text-3xl md:text-4xl font-bold group-hover:text-point transition-all duration-300">
-              개발 포트폴리오
-            </h2>
-            <svg
-              className="w-6 h-6 text-dark-400 group-hover:text-point group-hover:translate-x-1 transition-all duration-300"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </Link>
-          <p className="text-dark-300 dark:text-dark-500 mt-2">
-            최신 개발 프로젝트를 확인해보세요
-          </p>
-        </div>
-
         <div className="relative w-full aspect-video max-md:aspect-3/4 rounded-2xl overflow-hidden">
           <Swiper
             modules={[Autoplay, EffectFade, Navigation]}
@@ -89,16 +64,17 @@ export default function DevelopmentHeroSection() {
             className="w-full h-full">
             {portfolios.map((portfolio) => (
               <SwiperSlide key={portfolio.id}>
-                <div className="relative w-full h-full">
+                <Link
+                  href={`/portfolio/${portfolio.id}`}
+                  className="w-full h-full group relative block overflow-hidden rounded-2xl">
                   <Image
                     src={portfolio.thumbnail}
                     alt={portfolio.title}
                     fill
-                    className="object-cover"
+                    className="object-cover group-hover:scale-110 transition-transform duration-500 pointer-events-none"
                     priority
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
-                  <div className="absolute inset-0 bg-linear-to-r from-black/60 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />
 
                   <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10">
                     <div className="max-w-2xl text-left">
@@ -113,27 +89,9 @@ export default function DevelopmentHeroSection() {
                       <p className="w-fit text-light-100/80 text-sm md:text-base mb-12">
                         {portfolio.subtitle}
                       </p>
-
-                      <Link
-                        href={`/portfolio/${portfolio.id}`}
-                        className=" inline-flex items-center gap-2 px-5 py-2.5 bg-point text-white font-medium rounded-full hover:bg-point-dark hover:text-light-100 transition-all duration-300">
-                        <span>자세히 보기</span>
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
-                        </svg>
-                      </Link>
                     </div>
                   </div>
-                </div>
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>
