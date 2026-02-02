@@ -2,9 +2,8 @@
 
 import { DevelopmentPortfolio } from '@/data/portfolio';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Github, X } from 'lucide-react';
+import { ExternalLink, Github, X } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 interface Props {
@@ -37,9 +36,7 @@ export default function DevelopmentPortfolioDetail({ project }: Props) {
 
   return (
     <div className="min-h-screen">
-      {/* 히어로 섹션 - 썸네일 배경 */}
       <section className="relative h-[60vh] min-h-[500px]">
-        {/* 배경 이미지 */}
         <div className="absolute inset-0">
           <Image
             src={project.thumbnail}
@@ -55,14 +52,6 @@ export default function DevelopmentPortfolioDetail({ project }: Props) {
         {/* 콘텐츠 오버레이 */}
         <div className="relative h-full flex flex-col justify-end px-6 pb-12">
           <div className="max-w-6xl mx-auto w-full">
-            {/* 뒤로가기 */}
-            <Link
-              href="/portfolio"
-              className="inline-flex items-center gap-2 text-dark-600 dark:text-dark-400 hover:text-point transition-colors mb-6 group">
-              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-              <span>포트폴리오로 돌아가기</span>
-            </Link>
-
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

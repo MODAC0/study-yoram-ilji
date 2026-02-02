@@ -3,7 +3,7 @@
 import { NotionPage } from '@/types/notion.type';
 import dayjs from 'dayjs';
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import { EffectCoverflow } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function BlogSection({ posts, viewCounts }: Props) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
 
   const displayPosts = useMemo(
@@ -36,69 +36,84 @@ export default function BlogSection({ posts, viewCounts }: Props) {
     [posts, viewCounts],
   );
 
+  const [activeIndex, setActiveIndex] = useState(
+    Math.floor(displayPosts.length / 2),
+  );
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
-    <div className="max-w-7xl w-full px-6 relative z-10 pointer-events-auto">
-      {/* 섹션 헤더 */}
-      <div className="flex items-center justify-between mb-10">
-        <div className="flex flex-col gap-2">
-          <Link href="/blog" className="group inline-flex items-center gap-2">
-            <h2 className="text-3xl md:text-4xl font-bold group-hover:text-point transition-all duration-300">
-              인기 블로그
-            </h2>
-            <svg
-              className="w-6 h-6 text-dark-400 group-hover:text-point group-hover:translate-x-1 transition-all duration-300"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </Link>
-          <p className="text-dark-400 dark:text-dark-500">
-            조회수 기준 인기 포스트
-          </p>
-        </div>
+    <div className="w-full mx-auto px-6 py-16 relative z-10 pointer-events-auto">
+      <div className="mb-8">
+        <Link href="/blog" className="group inline-flex items-center gap-2">
+          <h2 className="text-3xl md:text-4xl font-bold group-hover:text-point transition-all duration-300">
+            블로그
+          </h2>
+          <svg
+            className="w-6 h-6 text-dark-400 group-hover:text-point group-hover:translate-x-1 transition-all duration-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </Link>
+        <p className="text-dark-300 dark:text-dark-500 mt-2">
+          인기 있는 최신 글들을 만나보세요
+        </p>
       </div>
 
-      {/* 스와이프 캐러셀 */}
-      <Swiper
-        modules={[EffectCoverflow]}
-        effect="coverflow"
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView="auto"
-        initialSlide={0}
-        coverflowEffect={{
-          rotate: 0,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: false,
-        }}
-        speed={500}
-        onSwiper={setSwiperInstance}
-        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-        className="overflow-visible! py-4">
-        {displayPosts.map((post, index) => {
-          const isActive = index === activeIndex;
-          return (
-            <SwiperSlide
-              key={post.id}
-              className="w-[280px]! sm:w-[320px]! md:w-[380px]! select-none">
-              <div
-                className={`transition-all duration-300 ${
-                  isActive ? 'scale-100' : 'scale-95 opacity-70'
-                }`}>
-                <BlogCard post={post} viewCount={viewCounts[post.id]} />
-              </div>
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
+      {mounted ? (
+        <Swiper
+          modules={[EffectCoverflow]}
+          effect="coverflow"
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView="auto"
+          initialSlide={Math.floor(displayPosts.length / 2)}
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: false,
+          }}
+          speed={500}
+          onSwiper={setSwiperInstance}
+          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+          className="overflow-visible! py-4">
+          {displayPosts.map((post, index) => {
+            const isActive = index === activeIndex;
+            return (
+              <SwiperSlide
+                key={post.id}
+                className="w-[280px]! sm:w-[320px]! md:w-[380px]! select-none">
+                <div
+                  className={`transition-all duration-300 ${
+                    isActive ? 'scale-100' : 'scale-95 opacity-70'
+                  }`}>
+                  <BlogCard post={post} viewCount={viewCounts[post.id]} />
+                </div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      ) : (
+        <div className="flex gap-6 justify-center py-4">
+          {[1, 2, 3].map((i) => (
+            <div
+              key={i}
+              className="w-[280px] sm:w-[320px] md:w-[380px] aspect-4/3 rounded-2xl bg-light-300 dark:bg-dark-700 animate-pulse"
+            />
+          ))}
+        </div>
+      )}
 
       {/* 인디케이터 */}
       <div className="flex justify-center gap-2 mt-8">
