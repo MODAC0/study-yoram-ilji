@@ -1,15 +1,15 @@
-import BlogListClient from "@/components/blog/BlogListClient";
-import { getAllViewCounts } from "@/lib/firebase-admin";
-import { getBlogPosts } from "@/services/notion.api";
-import { Metadata } from "next";
+import BlogListClient from '@/components/blog/BlogListClient';
+import { getAllViewCounts } from '@/lib/firebase-admin';
+import { getBlogPosts } from '@/services/notion.api';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "블로그",
+  title: '블로그',
   description:
-    "개발, 기술, 프로젝트에 관한 글을 공유합니다. 다양한 카테고리의 포스트를 확인하세요.",
+    '개발, 기술, 프로젝트에 관한 글을 공유합니다. 다양한 카테고리의 포스트를 확인하세요.',
   openGraph: {
-    title: "블로그",
-    description: "개발, 기술, 프로젝트에 관한 글을 공유합니다.",
+    title: '블로그',
+    description: '개발, 기술, 프로젝트에 관한 글을 공유합니다.',
   },
 };
 
@@ -22,7 +22,7 @@ export default async function BlogPage() {
   ]);
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto max-lg:px-5">
       <h1 className="text-4xl font-bold mb-8">블로그</h1>
       <BlogListClient posts={posts} viewCounts={viewCounts} />
     </div>

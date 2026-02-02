@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { NotionPage } from "@/types/notion.type";
-import clsx from "clsx";
-import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import BlogCard from "../common/BlogCard";
+import { NotionPage } from '@/types/notion.type';
+import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import BlogCard from '../common/BlogCard';
 
 interface Props {
   posts: NotionPage[];
@@ -31,7 +31,7 @@ export default function BlogListClient({ posts, viewCounts }: Props) {
   const filteredPosts = useMemo(() => {
     if (!selectedCategory) return posts;
     return posts.filter(
-      (post) => post.properties.카테고리.select?.name === selectedCategory
+      (post) => post.properties.카테고리.select?.name === selectedCategory,
     );
   }, [posts, selectedCategory]);
 
@@ -41,7 +41,7 @@ export default function BlogListClient({ posts, viewCounts }: Props) {
   const loadMore = useCallback(() => {
     if (hasMore) {
       setDisplayCount((prev) =>
-        Math.min(prev + ITEMS_PER_LOAD, filteredPosts.length)
+        Math.min(prev + ITEMS_PER_LOAD, filteredPosts.length),
       );
     }
   }, [hasMore, filteredPosts.length]);
@@ -59,7 +59,7 @@ export default function BlogListClient({ posts, viewCounts }: Props) {
           loadMore();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     const currentLoader = loaderRef.current;
@@ -81,14 +81,13 @@ export default function BlogListClient({ posts, viewCounts }: Props) {
         <button
           onClick={() => handleCategoryChange(null)}
           className={clsx(
-            "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer",
+            'px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer',
             {
-              "bg-point text-white": selectedCategory === null,
-              "bg-light-400 dark:bg-dark-600 text-dark-600 dark:text-light-300 hover:bg-point-light dark:hover:bg-point-dark":
+              'bg-point text-white': selectedCategory === null,
+              'bg-light-400 dark:bg-dark-600 text-dark-600 dark:text-light-300 hover:bg-point-light dark:hover:bg-point-dark':
                 selectedCategory !== null,
-            }
-          )}
-        >
+            },
+          )}>
           전체
         </button>
         {categories.map((category) => (
@@ -96,14 +95,13 @@ export default function BlogListClient({ posts, viewCounts }: Props) {
             key={category}
             onClick={() => handleCategoryChange(category)}
             className={clsx(
-              "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer",
+              'px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer',
               {
-                "bg-point text-white": selectedCategory === category,
-                "bg-light-300 dark:bg-dark-700 text-dark-600 dark:text-light-300 hover:bg-point-light dark:hover:bg-point-dark":
+                'bg-point text-white': selectedCategory === category,
+                'bg-light-300 dark:bg-dark-700 text-dark-600 dark:text-light-300 hover:bg-point-light dark:hover:bg-point-dark':
                   selectedCategory !== category,
-              }
-            )}
-          >
+              },
+            )}>
             {category}
           </button>
         ))}
@@ -117,13 +115,12 @@ export default function BlogListClient({ posts, viewCounts }: Props) {
       {/* 블로그 그리드 */}
       <AnimatePresence mode="wait">
         <motion.div
-          key={selectedCategory ?? "all"}
+          key={selectedCategory ?? 'all'}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {displayPosts.map((post, index) => (
             <motion.div
               key={post.id}
@@ -132,8 +129,7 @@ export default function BlogListClient({ posts, viewCounts }: Props) {
               transition={{
                 duration: 0.3,
                 delay: (index % ITEMS_PER_LOAD) * 0.05,
-              }}
-            >
+              }}>
               <BlogCard post={post} viewCount={viewCounts[post.id]} />
             </motion.div>
           ))}
@@ -146,15 +142,15 @@ export default function BlogListClient({ posts, viewCounts }: Props) {
           <div className="flex gap-2">
             <span
               className="w-2 h-2 bg-point rounded-full animate-bounce"
-              style={{ animationDelay: "0ms" }}
+              style={{ animationDelay: '0ms' }}
             />
             <span
               className="w-2 h-2 bg-point rounded-full animate-bounce"
-              style={{ animationDelay: "150ms" }}
+              style={{ animationDelay: '150ms' }}
             />
             <span
               className="w-2 h-2 bg-point rounded-full animate-bounce"
-              style={{ animationDelay: "300ms" }}
+              style={{ animationDelay: '300ms' }}
             />
           </div>
         </div>

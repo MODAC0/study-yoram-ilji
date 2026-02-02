@@ -1,13 +1,13 @@
-import "@/assets/styles/globals.css";
-import AppProvider from "@/components/AppProvider";
-import Header from "@/components/common/Header";
-import RouteChangeLoader from "@/components/common/RouteChangeLoader";
-import CursorTrail from "@/components/effects/CursorTrail";
-import { siteConfig } from "@/lib/seo";
-import type { Metadata, Viewport } from "next";
+import '@/assets/styles/globals.css';
+import AppProvider from '@/components/AppProvider';
+import Header from '@/components/common/Header';
+import RouteChangeLoader from '@/components/common/RouteChangeLoader';
+import CursorTrail from '@/components/effects/CursorTrail';
+import { siteConfig } from '@/lib/seo';
+import type { Metadata, Viewport } from 'next';
 
 export const viewport: Viewport = {
-  width: "device-width",
+  width: 'device-width',
   initialScale: 1,
   themeColor: siteConfig.themeColor,
 };
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   metadataBase: new URL(siteConfig.url),
   alternates: {
-    canonical: "/",
+    canonical: '/',
   },
   openGraph: {
     title: siteConfig.name,
@@ -28,10 +28,10 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     siteName: siteConfig.name,
     locale: siteConfig.locale,
-    type: "website",
+    type: 'website',
   },
   twitter: {
-    card: "summary_large_image",
+    card: 'summary_large_image',
     title: siteConfig.name,
     description: siteConfig.description,
   },
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
     },
   },
   authors: [{ name: siteConfig.author.name, url: siteConfig.author.url }],
@@ -58,6 +58,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" suppressHydrationWarning>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+        />
+      </head>
       <body>
         <AppProvider>
           <CursorTrail />

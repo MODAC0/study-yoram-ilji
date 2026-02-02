@@ -1,49 +1,113 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
-
 @import 'tailwindcss';
-@import './tailwind.config.css';
-@plugin "../../../hero.ts";
+
+@plugin '../../../hero.ts';
 @source '../../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 
-*,
-*:before,
-*::after {
-  font-family: 'pretendard', sans-serif;
-  @apply text-dark-900 dark:text-light-100;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
-html {
-  scroll-behavior: smooth;
-}
+@theme {
+  /* ===== Font ===== */
+  --font-pretendard:
+    'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+    'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', sans-serif;
 
-body {
-  @apply bg-light-100 dark:bg-dark-900;
-}
+  /* ===== Colors ===== */
 
-/* Scroll chevron animations */
-@keyframes scroll-chevron {
-  0%,
-  100% {
-    opacity: 0.2;
-    transform: translateY(0);
+  /* Point Color - 다홍색/코랄 */
+  --color-point: #f56a33;
+  --color-point-light: #ff8c5a;
+  --color-point-dark: #d4521f;
+
+  /* Dark */
+  --color-dark-950: #0c0c0b;
+  --color-dark-900: #141413;
+  --color-dark-800: #1f1e1d;
+  --color-dark-700: #2d2c2a;
+  --color-dark-600: #4a4845;
+  --color-dark-500: #6b6864;
+  --color-dark-400: #8d8a85;
+  --color-dark-300: #b0ada7;
+
+  /* Light */
+  --color-light-50: #ffffff;
+  --color-light-100: #fdfcfa;
+  --color-light-200: #f8f6f3;
+  --color-light-300: #f0ede8;
+  --color-light-400: #e5e1da;
+  --color-light-500: #d4cfc5;
+
+  /* Accent */
+  --color-sky-500: #4da6ff;
+  --color-sky-600: #2b8ce6;
+
+  /* ===== Sizing ===== */
+  --width-9xl: 1600px;
+
+  /* ===== Animations ===== */
+  --animate-scroll-chevron: scroll-chevron 1.5s ease-in-out infinite;
+
+  @keyframes scroll-chevron {
+    0%,
+    100% {
+      opacity: 0.2;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(4px);
+    }
   }
-  50% {
-    opacity: 1;
-    transform: translateY(4px);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    font-family: var(--font-pretendard);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light dark;
+  }
+
+  body {
+    @apply bg-light-100 text-dark-900 dark:bg-dark-900 dark:text-light-100;
+  }
+
+  a,
+  p,
+  span,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  li,
+  label,
+  div {
+    color: inherit;
   }
 }
 
-.animate-scroll-chevron-1 {
-  animation: scroll-chevron 1.5s ease-in-out infinite;
+@utility max-w-9xl {
+  max-width: var(--width-9xl);
+}
+
+@utility animate-scroll-chevron-1 {
+  animation: var(--animate-scroll-chevron);
   animation-delay: 0s;
 }
 
-.animate-scroll-chevron-2 {
-  animation: scroll-chevron 1.5s ease-in-out infinite;
+@utility animate-scroll-chevron-2 {
+  animation: var(--animate-scroll-chevron);
   animation-delay: 0.15s;
 }
 
-.animate-scroll-chevron-3 {
-  animation: scroll-chevron 1.5s ease-in-out infinite;
+@utility animate-scroll-chevron-3 {
+  animation: var(--animate-scroll-chevron);
   animation-delay: 0.3s;
 }
