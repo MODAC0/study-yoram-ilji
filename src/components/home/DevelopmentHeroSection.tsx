@@ -68,7 +68,7 @@ export default function DevelopmentHeroSection() {
           </p>
         </div>
 
-        <div className="relative w-full aspect-3/4 sm:aspect-video md:aspect-21/9 rounded-2xl overflow-hidden">
+        <div className="relative w-full aspect-video max-md:aspect-3/4 rounded-2xl overflow-hidden">
           <Swiper
             modules={[Autoplay, EffectFade, Navigation]}
             effect="fade"
