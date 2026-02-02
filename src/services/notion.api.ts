@@ -40,7 +40,7 @@ export async function getBlogPosts() {
       },
       sorts: [
         {
-          property: '발행일',
+          property: '생성일',
           direction: 'descending',
         },
       ],
@@ -91,7 +91,7 @@ export async function getPostsByCategory(category: string) {
       },
       sorts: [
         {
-          property: '발행일',
+          property: '생성일',
           direction: 'descending',
         },
       ],

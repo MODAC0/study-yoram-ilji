@@ -125,7 +125,7 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm md:hidden"
+            className="fixed inset-0 z-100 bg-black/80 backdrop-blur-sm md:hidden"
           >
             {/* Close Button & Logo */}
             <div className="absolute top-4 left-6 right-6 flex items-center justify-between">

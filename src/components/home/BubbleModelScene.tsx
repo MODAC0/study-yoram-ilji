@@ -1,22 +1,20 @@
-"use client";
+'use client';
 
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useTheme } from "next-themes";
-import { useEffect, useMemo, useRef, useState } from "react";
-import * as THREE from "three";
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { useTheme } from 'next-themes';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import * as THREE from 'three';
 
-import { RendererCleanup } from "@/components/common/RendererCleanup";
-import fragmentShader from "./fragmentShader.glsl";
-import vertexShader from "./vertexShader.glsl";
+import { RendererCleanup } from '@/components/common/RendererCleanup';
+import fragmentShader from './fragmentShader.glsl';
+import vertexShader from './vertexShader.glsl';
 
 // 섹션 정의
 const SECTIONS = {
-  TEXT_1: 0, // 화려함보다는 명확함을 - 퍼져있는 상태
-  TEXT_2: 1, // 사용자 경험을 디자인합니다 - 중간 상태
-  TEXT_3: 2, // 코드로 예술을 만들어냅니다 - 모인 상태
-  BLOG: 3, // 블로그 섹션
-  PORTFOLIO: 4, // 포트폴리오 - 구체
-  CONTACT: 5, // Contact - 구체가 왼쪽으로
+  DEVELOPMENT: 0, // 개발 포트폴리오 히어로 배너 - 퍼진 상태
+  DESIGN: 1, // 디자인 포트폴리오 - 구체
+  BLOG: 2, // 블로그 섹션 - 모인 상태
+  CONTACT: 3, // Contact - 구체가 왼쪽으로
 };
 
 // 섹션별 스크롤 상태 계산
@@ -45,30 +43,14 @@ function useScrollState() {
       });
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return state;
 }
-
-// 텍스트 오버레이 섹션 데이터
-const textSections = [
-  {
-    title: "Essentialism in Interaction",
-    subtitle: "화려함보다는 명확함을",
-  },
-  {
-    title: "Frontend Developer",
-    subtitle: "사용자 경험을 디자인합니다",
-  },
-  {
-    title: "Creative Coding",
-    subtitle: "코드로 예술을 만들어냅니다",
-  },
-];
 
 // 섹션별 3D 오브젝트 상태 계산
 function useObjectState(section: number, sectionProgress: number) {
@@ -79,54 +61,37 @@ function useObjectState(section: number, sectionProgress: number) {
 
   const getState = () => {
     switch (section) {
-      case SECTIONS.TEXT_1:
-        // 텍스트 1: "화려함보다는 명확함을" - 퍼진 상태에서 시작
+      case SECTIONS.DEVELOPMENT:
+        // 개발 포트폴리오: 퍼진 상태에서 시작, 점점 모임
         return {
           spread: 1 - sectionProgress * 0.5, // 1.0 -> 0.5 (점점 모임)
-          morph: 0,
+          morph: sectionProgress * 0.3, // 0 -> 0.3 (약간 구체화)
           scale: 1.0,
           positionX: 0,
         };
 
-      case SECTIONS.TEXT_2:
-        // 텍스트 2: "사용자 경험을 디자인합니다" - 중간 상태
+      case SECTIONS.DESIGN:
+        // 디자인 포트폴리오: 구체로 변환
         return {
-          spread: 0.8 - sectionProgress * 0.3, // 0.5 -> 0.2
-          morph: 0,
-          scale: 1.0,
-          positionX: 0,
-        };
-
-      case SECTIONS.TEXT_3:
-        // 텍스트 3: "코드로 예술을 만들어냅니다" - 완전히 모인 상태
-        return {
-          spread: 0.4 - sectionProgress * 0.2, // 0.2 -> 0
-          morph: 0,
+          spread: 0.5 - sectionProgress * 0.5, // 0.5 -> 0
+          morph: 0.3 + sectionProgress * 0.5, // 0.3 -> 0.8 (구체화)
           scale: 1.1,
-          positionX: 0,
+          positionX: -0.1,
         };
 
       case SECTIONS.BLOG:
-        // 블로그: 모인 상태 유지, 왼쪽으로 이동
+        // 블로그: 모인 상태, 왼쪽으로 이동
         const blogX = -2 + sectionProgress * 3;
         return {
-          spread: 0.2 - sectionProgress * 0.2, // 0.2 -> 0,
-          morph: sectionProgress * 0.5, // 구체화 시작
+          spread: sectionProgress * 0.1, // 0 -> 0.1 (약간 퍼짐)
+          morph: 0.8 + sectionProgress * 0.2, // 0.8 -> 1.0 (완전한 구체)
           scale: 1.2,
           positionX: blogX,
         };
 
-      case SECTIONS.PORTFOLIO:
-        // 포트폴리오: 구체로 변환, 왼쪽에 유지
-        return {
-          spread: 0,
-          morph: 0.5 + sectionProgress * 0.5, // 0.5 -> 1.0 (완전한 구체)
-          scale: 1.1,
-          positionX: -0.1, // 왼쪽에 고정
-        };
-
       case SECTIONS.CONTACT:
       default:
+        // Contact: 완전한 구체, 중앙
         return {
           spread: 0,
           morph: 1, // 완전한 구체
@@ -149,19 +114,15 @@ export default function BubbleModelScene() {
     setMounted(true);
   }, []);
 
-  const saturation = mounted && theme === "dark" ? 0.4 : 0.7;
-  const lightness = mounted && theme === "dark" ? 0.3 : 0.5;
-
-  // 텍스트 섹션에서만 텍스트 오버레이 표시 (섹션 0-2)
-  const showTextOverlay = section <= SECTIONS.TEXT_3;
+  const saturation = mounted && theme === 'dark' ? 0.4 : 0.7;
+  const lightness = mounted && theme === 'dark' ? 0.3 : 0.5;
 
   return (
     <div className="w-full h-full fixed top-0 left-0 right-0 bottom-0 pointer-events-none">
       {/* 3D Canvas */}
       <Canvas
         camera={{ position: [0, 0, 4], fov: 50 }}
-        style={{ width: "100%", height: "100vh" }}
-      >
+        style={{ width: '100%', height: '100vh' }}>
         <ambientLight intensity={0.5} />
         <CameraController
           scrollProgress={scrollProgress}
@@ -178,31 +139,6 @@ export default function BubbleModelScene() {
         />
         <RendererCleanup />
       </Canvas>
-      {/* 텍스트 오버레이 - 텍스트 섹션에서만 표시 */}
-      {showTextOverlay && (
-        <TextOverlay section={section} sectionProgress={sectionProgress} />
-      )}
-      {/* 스크롤 힌트 - 첫 번째 섹션에서만 표시 */}
-      {section === 0 && (
-        <div
-          className="absolute inset-0 flex items-center justify-center"
-          style={{ opacity: 1 - sectionProgress * 5 }}
-        >
-          <div className="absolute flex flex-col gap-4 items-center justify-center transition-all duration-300 ease-out">
-            <p className="text-2xl text-dark-500 dark:text-light-500 max-sm:text-base">
-              안녕하세요. 요람일지입니다.
-            </p>
-            <h2 className="text-5xl text-dark-600 dark:text-light-500 font-bold max-sm:text-3xl">
-              스크롤을 내려주세요.
-            </h2>
-          </div>
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-500">
-            <div className="w-6 h-10 rounded-full border-2 border-point flex justify-center pt-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-point-light animate-bounce" />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
@@ -227,29 +163,30 @@ const CameraController = ({
     let targetZ = 4;
     let lookAtX = objectPositionX;
 
-    if (section <= SECTIONS.TEXT_3) {
-      // 텍스트 섹션: 정면에서 약간씩 회전
-      const angle = scrollProgress * Math.PI * 0.5;
+    if (section === SECTIONS.DEVELOPMENT) {
+      // 개발 포트폴리오: 정면에서 약간씩 회전
+      const angle = scrollProgress * Math.PI * 0.3;
       targetX = Math.sin(angle) * 0.5;
-      targetY = Math.cos(angle) * 0.3;
+      targetY = Math.cos(angle) * 0.2;
       targetZ = 4;
       lookAtX = 0;
-    } else if (section === SECTIONS.BLOG) {
-      // 블로그: 살짝 왼쪽에서 봄 (오른쪽으로 간 오브젝트를 보기 위해)
-      targetX = -0.5;
-      targetY = 0;
-      targetZ = 4;
-    } else if (section === SECTIONS.PORTFOLIO) {
-      // 포트폴리오: 정면
+    } else if (section === SECTIONS.DESIGN) {
+      // 디자인 포트폴리오: 정면
       targetX = 0;
       targetY = 0;
       targetZ = 4;
       lookAtX = 0;
-    } else {
-      // Contact: 살짝 왼쪽에서 봄 (오른쪽에 있는 구체를 보기 위해)
-      targetX = -1;
+    } else if (section === SECTIONS.BLOG) {
+      // 블로그: 살짝 왼쪽에서 봄
+      targetX = -0.5;
       targetY = 0;
       targetZ = 4;
+    } else {
+      // Contact: 정면
+      targetX = 0;
+      targetY = 0;
+      targetZ = 4;
+      lookAtX = 0;
     }
 
     targetRef.current = { x: targetX, y: targetY, z: targetZ };
@@ -258,84 +195,29 @@ const CameraController = ({
     camera.position.x = THREE.MathUtils.lerp(
       camera.position.x,
       targetRef.current.x,
-      0.05
+      0.05,
     );
     camera.position.y = THREE.MathUtils.lerp(
       camera.position.y,
       targetRef.current.y,
-      0.05
+      0.05,
     );
     camera.position.z = THREE.MathUtils.lerp(
       camera.position.z,
       targetRef.current.z,
-      0.05
+      0.05,
     );
 
     // 오브젝트 위치를 바라보도록
     lookAtRef.current.x = THREE.MathUtils.lerp(
       lookAtRef.current.x,
       lookAtX,
-      0.05
+      0.05,
     );
     camera.lookAt(lookAtRef.current);
   });
 
   return null;
-};
-
-// 텍스트 오버레이 컴포넌트
-const TextOverlay = ({
-  section,
-  sectionProgress,
-}: {
-  section: number;
-  sectionProgress: number;
-}) => {
-  // 각 섹션의 텍스트 opacity 계산
-  // 섹션 시작: fade in (0-0.2), 중간: 보임 (0.2-0.8), 끝: fade out (0.8-1)
-  const getOpacity = (targetSection: number) => {
-    if (section === targetSection) {
-      if (sectionProgress < 0.2) {
-        return sectionProgress / 0.2; // fade in
-      } else if (sectionProgress > 0.8) {
-        return 1 - (sectionProgress - 0.8) / 0.2; // fade out
-      }
-      return 1;
-    }
-    return 0;
-  };
-
-  // Y 위치 계산 (스크롤에 따라 위로 이동)
-  const getTransform = (targetSection: number) => {
-    if (section === targetSection) {
-      const offset = (sectionProgress - 0.5) * -40; // -25px ~ +25px
-      return `translateY(${offset}px)`;
-    }
-    return "translateY(50px)";
-  };
-
-  return (
-    <div className="absolute inset-0 flex items-center justify-center">
-      {textSections.map((text, index) => (
-        <div
-          key={index + 1}
-          className="absolute flex flex-col gap-4 items-center justify-center transition-all duration-300 ease-out"
-          style={{
-            opacity: getOpacity(index),
-            transform: getTransform(index),
-            pointerEvents: getOpacity(index) > 0.5 ? "auto" : "none",
-          }}
-        >
-          <p className="text-2xl text-dark-500 dark:text-light-500 max-sm:text-base">
-            {text.title}
-          </p>
-          <h2 className="text-5xl text-dark-600 dark:text-light-500 font-bold max-sm:text-3xl">
-            {text.subtitle}
-          </h2>
-        </div>
-      ))}
-    </div>
-  );
 };
 
 interface ResponsiveParticlesProps {
@@ -412,7 +294,7 @@ const CustomGeometryParticles = ({
       uSpread: { value: spread },
       uPositionOffset: { value: new THREE.Vector3(positionX, 0, 0) },
     }),
-    []
+    [],
   );
 
   useFrame(({ clock }) => {
@@ -422,17 +304,17 @@ const CustomGeometryParticles = ({
     uniforms.uMorph.value = THREE.MathUtils.lerp(
       uniforms.uMorph.value,
       morph,
-      0.05
+      0.05,
     );
     uniforms.uSpread.value = THREE.MathUtils.lerp(
       uniforms.uSpread.value,
       spread,
-      0.05
+      0.05,
     );
     uniforms.uPositionOffset.value.x = THREE.MathUtils.lerp(
       uniforms.uPositionOffset.value.x,
       positionX,
-      0.05
+      0.05,
     );
   });
 
