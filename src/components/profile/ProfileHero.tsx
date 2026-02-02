@@ -5,6 +5,7 @@ import { Mail, MapPin } from 'lucide-react';
 import { SphereModel } from '../common/SphereModel';
 
 export function ProfileHero() {
+  const email = process.env.GMAIL_USER;
   return (
     <div className="w-full bg-slate-50 dark:bg-dark-900 flex items-center justify-center">
       <div className="flex flex-col-reverse justify-between items-center max-w-6xl w-full">
@@ -60,7 +61,7 @@ export function ProfileHero() {
                 </div>
                 <div className="flex items-center gap-1.5">
                   <Mail className="size-4" />
-                  <span>modac0302@gmail.com</span>
+                  <span>{email}</span>
                 </div>
               </div>
             </div>
