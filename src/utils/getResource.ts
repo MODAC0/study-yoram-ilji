@@ -16,7 +16,6 @@ export const getNotionBlogImageUrl = (post: NotionPage): string | null => {
 };
 
 export const getNotionBlogTitle = (post: NotionPage): string => {
-  console.log(post);
   const titleProp = post.properties.이름;
   return titleProp.title[0]?.plain_text || '제목 없음';
 };
