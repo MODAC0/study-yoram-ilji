@@ -24,16 +24,13 @@ export default function BlogSection({ posts, viewCounts }: Props) {
   const displayPosts = useMemo(
     () =>
       posts
-        .sort((a, b) => {
-          const viewsA = viewCounts[a.id] || 0;
-          const viewsB = viewCounts[b.id] || 0;
-          if (viewsB !== viewsA) return viewsB - viewsA;
-          return dayjs(b.properties.발행일.last_edited_time).diff(
-            dayjs(a.properties.발행일.last_edited_time),
-          );
-        })
+        .sort((a, b) =>
+          dayjs(b.properties.생성일.created_time).diff(
+            dayjs(a.properties.생성일.created_time),
+          ),
+        )
         .slice(0, 6),
-    [posts, viewCounts],
+    [posts],
   );
 
   const [activeIndex, setActiveIndex] = useState(

@@ -93,7 +93,7 @@ export interface NotionSelectProperty extends NotionPropertyBase {
 }
 
 /**
- * "생성일", "발행일" 속성 (type: "date")
+ * "수정일" 속성 (type: "last_edited_time")
  */
 export interface NotionUpdateDateProperty extends NotionPropertyBase {
   id: string;
@@ -101,6 +101,9 @@ export interface NotionUpdateDateProperty extends NotionPropertyBase {
   type: 'last_edited_time';
 }
 
+/**
+ * "생성일" 속성 (type: "created_time")
+ */
 export interface NotionCreateDateProperty extends NotionPropertyBase {
   id: string;
   created_time: string;
@@ -126,7 +129,6 @@ export interface NotionCheckboxProperty extends NotionPropertyBase {
 export interface MyDatabaseProperties {
   카테고리: NotionSelectProperty;
   생성일: NotionCreateDateProperty;
-  발행일: NotionUpdateDateProperty;
   조회수: NotionNumberProperty;
   발행: NotionCheckboxProperty;
   이름: NotionTitleProperty;
