@@ -138,6 +138,24 @@ const DESIGN_PORTFOLIOS: DesignPortfolio[] = [
     color: '#D4C4B0',
     thumbnail: '/portfolio/ottogimall/1.webp',
   },
+  {
+    id: 'andbag',
+    category: 'design',
+    title: 'ANDBAG',
+    subtitle: '가방 수입 브랜드 통합 웹사이트',
+    description:
+      '다양한 가방 수입 브랜드를 카테고리화하고 체계적인 사이트맵을 설계한 신규 브랜드 웹사이트입니다. 호스팅 템플릿을 효과적으로 응용하여 비용 최적화와 안정성을 동시에 확보한 UI/UX 디자인 프로젝트입니다.',
+    period: '2020.12 - 2021.03',
+    role: 'UI/UX 디자인',
+    type: 'UI&UX Design',
+    tools: ['Figma', 'Adobe Photoshop'],
+    images: Array.from(
+      { length: 6 },
+      (_, i) => `/portfolio/andbag/${i + 1}.webp`,
+    ),
+    color: '#2C2C2C',
+    thumbnail: '/portfolio/andbag/thumbnail.webp',
+  },
 ];
 
 const DEVELOPMENT_PORTFOLIOS: DevelopmentPortfolio[] = [
@@ -240,13 +258,114 @@ const DEVELOPMENT_PORTFOLIOS: DevelopmentPortfolio[] = [
     },
     links: {},
     images: Array.from(
-      { length: 15 },
+      { length: 13 },
       (_, i) => `/portfolio/aresa-app/${i + 1}.webp`,
     ),
     color: '#4F46E5',
     thumbnail: '/portfolio/aresa-app/thumbnail.webp',
   },
-  // {
+  {
+    id: 'odocs',
+    category: 'development',
+    title: 'O-DOCS',
+    subtitle: '공문서 간편 열람 서비스',
+    description:
+      '오독스(O-DOCS)는 등기부등본, 토지대장, 건축물대장 등 부동산 관련 정보를 한 곳에서 조회하고 발급할 수 있는 통합 플랫폼입니다. 온라인으로 편리하게 필요한 서류를 확인하고 발급받을 수 있어 부동산 거래 시 유용하게 활용할 수 있습니다.',
+    period: '2023.11 - 2024.01',
+    role: '프론트엔드 개발',
+    team: '3인',
+    techStack: [
+      'Next.js 14',
+      'React 18',
+      'TypeScript',
+      'Tailwind CSS',
+      'Daum Postcode API',
+      'Danal Payment API',
+      'RxJS',
+    ],
+    features: [
+      '지번/도로명 주소 기반 부동산 공문서 검색',
+      '표제부 데이터 기반 층/호실 시각화 UI',
+      '등기부등본, 토지대장, 건축물대장 열람 서비스',
+      '다날 결제 시스템 연동 (카드/계좌)',
+      '오독스 머니 충전 및 환불 시스템',
+      '반응형 웹앱 (모바일/데스크톱 최적화)',
+    ],
+    process: {
+      problemDiscovery: {
+        background:
+          '부동산 거래 시 필요한 등기부등본, 토지대장, 건축물대장 등 공문서를 여러 기관에서 개별적으로 발급받아야 하는 불편함을 해소하기 위해, 한 곳에서 통합 조회 및 발급이 가능한 플랫폼이 필요했습니다.',
+        problems: [
+          '여러 기관에 분산된 부동산 공문서로 인한 사용자 불편',
+          '복잡한 주소 체계(지번/도로명)에 대한 직관적인 검색 UX 부재',
+          '다양한 결제 수단 및 유료 재화 관리의 복잡성',
+          '모바일/데스크톱 환경에서의 일관된 사용자 경험 제공 필요',
+        ],
+      },
+      requirements: {
+        functional: [
+          '지번/도로명 주소 검색 및 건물명 조회',
+          '표제부 기반 층/호실 정보 시각화',
+          '공문서(등기부등본, 토지대장, 건축물대장) 열람 및 발급',
+          '다날 결제 연동 (카드, 계좌이체)',
+          '오독스 머니 충전/사용/환불 관리',
+          '사용자 조회 이력 관리',
+        ],
+        nonFunctional: [
+          '모바일/데스크톱 반응형 UI',
+          '결제 시스템 안정성 및 보안',
+          '직관적인 주소 검색 UX',
+          '빠른 검색 응답 속도',
+        ],
+      },
+      technicalChallenges: [
+        {
+          challenge:
+            '복잡한 주소 체계(지번/도로명)와 건물 정보를 직관적으로 표현하는 UI 설계',
+          solution:
+            '다음 우편번호 API를 활용한 통합 주소 검색 구현. 표제부 데이터를 파싱하여 층/호실 정보를 시각적 계층 구조로 표현, 사용자가 원하는 호실을 쉽게 선택할 수 있는 인터랙티브 UI 개발',
+        },
+        {
+          challenge:
+            '다날 결제 시스템 연동 및 다양한 결제 상태(충전, 환불, 취소) 관리',
+          solution:
+            '다날 결제 API와의 안정적인 연동을 위한 결제 플로우 설계. 결제 상태별 UI 피드백 및 오류 처리 로직 구현, 오독스 머니와 연동된 포인트 시스템으로 사용자 재화 관리',
+        },
+        {
+          challenge: '다양한 디바이스 환경에서의 일관된 UX 제공',
+          solution:
+            '모바일 우선 반응형 설계로 터치 인터페이스 최적화. Tailwind CSS 기반 브레이크포인트 시스템으로 디바이스별 레이아웃 분기, 핵심 기능에 집중한 미니멀한 UI로 사용자 집중도 향상',
+        },
+      ],
+      achievements: {
+        metrics: [
+          'Next.js 14 App Router 기반 SSR/SSG 하이브리드 아키텍처 구축',
+          '주소 검색부터 공문서 발급까지 원스톱 서비스 플로우 구현',
+          '다날 결제 시스템 연동 및 안정적인 금융 서비스 제공',
+          '모바일/데스크톱 완전 반응형 UI 구현',
+        ],
+        qualitative: [
+          '다음 우편번호 API 연동 및 주소 데이터 전처리 경험',
+          '결제 시스템 연동 및 금융 트랜잭션 처리 노하우 축적',
+          '복잡한 부동산 데이터 시각화 UI 설계 역량 확보',
+          '사용자 이탈을 줄이는 직관적인 UX 설계',
+        ],
+        learnings: [
+          'Next.js 14 App Router와 서버 컴포넌트 활용법',
+          'PG사 결제 연동 프로세스 및 보안 고려사항',
+          '부동산 도메인 데이터(표제부, 등기부등본 등) 이해',
+          '사용자 중심 UX 설계 및 이탈률 최소화 전략',
+        ],
+      },
+    },
+    links: {},
+    images: Array.from(
+      { length: 5 },
+      (_, i) => `/portfolio/odocs/${i + 1}.webp`,
+    ),
+    color: '#292A35',
+    thumbnail: '/portfolio/odocs/thumbnail.webp',
+  }, // {
   //   id: 'aresa-homepage',
   //   category: 'development',
   //   title: 'ARESA Homepage',
