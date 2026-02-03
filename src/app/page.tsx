@@ -4,13 +4,34 @@ import ContactSection from '@/components/home/ContactSection';
 import DesignPortfolioSection from '@/components/home/DesignPortfolioSection';
 import DevelopmentHeroSection from '@/components/home/DevelopmentHeroSection';
 import { getAllViewCounts } from '@/lib/firebase-admin';
+import { siteConfig } from '@/lib/seo';
 import { getBlogPosts } from '@/services/notion.api';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '요람일지',
+  title: {
+    absolute: `${siteConfig.name} - 프론트엔드 개발자 포트폴리오 & 기술 블로그`,
+  },
   description:
-    '프론트엔드 개발, 디자인, 프로젝트 경험을 담은 준희의 요람일지입니다. 최신 포스트와 프로젝트를 확인하세요.',
+    '프론트엔드 개발자 준희의 요람일지입니다. React, Next.js, TypeScript를 활용한 웹 개발 프로젝트와 기술 블로그를 확인하세요.',
+  keywords: [
+    '프론트엔드 개발자',
+    '포트폴리오',
+    '기술 블로그',
+    'React',
+    'Next.js',
+    'TypeScript',
+    '웹 개발',
+  ],
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: `${siteConfig.name} - 프론트엔드 개발자 포트폴리오 & 기술 블로그`,
+    description:
+      '프론트엔드 개발자 준희의 요람일지입니다. React, Next.js, TypeScript를 활용한 웹 개발 프로젝트와 기술 블로그를 확인하세요.',
+    type: 'website',
+  },
 };
 
 export const revalidate = 60;

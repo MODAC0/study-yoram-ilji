@@ -1,0 +1,33 @@
+{
+  "name": "요람일지 - 프론트엔드 개발자 포트폴리오 & 기술 블로그",
+  "short_name": "요람일지",
+  "description": "프론트엔드 개발자 준희의 기술 블로그입니다. React, Next.js, TypeScript 등 웹 개발 지식과 프로젝트 경험을 공유합니다.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#ff675b",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["development", "technology", "blog"],
+  "prefer_related_applications": false
+}

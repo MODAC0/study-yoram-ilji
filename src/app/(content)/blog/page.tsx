@@ -1,15 +1,32 @@
 import BlogListClient from '@/components/blog/BlogListClient';
 import { getAllViewCounts } from '@/lib/firebase-admin';
+import { siteConfig } from '@/lib/seo';
 import { getBlogPosts } from '@/services/notion.api';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: '블로그',
   description:
-    '개발, 기술, 프로젝트에 관한 글을 공유합니다. 다양한 카테고리의 포스트를 확인하세요.',
+    '프론트엔드 개발, React, Next.js, TypeScript 등 웹 개발 관련 기술 글을 공유합니다. 다양한 카테고리의 포스트를 확인하세요.',
+  keywords: [
+    '기술 블로그',
+    '프론트엔드',
+    'React',
+    'Next.js',
+    'TypeScript',
+    'JavaScript',
+    '웹 개발',
+    '개발 블로그',
+  ],
+  alternates: {
+    canonical: '/blog',
+  },
   openGraph: {
-    title: '블로그',
-    description: '개발, 기술, 프로젝트에 관한 글을 공유합니다.',
+    title: '블로그 | ' + siteConfig.name,
+    description:
+      '프론트엔드 개발, React, Next.js, TypeScript 등 웹 개발 관련 기술 글을 공유합니다.',
+    type: 'website',
+    url: `${siteConfig.url}/blog`,
   },
 };
 

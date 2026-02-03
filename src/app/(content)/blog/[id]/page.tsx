@@ -2,6 +2,7 @@ import ViewCounter from '@/components/blog/ViewCounter';
 import NotionBlock from '@/components/common/NotionBlock';
 import {
   generateArticleJsonLd,
+  generateBreadcrumbJsonLd,
   generateSeoMetadata,
   siteConfig,
 } from '@/lib/seo';
@@ -34,13 +35,37 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = getNotionBlogTitle(post);
   const coverImage = getNotionBlogImageUrl(post);
   const category = post.properties.카테고리.select?.name;
+  const publishedTime =
+    post.properties.생성일.created_time ||
+    post.properties.발행일.last_edited_time;
 
-  return generateSeoMetadata({
-    title,
-    description: `${category ? `[${category}] ` : ''}${title}`,
-    image: coverImage,
-    pathname: `/blog/${id}`,
-  });
+  return {
+    ...generateSeoMetadata({
+      title,
+      description: `${category ? `[${category}] ` : ''}${title} - ${siteConfig.description}`,
+      image: coverImage,
+      pathname: `/blog/${id}`,
+    }),
+    keywords: [category, '기술 블로그', '프론트엔드', title].filter(Boolean),
+    openGraph: {
+      title: `${title} | ${siteConfig.name}`,
+      description: `${category ? `[${category}] ` : ''}${title}`,
+      type: 'article',
+      publishedTime,
+      modifiedTime: post.last_edited_time,
+      authors: [siteConfig.author.name],
+      images: coverImage
+        ? [
+            {
+              url: coverImage,
+              width: 1200,
+              height: 630,
+              alt: title,
+            },
+          ]
+        : undefined,
+    },
+  };
 }
 
 export default async function PostPage({ params }: Props) {
@@ -65,13 +90,21 @@ export default async function PostPage({ params }: Props) {
     url: `${siteConfig.url}/blog/${id}`,
   });
 
-  console.log(content);
+  const breadcrumbJsonLd = generateBreadcrumbJsonLd([
+    { name: '홈', url: siteConfig.url },
+    { name: '블로그', url: `${siteConfig.url}/blog` },
+    { name: title, url: `${siteConfig.url}/blog/${id}` },
+  ]);
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <div className="relative h-[calc(50vh)] overflow-hidden">
         {/* <div className="absolute inset-0 bg-linear-to-br from-[#833AB4] via-[#FD1D1D] to-transparent opacity-50" /> */}
@@ -83,6 +116,7 @@ export default async function PostPage({ params }: Props) {
             height={1080}
             className="h-full w-full object-cover"
             unoptimized
+            priority
           />
         )}
       </div>

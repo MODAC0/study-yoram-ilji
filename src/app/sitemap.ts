@@ -1,6 +1,7 @@
-import { siteConfig } from "@/lib/seo";
-import { getBlogPosts } from "@/services/notion.api";
-import { MetadataRoute } from "next";
+import { portfolioProjects } from '@/data/portfolio';
+import { siteConfig } from '@/lib/seo';
+import { getBlogPosts } from '@/services/notion.api';
+import { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.url;
@@ -10,22 +11,38 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: "daily",
+      changeFrequency: 'daily',
       priority: 1,
     },
     {
       url: `${baseUrl}/blog`,
       lastModified: new Date(),
-      changeFrequency: "daily",
+      changeFrequency: 'daily',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/portfolio`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: 'weekly',
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/profile`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
   ];
+
+  // 포트폴리오 상세 페이지들
+  const portfolioPages: MetadataRoute.Sitemap = portfolioProjects.map(
+    (project) => ({
+      url: `${baseUrl}/portfolio/${project.id}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }),
+  );
 
   // 블로그 포스트들
   try {
@@ -33,12 +50,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const blogPages: MetadataRoute.Sitemap = posts.map((post) => ({
       url: `${baseUrl}/blog/${post.id}`,
       lastModified: new Date(post.last_edited_time),
-      changeFrequency: "weekly" as const,
+      changeFrequency: 'weekly' as const,
       priority: 0.7,
     }));
 
-    return [...staticPages, ...blogPages];
+    return [...staticPages, ...portfolioPages, ...blogPages];
   } catch {
-    return staticPages;
+    return [...staticPages, ...portfolioPages];
   }
 }

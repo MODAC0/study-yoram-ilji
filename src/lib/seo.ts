@@ -1,15 +1,39 @@
-import { Metadata } from "next";
+import { Metadata } from 'next';
 
 export const siteConfig = {
-  name: "요람일지",
-  description: "개발과 프로젝트에 대한 기록을 담은 블로그입니다.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://yoram-ilji.vercel.app",
+  name: '요람일지',
+  description:
+    '프론트엔드 개발자 준희의 기술 블로그입니다. React, Next.js, TypeScript 등 웹 개발 지식과 프로젝트 경험을 공유합니다.',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://yoram-ilji.vercel.app',
   author: {
-    name: "MODAC",
-    url: "https://github.com/MODAC0",
+    name: 'MODAC',
+    url: 'https://github.com/MODAC0',
+    email: 'modac0@naver.com',
   },
-  locale: "ko_KR",
-  themeColor: "#ff675b",
+  locale: 'ko_KR',
+  language: 'ko',
+  themeColor: '#ff675b',
+  keywords: [
+    '프론트엔드',
+    '개발자',
+    '블로그',
+    'React',
+    'Next.js',
+    'TypeScript',
+    'JavaScript',
+    '웹 개발',
+    '포트폴리오',
+    '기술 블로그',
+    '요람일지',
+    'MODAC',
+  ],
+  social: {
+    github: 'https://github.com/MODAC0',
+  },
+  verification: {
+    google: 'UimLmElRI67QcT3q6TV1e69w7TLIEIapPPodlLsUk-k',
+    naver: '6ea838eea3a76e335a02ba4a15e6bc54190674d6',
+  },
 };
 
 interface GenerateMetadataProps {
@@ -25,7 +49,7 @@ export function generateSeoMetadata({
   description,
   image,
   noIndex = false,
-  pathname = "",
+  pathname = '',
 }: GenerateMetadataProps = {}): Metadata {
   const pageTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
   const pageDescription = description || siteConfig.description;
@@ -45,7 +69,7 @@ export function generateSeoMetadata({
       url: pageUrl,
       siteName: siteConfig.name,
       locale: siteConfig.locale,
-      type: "website",
+      type: 'website',
       images: [
         {
           url: ogImage,
@@ -56,7 +80,7 @@ export function generateSeoMetadata({
       ],
     },
     twitter: {
-      card: "summary_large_image",
+      card: 'summary_large_image',
       title: pageTitle,
       description: pageDescription,
       images: [ogImage],
@@ -87,12 +111,12 @@ export function generateArticleJsonLd({
   url: string;
 }) {
   return {
-    "@context": "https://schema.org",
-    "@type": "Article",
+    '@context': 'https://schema.org',
+    '@type': 'Article',
     headline: title,
     description: description,
     author: {
-      "@type": "Person",
+      '@type': 'Person',
       name: author,
     },
     datePublished: publishedTime,
@@ -100,9 +124,126 @@ export function generateArticleJsonLd({
     image: image || undefined,
     url: url,
     publisher: {
-      "@type": "Organization",
+      '@type': 'Organization',
       name: siteConfig.name,
       url: siteConfig.url,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteConfig.url}/favicon.ico`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
+    },
+  };
+}
+
+// 웹사이트 JSON-LD 구조화 데이터 생성
+export function generateWebsiteJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    inLanguage: siteConfig.language,
+    author: {
+      '@type': 'Person',
+      name: siteConfig.author.name,
+      url: siteConfig.author.url,
+    },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${siteConfig.url}/blog?search={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  };
+}
+
+// Person/Organization JSON-LD 구조화 데이터 생성
+export function generatePersonJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: siteConfig.author.name,
+    url: siteConfig.url,
+    sameAs: [siteConfig.social.github],
+    jobTitle: '프론트엔드 개발자',
+    knowsAbout: [
+      'React',
+      'Next.js',
+      'TypeScript',
+      'JavaScript',
+      'Web Development',
+    ],
+  };
+}
+
+// Breadcrumb JSON-LD 구조화 데이터 생성
+export function generateBreadcrumbJsonLd(
+  items: { name: string; url: string }[],
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}
+
+// 포트폴리오용 CreativeWork JSON-LD 구조화 데이터 생성
+export function generatePortfolioJsonLd({
+  title,
+  description,
+  image,
+  url,
+  dateCreated,
+  skills,
+}: {
+  title: string;
+  description: string;
+  image?: string;
+  url: string;
+  dateCreated?: string;
+  skills?: string[];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: title,
+    description: description,
+    image: image,
+    url: url,
+    dateCreated: dateCreated,
+    creator: {
+      '@type': 'Person',
+      name: siteConfig.author.name,
+      url: siteConfig.author.url,
+    },
+    keywords: skills?.join(', '),
+  };
+}
+
+// 프로필 페이지용 ProfilePage JSON-LD 구조화 데이터 생성
+export function generateProfilePageJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    mainEntity: {
+      '@type': 'Person',
+      name: siteConfig.author.name,
+      url: siteConfig.url,
+      sameAs: [siteConfig.social.github],
+      jobTitle: '프론트엔드 개발자',
+      description: siteConfig.description,
     },
   };
 }
