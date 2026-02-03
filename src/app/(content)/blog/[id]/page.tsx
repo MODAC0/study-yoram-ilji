@@ -46,7 +46,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       image: coverImage,
       pathname: `/blog/${id}`,
     }),
-    keywords: [category, '기술 블로그', '프론트엔드', title].filter(Boolean),
+    keywords: [category, '기술 블로그', '프론트엔드', title].filter(
+      (k): k is string => Boolean(k),
+    ),
     openGraph: {
       title: `${title} | ${siteConfig.name}`,
       description: `${category ? `[${category}] ` : ''}${title}`,
