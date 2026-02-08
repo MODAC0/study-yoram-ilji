@@ -43,7 +43,7 @@ export default function DesignPortfolioSection() {
         <Link
           href="/portfolio?category=design"
           className="group inline-flex items-center gap-2">
-          <h2 className="text-3xl md:text-4xl font-bold group-hover:text-point transition-all duration-300">
+          <h2 className="text-3xl md:text-4xl font-medium group-hover:text-point transition-all duration-300">
             디자인 포트폴리오
           </h2>
           <svg
@@ -111,7 +111,7 @@ export default function DesignPortfolioSection() {
                       <span className="px-2 py-0.5 bg-white/20 backdrop-blur-sm text-white text-xs rounded-full">
                         {project.type}
                       </span>
-                      <h3 className="text-xl font-bold text-white mb-1">
+                      <h3 className="text-xl font-medium text-white mb-1">
                         {project.title}
                       </h3>
                       <p className="text-white/70 text-sm line-clamp-2">

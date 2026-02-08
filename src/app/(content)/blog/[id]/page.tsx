@@ -6,11 +6,14 @@ import {
   generateSeoMetadata,
   siteConfig,
 } from '@/lib/seo';
-import { getBlogPosts, getPost, getPostContent } from '@/services/notion.api';
+import {
+  getBlogPosts,
+  getPost,
+  getPostContentWithChildren,
+} from '@/services/notion.api';
 import { NotionPage } from '@/types/notion.type';
 import { getNotionBlogImageUrl, getNotionBlogTitle } from '@/utils/getResource';
 import { getProxiedCoverUrl } from '@/utils/notion-image-url';
-import { BlockObjectResponse } from '@notionhq/client';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -71,7 +74,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function PostPage({ params }: Props) {
   const { id } = await params;
   const post = (await getPost(id)) as NotionPage;
-  const content = await getPostContent(id);
+  const blocks = await getPostContentWithChildren(id);
   const category = post.properties.카테고리.select?.name;
   const title = getNotionBlogTitle(post);
   const originalCoverImage = getNotionBlogImageUrl(post);
@@ -118,36 +121,34 @@ export default async function PostPage({ params }: Props) {
           />
         )}
       </div>
-      <div className="max-w-4xl mx-auto py-20 px-4 ">
-        <div className="flex flex-col gap-2">
-          {category && (
-            <span className="w-fit text-xs font-medium rounded-full backdrop-blur-sm px-2 py-1 border-point-light border text-point-light">
-              {category}
-            </span>
-          )}
-          <h1 className="text-4xl font-bold mb-4">
-            {post.properties.이름.title[0].plain_text}
-          </h1>
-        </div>
-        <div className="flex items-center mb-8 gap-2 text-dark-400">
-          <span>
-            작성일:{' '}
-            {dayjs(post.properties.생성일.created_time).format(
-              'YYYY년 MM월 DD일',
+      <div className="w-full h-full dark:bg-dark-800">
+        <div className="max-w-4xl mx-auto py-20 px-4 ">
+          <div className="flex flex-col gap-2">
+            {category && (
+              <span className="w-fit text-xs font-medium rounded-full backdrop-blur-sm px-2 py-1 border-point border text-point">
+                {category}
+              </span>
             )}
-          </span>
-          <span>·</span>
-          <ViewCounter postId={id} />
+            <h1 className="text-4xl font-medium mb-4">
+              {post.properties.이름.title[0].plain_text}
+            </h1>
+          </div>
+          <div className="flex items-center mb-8 gap-2 text-dark-400">
+            <span>
+              작성일:{' '}
+              {dayjs(post.properties.생성일.created_time).format(
+                'YYYY년 MM월 DD일',
+              )}
+            </span>
+            <span>·</span>
+            <ViewCounter postId={id} />
+          </div>
+          <article className="text-dark-900 dark:text-light-300">
+            {blocks.map((block) => (
+              <NotionBlock key={block.id} block={block} pageId={id} />
+            ))}
+          </article>
         </div>
-        <article className="text-dark-900 dark:text-point-light">
-          {content.results.map((block) => (
-            <NotionBlock
-              key={block.id}
-              block={block as BlockObjectResponse}
-              pageId={id}
-            />
-          ))}
-        </article>
       </div>
     </>
   );

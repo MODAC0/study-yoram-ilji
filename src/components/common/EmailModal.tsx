@@ -125,7 +125,7 @@ export default function EmailModal({ isOpen, onClose }: EmailModalProps) {
                 <div className="p-2 bg-point/10 rounded-xl">
                   <Mail className="w-5 h-5 text-point" />
                 </div>
-                <h2 className="text-xl font-bold">이메일 보내기</h2>
+                <h2 className="text-xl font-medium">이메일 보내기</h2>
               </div>
               <button
                 onClick={onClose}

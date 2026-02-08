@@ -283,15 +283,9 @@ const DEVELOPMENT_PORTFOLIOS: DevelopmentPortfolio[] = [
       },
     },
     links: {},
-    images: [
-      '/portfolio/kma-lms/1.webp',
-      '/portfolio/kma-lms/2.webp',
-      '/portfolio/kma-lms/3.webp',
-      '/portfolio/kma-lms/4.webp',
-      '/portfolio/kma-lms/5.webp',
-    ],
+    images: [],
     color: '#242525',
-    thumbnail: '/portfolio/kma-lms/thumbnail.webp',
+    thumbnail: '/portfolio/kma/thumbnail.webp',
   },
   {
     id: 'aresa-app',

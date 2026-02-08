@@ -15,7 +15,7 @@ export function ProfileHero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}>
             <div className="text-center pb-6 mb-6 border-b border-slate-200 dark:border-slate-800">
-              <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
+              <h1 className="text-4xl md:text-5xl font-medium text-slate-900 dark:text-white mb-2 tracking-tight">
                 JUNHEI KIM
               </h1>
 

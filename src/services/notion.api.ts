@@ -4,12 +4,18 @@ import {
   GetPageResponse,
   ListBlockChildrenResponse,
 } from '@notionhq/client';
+import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
 });
 
 const dataSourceId = process.env.NOTION_DATA_SOURCE_ID!;
+
+// 자식 블록을 포함한 확장된 블록 타입
+export type BlockWithChildren = BlockObjectResponse & {
+  children?: BlockWithChildren[];
+};
 
 export const getPublishedPosts = async () => {
   const response = await notion.dataSources.query({
@@ -63,6 +69,59 @@ export const getPostContent = async (
 ): Promise<ListBlockChildrenResponse> => {
   const response = await notion.blocks.children.list({ block_id: id });
   return response;
+};
+
+/**
+ * 특정 블록의 자식 블록들을 가져옵니다.
+ */
+export const getBlockChildren = async (
+  blockId: string,
+): Promise<BlockObjectResponse[]> => {
+  const blocks: BlockObjectResponse[] = [];
+  let cursor: string | undefined = undefined;
+
+  do {
+    const response = await notion.blocks.children.list({
+      block_id: blockId,
+      start_cursor: cursor,
+    });
+
+    blocks.push(
+      ...response.results.filter(
+        (block): block is BlockObjectResponse => 'type' in block,
+      ),
+    );
+
+    cursor = response.has_more
+      ? (response.next_cursor ?? undefined)
+      : undefined;
+  } while (cursor);
+
+  return blocks;
+};
+
+export const getBlocksWithChildren = async (
+  blockId: string,
+): Promise<BlockWithChildren[]> => {
+  const blocks = await getBlockChildren(blockId);
+
+  const blocksWithChildren = await Promise.all(
+    blocks.map(async (block): Promise<BlockWithChildren> => {
+      if (block.has_children) {
+        const children = await getBlocksWithChildren(block.id);
+        return { ...block, children };
+      }
+      return block;
+    }),
+  );
+
+  return blocksWithChildren;
+};
+
+export const getPostContentWithChildren = async (
+  pageId: string,
+): Promise<BlockWithChildren[]> => {
+  return getBlocksWithChildren(pageId);
 };
 
 export async function getPostsByCategory(category: string) {

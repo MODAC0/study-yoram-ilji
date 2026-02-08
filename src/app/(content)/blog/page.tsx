@@ -40,7 +40,7 @@ export default async function BlogPage() {
 
   return (
     <div className="max-w-7xl mx-auto max-lg:px-5">
-      <h1 className="text-4xl font-bold mb-8">블로그</h1>
+      <h1 className="text-4xl font-medium mb-8">블로그</h1>
       <BlogListClient posts={posts} viewCounts={viewCounts} />
     </div>
   );

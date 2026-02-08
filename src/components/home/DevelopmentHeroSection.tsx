@@ -83,7 +83,7 @@ export default function DevelopmentHeroSection() {
                           {portfolio.period}
                         </span>
                       </div>
-                      <h3 className="w-fit text-3xl md:text-4xl font-bold text-light-100 mb-2">
+                      <h3 className="w-fit text-3xl md:text-4xl font-medium text-light-100 mb-2">
                         {portfolio.title}
                       </h3>
                       <p className="w-fit text-light-100/80 text-sm md:text-base mb-12">

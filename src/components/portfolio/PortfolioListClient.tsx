@@ -76,16 +76,20 @@ export default function PortfolioListClient() {
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
 
+                  <div className="absolute top-3 left-3">
+                    <span
+                      className="px-3 py-1 text-xs font-medium bg-white/90 dark:bg-black/70 
+                             text-gray-800 dark:text-gray-200 rounded-full backdrop-blur-sm">
+                      {categoryLabels[project.category]}
+                    </span>
+                  </div>
                   {/* 카테고리 뱃지 */}
-                  <span className="absolute top-3 left-3 px-2 py-1 rounded-full text-xs font-medium bg-point text-white">
-                    {categoryLabels[project.category]}
-                  </span>
                 </div>
 
                 {/* 정보 */}
                 <div className="p-5">
                   <div className="mb-4">
-                    <h2 className="font-bold text-lg group-hover:text-point transition-colors">
+                    <h2 className="font-medium text-lg group-hover:text-point transition-colors">
                       {project.title}
                     </h2>
                     <p className="text-sm text-dark-400 dark:text-dark-500">

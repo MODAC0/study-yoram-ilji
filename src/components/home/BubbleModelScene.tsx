@@ -79,16 +79,6 @@ function useObjectState(section: number, sectionProgress: number) {
           positionX: -0.1,
         };
 
-      case SECTIONS.BLOG:
-        // 블로그: 모인 상태, 왼쪽으로 이동
-        const blogX = -2 + sectionProgress * 3;
-        return {
-          spread: sectionProgress * 0.1, // 0 -> 0.1 (약간 퍼짐)
-          morph: 0.8 + sectionProgress * 0.2, // 0.8 -> 1.0 (완전한 구체)
-          scale: 1.2,
-          positionX: blogX,
-        };
-
       case SECTIONS.CONTACT:
       default:
         // Contact: 완전한 구체, 중앙

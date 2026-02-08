@@ -58,7 +58,7 @@ export default function DevelopmentPortfolioDetail({ project }: Props) {
               transition={{ duration: 0.6 }}>
               {/* 타이틀 */}
               <div className="mb-6">
-                <h1 className="text-4xl md:text-5xl font-bold mb-2">
+                <h1 className="text-4xl md:text-5xl font-medium mb-2">
                   {project.title}
                 </h1>
                 <p className="text-xl text-dark-500 dark:text-dark-400">
@@ -123,13 +123,13 @@ export default function DevelopmentPortfolioDetail({ project }: Props) {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}>
-            <h2 className="text-2xl font-bold mb-4">프로젝트 소개</h2>
+            <h2 className="text-2xl font-medium mb-4">프로젝트 소개</h2>
             <p className="text-dark-500 dark:text-dark-400 leading-relaxed">
               {project.description}
             </p>
 
             {/* 주요 기능 */}
-            <h3 className="text-xl font-bold mt-8 mb-4">주요 기능</h3>
+            <h3 className="text-xl font-medium mt-8 mb-4">주요 기능</h3>
             <ul className="space-y-2">
               {project.features.map((feature, index) => (
                 <motion.li
@@ -150,7 +150,7 @@ export default function DevelopmentPortfolioDetail({ project }: Props) {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}>
-            <h2 className="text-2xl font-bold mb-4">기술 스택</h2>
+            <h2 className="text-2xl font-medium mb-4">기술 스택</h2>
             <div className="flex flex-wrap gap-2">
               {project.techStack.map((tech, index) => (
                 <motion.span
@@ -176,7 +176,7 @@ export default function DevelopmentPortfolioDetail({ project }: Props) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="mb-16">
-              <h2 className="text-3xl font-bold mb-2">Development Process</h2>
+              <h2 className="text-3xl font-medium mb-2">Development Process</h2>
               <p className="text-dark-500 dark:text-dark-400">
                 문제 발견부터 성과까지의 여정
               </p>
@@ -189,7 +189,7 @@ export default function DevelopmentPortfolioDetail({ project }: Props) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}>
                 <div className="flex items-baseline gap-4 mb-6">
-                  <span className="text-5xl font-bold text-point/20">01</span>
+                  <span className="text-5xl font-medium text-point/20">01</span>
                   <h3 className="text-xl font-semibold">Problem Discovery</h3>
                 </div>
                 <div className="ml-0 md:ml-16">
@@ -221,7 +221,7 @@ export default function DevelopmentPortfolioDetail({ project }: Props) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}>
                 <div className="flex items-baseline gap-4 mb-6">
-                  <span className="text-5xl font-bold text-point/20">02</span>
+                  <span className="text-5xl font-medium text-point/20">02</span>
                   <h3 className="text-xl font-semibold">Requirements</h3>
                 </div>
                 <div className="ml-0 md:ml-16 grid md:grid-cols-2 gap-8 max-w-4xl">
@@ -270,7 +270,7 @@ export default function DevelopmentPortfolioDetail({ project }: Props) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}>
                 <div className="flex items-baseline gap-4 mb-6">
-                  <span className="text-5xl font-bold text-point/20">03</span>
+                  <span className="text-5xl font-medium text-point/20">03</span>
                   <h3 className="text-xl font-semibold">
                     Technical Challenges
                   </h3>
@@ -312,7 +312,7 @@ export default function DevelopmentPortfolioDetail({ project }: Props) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}>
                 <div className="flex items-baseline gap-4 mb-6">
-                  <span className="text-5xl font-bold text-point/20">04</span>
+                  <span className="text-5xl font-medium text-point/20">04</span>
                   <h3 className="text-xl font-semibold">Achievements</h3>
                 </div>
                 <div className="ml-0 md:ml-16 grid md:grid-cols-3 gap-8 max-w-5xl">
@@ -384,14 +384,14 @@ export default function DevelopmentPortfolioDetail({ project }: Props) {
       )}
 
       {/* 이미지 갤러리 */}
-      {project.images.length > 0 && (
+      {project.images.length > 1 && (
         <section className="py-16 px-6 bg-light-200 dark:bg-dark-900">
           <div className="max-w-6xl mx-auto">
             <motion.h2
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
-              className="text-2xl font-bold mb-8">
+              className="text-2xl font-medium mb-8">
               Screenshots
             </motion.h2>
 
@@ -444,7 +444,7 @@ export default function DevelopmentPortfolioDetail({ project }: Props) {
 
             {/* 이미지 컨테이너 */}
             <div className="px-6 md:px-16 lg:px-32 pb-16 -mt-8">
-              <div className="max-w-lg mx-auto">
+              <div className="mx-auto max-w-3xl">
                 <Image
                   src={project.images[selectedImage]}
                   alt={`${project.title} 스크린샷 ${selectedImage + 1}`}

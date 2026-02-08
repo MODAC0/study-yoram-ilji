@@ -66,7 +66,7 @@ export default function ContactSection() {
         className="max-w-md">
         <div className="flex mb-6 items-center justify-center">
           <Link href="/profile" className="group flex items-center gap-2">
-            <h2 className="text-3xl md:text-4xl font-bold group-hover:text-point transition-all duration-300">
+            <h2 className="text-3xl md:text-4xl font-medium group-hover:text-point transition-all duration-300">
               Contact Me
             </h2>
             <svg

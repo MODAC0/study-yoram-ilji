@@ -1,22 +1,17 @@
-"use client";
+'use client';
 
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useTheme } from "next-themes";
-import { useEffect, useMemo, useRef, useState } from "react";
-import * as THREE from "three";
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { useTheme } from 'next-themes';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import * as THREE from 'three';
 
-import { RendererCleanup } from "@/components/common/RendererCleanup";
-import fragmentShader from "@/components/home/fragmentShader.glsl";
-import vertexShader from "@/components/home/vertexShader.glsl";
+import { RendererCleanup } from '@/components/common/RendererCleanup';
+import fragmentShader from '@/components/home/fragmentShader.glsl';
+import vertexShader from '@/components/home/vertexShader.glsl';
 
 interface SphereModelProps {
   className?: string;
 }
-
-/**
- * 메인 페이지의 CONTACT 상태 구체를 단독으로 렌더링하는 컴포넌트
- * morph=1, spread=0 상태의 완전한 구체
- */
 export function SphereModel({ className }: SphereModelProps) {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -25,15 +20,14 @@ export function SphereModel({ className }: SphereModelProps) {
     setMounted(true);
   }, []);
 
-  const saturation = mounted && theme === "dark" ? 0.4 : 0.7;
-  const lightness = mounted && theme === "dark" ? 0.3 : 0.5;
+  const saturation = mounted && theme === 'dark' ? 0.4 : 0.7;
+  const lightness = mounted && theme === 'dark' ? 0.3 : 0.5;
 
   return (
     <div className={className}>
       <Canvas
         camera={{ position: [0, 0, 3], fov: 50 }}
-        style={{ width: "100%", height: "100%" }}
-      >
+        style={{ width: '100%', height: '100%' }}>
         <ambientLight intensity={0.5} />
         <ResponsiveParticles saturation={saturation} lightness={lightness} />
         <RendererCleanup />
@@ -52,7 +46,7 @@ const ResponsiveParticles = ({
   lightness,
 }: ResponsiveParticlesProps) => {
   const { viewport } = useThree();
-  const baseScale = Math.max(0.5, viewport.width / 5);
+  const baseScale = Math.max(1, viewport.width / 5);
 
   return (
     <SphereParticles
@@ -101,12 +95,12 @@ const SphereParticles = ({
       uTime: { value: 0.0 },
       uSaturation: { value: saturation },
       uLightness: { value: lightness },
-      uOpacity: { value: 1.0 },
-      uMorph: { value: 1.0 }, // 완전한 구체
+      uOpacity: { value: 0.5 },
+      uMorph: { value: 1.2 }, // 완전한 구체
       uSpread: { value: 0.0 }, // 모인 상태
       uPositionOffset: { value: new THREE.Vector3(0, 0, 0) },
     }),
-    []
+    [],
   );
 
   useFrame(({ clock }) => {
