@@ -160,6 +160,140 @@ const DESIGN_PORTFOLIOS: DesignPortfolio[] = [
 
 const DEVELOPMENT_PORTFOLIOS: DevelopmentPortfolio[] = [
   {
+    id: 'kma-lms',
+    category: 'development',
+    title: 'KMA stud.io LMS',
+    subtitle: '기업교육 학습관리시스템',
+    description:
+      'KMA stud.io는 한국능률협회의 기업교육 학습관리시스템(LMS)으로, 이러닝 콘텐츠, 라이브 강의, 자격인증 과정 등 다양한 교육 서비스를 제공하는 통합 플랫폼입니다. 사용자 웹과 관리자 페이지를 Monorepo 아키텍처로 구축하여 기업 임직원들에게 최적화된 학습 경험을 제공합니다.',
+    period: '2024.01 - 2026.02',
+    role: '프론트엔드 개발',
+    team: '4인',
+    techStack: [
+      'Next.js 15',
+      'React 18',
+      'TypeScript 5',
+      'Vite',
+      'Turborepo',
+      'TanStack Query v5',
+      'Zustand v5',
+      'Tailwind CSS',
+      'Ant Design 5',
+      'Emotion',
+      'CKEditor 5',
+      'HLS.js',
+      'NextAuth',
+      'Framer Motion',
+      'MSW',
+      'Playwright',
+    ],
+    features: [
+      'HLS 기반 동영상 스트리밍 플레이어 (진도율 추적, 미리보기)',
+      '나이스페이 결제 시스템 연동 (멤버십/과정 결제)',
+      '교육담당자 대시보드 및 기업교육과정 관리',
+      'AI 챗봇 시스템 (SSE 기반 실시간 응답)',
+      '수료증/자격증 발급 및 인쇄 기능',
+      'CKEditor 기반 콘텐츠 에디터 (이미지, 영상 임베드)',
+      '회원/비회원/교담자 권한별 접근 제어',
+      '반응형 웹앱 (모바일/태블릿/데스크톱)',
+    ],
+    process: {
+      problemDiscovery: {
+        background:
+          '기업교육 시장에서 이러닝, 라이브 강의, 자격인증 과정 등 다양한 교육 콘텐츠를 통합 관리하고, 기업 고객과 개인 사용자 모두에게 최적화된 학습 경험을 제공하는 플랫폼이 필요했습니다. 또한 관리자가 콘텐츠, 회원, 결제를 효율적으로 관리할 수 있는 백오피스 시스템이 요구되었습니다.',
+        problems: [
+          '사용자/관리자 앱 간 코드 중복 및 일관성 유지 어려움',
+          '복잡한 권한 체계(회원사/비회원사/교담자/일반사용자) 관리',
+          '동영상 스트리밍 진도율 정확도 및 비정상 종료 시 데이터 손실',
+          '다양한 결제 상태 및 멤버십 관리의 복잡성',
+          '대용량 영상/첨부파일 업로드 시 타임아웃 및 UX 문제',
+        ],
+      },
+      requirements: {
+        functional: [
+          '이러닝/라이브/자격인증 콘텐츠 학습 및 관리',
+          'HLS 기반 동영상 플레이어 및 진도율 추적',
+          '나이스페이 결제 연동 (카드/무통장입금)',
+          '멤버십 구독 및 과정별 결제 시스템',
+          '수료증/자격증 발급 및 인쇄',
+          '교육담당자 전용 기업교육과정 관리',
+          'AI 챗봇 기반 학습 지원',
+          '공지사항/FAQ/1:1문의 시스템',
+        ],
+        nonFunctional: [
+          '모바일/태블릿/데스크톱 반응형 UI',
+          '서버 컴포넌트 기반 초기 로딩 최적화',
+          '결제 시스템 안정성 및 보안',
+          'Monorepo 기반 코드 재사용성 및 일관성',
+          'MSW 기반 백엔드 독립적 개발 환경',
+        ],
+      },
+      technicalChallenges: [
+        {
+          challenge:
+            'Monorepo 환경에서 사용자 웹(Next.js)과 관리자(Vite+React) 간 공통 패키지 관리 및 빌드 최적화',
+          solution:
+            'Turborepo + pnpm Workspaces 조합으로 효율적인 멀티 프로젝트 관리 체계 수립. @repo/ui, @repo/utils, @repo/tailwind-config 등 공유 패키지 분리로 코드 재사용성 극대화. 빌드 캐싱을 통한 CI/CD 파이프라인 최적화',
+        },
+        {
+          challenge:
+            '복잡한 권한 시스템(회원사/비회원사/교담자/일반사용자)에 따른 콘텐츠 접근 제어',
+          solution:
+            'Next.js 미들웨어 기반 권한 처리 로직 구현. Context API를 활용한 전역 권한 상태 관리로 컴포넌트별 조건부 렌더링 및 라우트 보호 적용',
+        },
+        {
+          challenge:
+            'HLS 동영상 스트리밍 진도율 정확도 확보 및 비정상 종료 시 데이터 보존',
+          solution:
+            'beforeunload 이벤트 활용한 종료 시점 데이터 저장. 주기적 서버 동기화 로직으로 실시간 진도 업데이트. 브라우저 탭 전환 감지를 통한 학습 상태 관리',
+        },
+        {
+          challenge:
+            '나이스페이 결제 시스템 연동 및 다양한 결제/환불 상태 관리',
+          solution:
+            '결제 상태별(미결제/결제완료/미입금/결제취소) UI 피드백 및 예외 처리 로직 구현. 멤버십 구독과 과정별 결제를 구분한 결제 플로우 설계. 계산서 발행 및 영수증 기능 통합',
+        },
+        {
+          challenge:
+            '대용량 영상/첨부파일 업로드 시 안정성 및 사용자 경험 확보',
+          solution:
+            '청크 업로드 방식 도입으로 대용량 파일 안정적 전송. 프로그레스 바 UI로 실시간 업로드 상태 피드백. CDN 연동을 통한 파일 배포 최적화',
+        },
+      ],
+      achievements: {
+        metrics: [
+          'Turborepo 기반 Monorepo 아키텍처로 2개 앱 + 6개 공유 패키지 통합 관리',
+          '17개 도메인 feature 모듈 기반 Feature-Sliced Design 적용',
+          '700+ 커밋 이력의 지속적인 기능 개선 및 유지보수',
+          '3단계 반응형 브레이크포인트(sm/l/xl) 완전 대응',
+        ],
+        qualitative: [
+          'Next.js 15 App Router 및 서버 컴포넌트 활용 SEO/성능 최적화',
+          'TanStack Query + Zustand 조합의 효율적인 상태 관리 패턴 확립',
+          'MSW 기반 목업 시스템으로 백엔드 독립적 개발 환경 구축',
+          'PR 기반 코드 리뷰 및 TC(Test Case) 기반 체계적 QA 프로세스 수립',
+        ],
+        learnings: [
+          '대규모 Monorepo 아키텍처 설계 및 패키지 관리 경험',
+          'Next.js App Router와 React Server Components 심화 활용',
+          'PG사(나이스페이) 결제 연동 및 금융 트랜잭션 처리 노하우',
+          'HLS 기반 동영상 스트리밍 및 진도 추적 시스템 구현',
+          '복잡한 권한 체계 설계 및 미들웨어 기반 접근 제어',
+        ],
+      },
+    },
+    links: {},
+    images: [
+      '/portfolio/kma-lms/1.webp',
+      '/portfolio/kma-lms/2.webp',
+      '/portfolio/kma-lms/3.webp',
+      '/portfolio/kma-lms/4.webp',
+      '/portfolio/kma-lms/5.webp',
+    ],
+    color: '#242525',
+    thumbnail: '/portfolio/kma-lms/thumbnail.webp',
+  },
+  {
     id: 'aresa-app',
     category: 'development',
     title: 'ARESA Mobile App',
@@ -365,471 +499,7 @@ const DEVELOPMENT_PORTFOLIOS: DevelopmentPortfolio[] = [
     ),
     color: '#292A35',
     thumbnail: '/portfolio/odocs/thumbnail.webp',
-  }, // {
-  //   id: 'aresa-homepage',
-  //   category: 'development',
-  //   title: 'ARESA Homepage',
-  //   subtitle: '기업 홈페이지 및 제품 소개 웹사이트',
-  //   description:
-  //     'ARESA 기업의 브랜드 아이덴티티를 담은 반응형 홈페이지입니다. AOS 스크롤 애니메이션과 Swiper 슬라이더를 활용해 인터랙티브한 사용자 경험을 제공합니다.',
-  //   period: '2023.11 - 2024.01',
-  //   role: '프론트엔드 개발',
-  //   team: '2인',
-  //   techStack: [
-  //     'Next.js 14',
-  //     'React 18',
-  //     'TypeScript',
-  //     'Tailwind CSS',
-  //     'SASS',
-  //     'Swiper',
-  //     'AOS',
-  //   ],
-  //   features: [
-  //     '반응형 기업 홈페이지 구현',
-  //     'AOS 라이브러리 활용 스크롤 애니메이션',
-  //     'Swiper 기반 제품 슬라이더',
-  //     'Next.js Image 최적화',
-  //     'SEO 최적화 및 메타태그 관리',
-  //   ],
-  //   process: {
-  //     problemDiscovery: {
-  //       background:
-  //         'IoT 환경 모니터링 솔루션을 제공하는 ARESA의 브랜드 가치와 제품을 효과적으로 전달할 수 있는 기업 홈페이지가 필요했습니다.',
-  //       problems: [
-  //         '기존 홈페이지의 느린 로딩 속도와 낮은 SEO 점수',
-  //         '모바일 환경에서의 불편한 사용자 경험',
-  //         '이미지 최적화 부재로 인한 데이터 낭비',
-  //         '정적인 페이지로 인한 낮은 사용자 체류 시간',
-  //       ],
-  //     },
-  //     requirements: {
-  //       functional: [
-  //         '회사 소개 및 비전 페이지',
-  //         '제품 라인업 소개 및 상세 스펙',
-  //         '뉴스/공지사항 섹션',
-  //         '문의하기 폼 및 위치 안내',
-  //       ],
-  //       nonFunctional: [
-  //         'First Contentful Paint 1.5초 이내',
-  //         'Google SEO 점수 90점 이상',
-  //         '모든 디바이스에서 일관된 UX 제공',
-  //         '이미지 로딩 최적화',
-  //       ],
-  //     },
-  //     technicalChallenges: [
-  //       {
-  //         challenge: '대용량 제품 이미지로 인한 초기 로딩 지연',
-  //         solution:
-  //           'Next.js Image 컴포넌트와 next/image의 자동 최적화 기능 활용. WebP 포맷 자동 변환, 반응형 이미지 srcset 생성, lazy loading으로 초기 로딩 시간 70% 단축',
-  //       },
-  //       {
-  //         challenge: '스크롤 애니메이션의 부드러운 동작과 성능 균형',
-  //         solution:
-  //           'AOS 라이브러리의 throttle 옵션 조정 및 will-change CSS 속성 활용. Intersection Observer 기반으로 뷰포트 진입 시에만 애니메이션 트리거',
-  //       },
-  //     ],
-  //     achievements: {
-  //       metrics: [
-  //         'Lighthouse 성능 점수 94점 달성',
-  //         'First Contentful Paint 1.2초',
-  //         'SEO 점수 100점',
-  //         '평균 페이지 체류 시간 2분 30초 (기존 대비 150% 증가)',
-  //       ],
-  //       qualitative: [
-  //         'Next.js App Router 기반 SEO 최적화 전략 수립',
-  //         'SASS 모듈 시스템을 활용한 스타일 구조화',
-  //         'Swiper 커스터마이징으로 브랜드에 맞는 슬라이더 구현',
-  //       ],
-  //       learnings: [
-  //         'Next.js 14 App Router와 서버 컴포넌트 활용법',
-  //         '기업 홈페이지의 SEO 최적화 베스트 프랙티스',
-  //         '스크롤 기반 애니메이션 성능 최적화 기법',
-  //       ],
-  //     },
-  //   },
-  //   links: {},
-  //   images: Array.from(
-  //     { length: 5 },
-  //     (_, i) => `/portfolio/aresa-homepage/${i + 1}.png`,
-  //   ),
-  //   color: '#0EA5E9',
-  //   thumbnail: '/portfolio/aresa-homepage/1.png',
-  // },
-  // {
-  //   id: 'bioroom-client',
-  //   category: 'development',
-  //   title: 'Bioroom Client',
-  //   subtitle: '바이오룸 서비스 클라이언트 웹 애플리케이션',
-  //   description:
-  //     '바이오룸 서비스의 클라이언트 웹 애플리케이션으로, 네이버 지도 API를 활용한 위치 기반 서비스와 react-hook-form을 통한 폼 관리 기능을 제공합니다.',
-  //   period: '2024.04 - 2024.06',
-  //   role: '프론트엔드 개발',
-  //   team: '3인',
-  //   techStack: [
-  //     'Next.js 14',
-  //     'React 18',
-  //     'TypeScript',
-  //     'Tailwind CSS',
-  //     'Naver Maps API',
-  //     'react-hook-form',
-  //     'SWR',
-  //     'Swiper',
-  //     'EmailJS',
-  //   ],
-  //   features: [
-  //     '네이버 지도 API 연동 및 위치 기반 검색',
-  //     'react-hook-form 기반 폼 유효성 검사',
-  //     'SWR을 활용한 데이터 페칭 및 캐싱',
-  //     '반응형 UI 및 모바일 최적화',
-  //     'EmailJS 이메일 발송 기능',
-  //   ],
-  //   process: {
-  //     problemDiscovery: {
-  //       background:
-  //         '바이오룸 서비스 이용자들이 주변 시설을 쉽게 찾고 예약할 수 있는 위치 기반 웹 서비스가 필요했습니다.',
-  //       problems: [
-  //         '복잡한 예약 폼으로 인한 높은 이탈률',
-  //         '위치 기반 검색 시 지도 로딩 지연',
-  //         '서버 데이터 변경 시 UI 동기화 문제',
-  //         '모바일 환경에서의 지도 조작 불편',
-  //       ],
-  //     },
-  //     requirements: {
-  //       functional: [
-  //         '네이버 지도 기반 시설 위치 표시 및 검색',
-  //         '예약 문의 폼 및 유효성 검사',
-  //         '시설 상세 정보 및 이미지 갤러리',
-  //         '이메일 문의 발송 기능',
-  //       ],
-  //       nonFunctional: [
-  //         '지도 초기 로딩 2초 이내',
-  //         '폼 입력 시 실시간 유효성 검사 피드백',
-  //         '모바일 터치 제스처 최적화',
-  //         '데이터 캐싱으로 재방문 시 즉시 로딩',
-  //       ],
-  //     },
-  //     technicalChallenges: [
-  //       {
-  //         challenge: '네이버 지도 API의 복잡한 초기화 및 React 생명주기 충돌',
-  //         solution:
-  //           '@naver-maps/react 라이브러리와 useEffect를 활용한 지도 인스턴스 관리. 클린업 함수에서 이벤트 리스너 제거 및 메모리 해제 처리',
-  //       },
-  //       {
-  //         challenge: '복잡한 예약 폼의 상태 관리 및 유효성 검사',
-  //         solution:
-  //           'react-hook-form의 register와 watch를 활용한 선언적 폼 관리. Zod 스키마 연동으로 타입 안전한 유효성 검사 구현',
-  //       },
-  //       {
-  //         challenge: '서버 상태와 클라이언트 캐시 동기화',
-  //         solution:
-  //           'SWR의 mutate와 revalidate 전략으로 optimistic update 구현. stale-while-revalidate 패턴으로 UX 개선',
-  //       },
-  //     ],
-  //     achievements: {
-  //       metrics: [
-  //         '예약 폼 이탈률 35% → 15% (57% 감소)',
-  //         '지도 초기 로딩 1.5초 달성',
-  //         '재방문자 페이지 로딩 시간 80% 단축',
-  //         '모바일 사용자 만족도 4.2/5.0',
-  //       ],
-  //       qualitative: [
-  //         'SWR 기반 데이터 페칭 아키텍처 정립',
-  //         '네이버 지도 API 활용 노하우 축적',
-  //         'react-hook-form을 활용한 복잡한 폼 패턴 정립',
-  //       ],
-  //       learnings: [
-  //         'SWR의 캐싱 전략과 revalidation 메커니즘 이해',
-  //         '외부 지도 API와 React의 효과적인 통합 방법',
-  //         '폼 라이브러리 선택 기준과 적용 패턴',
-  //       ],
-  //     },
-  //   },
-  //   links: {},
-  //   images: [],
-  //   color: '#10B981',
-  //   thumbnail: '/portfolio/youandus/1.webp',
-  // },
-  // {
-  //   id: 'agency-nangman',
-  //   category: 'development',
-  //   title: 'Agency Nangman',
-  //   subtitle: '크리에이티브 에이전시 포트폴리오 웹사이트',
-  //   description:
-  //     'Three.js와 OGL을 활용한 3D 인터랙티브 요소와 Typed.js 타이핑 애니메이션이 적용된 크리에이티브 에이전시 웹사이트입니다. 시각적으로 인상적인 사용자 경험을 제공합니다.',
-  //   period: '2024.02 - 2024.04',
-  //   role: '프론트엔드 개발',
-  //   team: '2인',
-  //   techStack: [
-  //     'Next.js 14',
-  //     'React 18',
-  //     'TypeScript',
-  //     'Tailwind CSS',
-  //     'Three.js',
-  //     'OGL',
-  //     'Typed.js',
-  //     'AOS',
-  //     'SASS',
-  //     'Swiper',
-  //   ],
-  //   features: [
-  //     'Three.js/OGL 기반 3D 인터랙티브 배경',
-  //     'Typed.js 타이핑 애니메이션 효과',
-  //     'AOS 스크롤 트리거 애니메이션',
-  //     '포트폴리오 갤러리 및 필터링',
-  //     '문의 폼 및 이메일 발송',
-  //   ],
-  //   process: {
-  //     problemDiscovery: {
-  //       background:
-  //         '크리에이티브 에이전시의 독창성과 기술력을 보여줄 수 있는 인터랙티브 포트폴리오 웹사이트가 필요했습니다.',
-  //       problems: [
-  //         '일반적인 정적 포트폴리오로는 에이전시의 창의성 표현 한계',
-  //         '3D 그래픽 사용 시 저사양 디바이스에서의 성능 저하',
-  //         '모바일 환경에서 3D 인터랙션 제한',
-  //         '포트폴리오 필터링 시 페이지 새로고침으로 인한 UX 저하',
-  //       ],
-  //     },
-  //     requirements: {
-  //       functional: [
-  //         '3D 인터랙티브 히어로 섹션',
-  //         '카테고리별 포트폴리오 필터링',
-  //         '프로젝트 상세 페이지 및 갤러리',
-  //         '타이핑 애니메이션 효과',
-  //         '문의 폼 이메일 발송',
-  //       ],
-  //       nonFunctional: [
-  //         '저사양 디바이스에서도 30fps 이상 유지',
-  //         '모바일에서 대체 애니메이션 제공',
-  //         'URL 기반 필터 상태 유지',
-  //         'Core Web Vitals 기준 충족',
-  //       ],
-  //     },
-  //     technicalChallenges: [
-  //       {
-  //         challenge: 'Three.js/OGL 3D 렌더링의 저사양 디바이스 성능 문제',
-  //         solution:
-  //           'GPU 성능 감지 로직으로 디바이스별 렌더링 품질 자동 조절. requestAnimationFrame 최적화 및 불필요한 렌더링 스킵. 모바일에서는 CSS 기반 대체 애니메이션 제공',
-  //       },
-  //       {
-  //         challenge: 'React 환경에서 Three.js 인스턴스 메모리 관리',
-  //         solution:
-  //           'useEffect 클린업에서 geometry, material, texture dispose 처리. React 18 Strict Mode 대응을 위한 렌더러 재사용 패턴 적용',
-  //       },
-  //       {
-  //         challenge: 'URL 상태와 필터 UI 동기화',
-  //         solution:
-  //           'Next.js useSearchParams와 useRouter를 활용한 URL 기반 상태 관리. shallow routing으로 페이지 새로고침 없이 필터 상태 변경',
-  //       },
-  //     ],
-  //     achievements: {
-  //       metrics: [
-  //         '평균 세션 시간 3분 45초 (업계 평균 대비 200% 증가)',
-  //         '문의 전환율 8.5%',
-  //         '저사양 디바이스에서도 45fps 유지',
-  //         'Lighthouse 성능 점수 87점',
-  //       ],
-  //       qualitative: [
-  //         'Three.js/OGL 기반 3D 웹 개발 역량 확보',
-  //         '디바이스별 성능 최적화 전략 수립',
-  //         '크리에이티브 웹사이트 제작 경험',
-  //       ],
-  //       learnings: [
-  //         'WebGL 기반 3D 그래픽 프로그래밍 기초',
-  //         '성능 프로파일링 및 최적화 기법',
-  //         'CSS/JS 애니메이션 조합 전략',
-  //       ],
-  //     },
-  //   },
-  //   links: {},
-  //   images: [],
-  //   color: '#8B5CF6',
-  //   thumbnail: '/portfolio/youandus/1.webp',
-  // },
-  // {
-  //   id: 'admin-dashboard',
-  //   category: 'development',
-  //   title: 'Admin Dashboard',
-  //   subtitle: 'Angular Material 기반 관리자 대시보드',
-  //   description:
-  //     'Angular 17과 Material Design을 활용한 관리자 대시보드입니다. NGXS 상태 관리와 ngx-editor 리치 텍스트 에디터를 적용하여 효율적인 콘텐츠 관리 기능을 제공합니다.',
-  //   period: '2023.12 - 2024.02',
-  //   role: '프론트엔드 개발',
-  //   team: '2인',
-  //   techStack: [
-  //     'Angular 17',
-  //     'TypeScript',
-  //     'Angular Material',
-  //     'Tailwind CSS',
-  //     'NGXS',
-  //     'ngx-editor',
-  //     'RxJS',
-  //   ],
-  //   features: [
-  //     'Angular Material 기반 UI 컴포넌트',
-  //     'NGXS 전역 상태 관리',
-  //     '리치 텍스트 에디터 콘텐츠 관리',
-  //     '사용자 권한 관리',
-  //     '대시보드 통계 시각화',
-  //   ],
-  //   process: {
-  //     problemDiscovery: {
-  //       background:
-  //         '여러 서비스의 콘텐츠와 사용자를 통합 관리할 수 있는 관리자 대시보드가 필요했습니다.',
-  //       problems: [
-  //         '기존 관리 도구의 분산으로 운영 효율성 저하',
-  //         '복잡한 권한 체계로 인한 접근 제어 어려움',
-  //         '콘텐츠 편집 시 HTML 직접 작성 필요',
-  //         '여러 화면 간 상태 공유 문제',
-  //       ],
-  //     },
-  //     requirements: {
-  //       functional: [
-  //         '사용자 계정 및 권한 관리 (CRUD)',
-  //         '콘텐츠 관리 (리치 텍스트 에디터)',
-  //         '대시보드 통계 및 차트',
-  //         '알림 및 공지사항 관리',
-  //         '시스템 설정 관리',
-  //       ],
-  //       nonFunctional: [
-  //         '역할 기반 접근 제어 (RBAC)',
-  //         '일관된 UI/UX (Material Design)',
-  //         '복잡한 폼의 상태 관리',
-  //         '실시간 데이터 동기화',
-  //       ],
-  //     },
-  //     technicalChallenges: [
-  //       {
-  //         challenge: '여러 모듈 간 복잡한 상태 공유 및 동기화',
-  //         solution:
-  //           'NGXS 상태 관리 라이브러리 도입. Feature State 패턴으로 모듈별 상태 분리 및 Selector 메모이제이션으로 렌더링 최적화',
-  //       },
-  //       {
-  //         challenge: '역할 기반 접근 제어(RBAC) 구현의 복잡성',
-  //         solution:
-  //           'Angular Guard와 Directive를 조합한 선언적 권한 체크. NGXS에서 사용자 권한 상태 관리 및 API 요청 시 인터셉터에서 권한 검증',
-  //       },
-  //       {
-  //         challenge: 'ngx-editor 커스터마이징 및 이미지 업로드 처리',
-  //         solution:
-  //           '커스텀 플러그인 개발로 이미지 드래그앤드롭 업로드 구현. Base64 인라인 대신 서버 업로드 후 URL 삽입 방식으로 문서 크기 최적화',
-  //       },
-  //     ],
-  //     achievements: {
-  //       metrics: [
-  //         '관리자 작업 처리 시간 40% 단축',
-  //         '콘텐츠 발행 오류율 80% 감소',
-  //         '신규 관리자 온보딩 시간 50% 단축',
-  //       ],
-  //       qualitative: [
-  //         'NGXS 기반 상태 관리 아키텍처 정립',
-  //         'Angular Material 커스터마이징 노하우 축적',
-  //         '재사용 가능한 관리자 UI 컴포넌트 라이브러리화',
-  //       ],
-  //       learnings: [
-  //         'Angular 17 Standalone Component 패턴',
-  //         'NGXS의 Action, State, Selector 패턴 심화',
-  //         'RxJS 연산자를 활용한 복잡한 비동기 흐름 처리',
-  //       ],
-  //     },
-  //   },
-  //   links: {},
-  //   images: [],
-  //   color: '#DD0031',
-  //   thumbnail: '/portfolio/youandus/1.webp',
-  // },
-  // {
-  //   id: 'odocs-system',
-  //   category: 'development',
-  //   title: 'ODocs System',
-  //   subtitle: '문서 관리 시스템',
-  //   description:
-  //     'Angular 17 기반의 문서 관리 시스템으로, ngx-editor 리치 텍스트 에디터와 NGXS 상태 관리를 활용하여 효율적인 문서 작성 및 관리 기능을 제공합니다.',
-  //   period: '2024.01 - 2024.03',
-  //   role: '프론트엔드 개발',
-  //   team: '3인',
-  //   techStack: [
-  //     'Angular 17',
-  //     'TypeScript',
-  //     'Tailwind CSS',
-  //     'NGXS',
-  //     'ngx-editor',
-  //     'Axios',
-  //     'DayJS',
-  //   ],
-  //   features: [
-  //     '리치 텍스트 에디터 기반 문서 작성',
-  //     '문서 버전 관리 및 히스토리',
-  //     '실시간 자동 저장',
-  //     '문서 검색 및 필터링',
-  //     '사용자 권한별 접근 제어',
-  //   ],
-  //   process: {
-  //     problemDiscovery: {
-  //       background:
-  //         '팀 내 문서 작성 및 공유를 위한 체계적인 문서 관리 시스템이 필요했습니다.',
-  //       problems: [
-  //         '문서 작성 중 브라우저 종료 시 내용 유실',
-  //         '동시 편집 시 충돌 및 덮어쓰기 문제',
-  //         '문서 변경 이력 추적 불가',
-  //         '검색 기능 부재로 원하는 문서 찾기 어려움',
-  //       ],
-  //     },
-  //     requirements: {
-  //       functional: [
-  //         '리치 텍스트 에디터 기반 문서 작성/편집',
-  //         '문서 버전 관리 및 변경 이력 조회',
-  //         '자동 저장 및 임시 저장',
-  //         '전문 검색 및 태그 기반 필터링',
-  //         '문서 공유 및 권한 설정',
-  //       ],
-  //       nonFunctional: [
-  //         '자동 저장 주기 30초 이내',
-  //         '동시 편집 충돌 방지',
-  //         '대용량 문서(10MB+) 처리',
-  //         '빠른 검색 응답 (500ms 이내)',
-  //       ],
-  //     },
-  //     technicalChallenges: [
-  //       {
-  //         challenge: '문서 자동 저장 시 불필요한 API 호출과 서버 부하',
-  //         solution:
-  //           'RxJS debounceTime과 distinctUntilChanged 조합으로 변경 감지 최적화. 변경된 부분만 diff 계산하여 전송하는 incremental save 구현',
-  //       },
-  //       {
-  //         challenge: '대용량 문서 렌더링 시 에디터 성능 저하',
-  //         solution:
-  //           'Virtual scrolling 적용 및 ngx-editor lazy loading 설정. 이미지는 thumbnail 미리보기 후 클릭 시 원본 로드',
-  //       },
-  //       {
-  //         challenge: '문서 버전 관리 및 diff 시각화',
-  //         solution:
-  //           'Operational Transform 알고리즘 기반 버전 관리. diff-match-patch 라이브러리로 버전 간 변경사항 시각화',
-  //       },
-  //     ],
-  //     achievements: {
-  //       metrics: [
-  //         '문서 유실 사고 0건 (자동 저장 도입 후)',
-  //         '문서 검색 시간 평균 0.3초',
-  //         '동시 편집 충돌 해결률 100%',
-  //         '사용자 만족도 4.5/5.0',
-  //       ],
-  //       qualitative: [
-  //         'RxJS 기반 실시간 데이터 처리 패턴 정립',
-  //         '문서 에디터 커스터마이징 경험',
-  //         '버전 관리 시스템 설계 역량 확보',
-  //       ],
-  //       learnings: [
-  //         'RxJS 고급 연산자 활용법 (debounce, throttle, switchMap)',
-  //         'Operational Transform 알고리즘의 이해',
-  //         '대용량 텍스트 처리 최적화 기법',
-  //       ],
-  //     },
-  //   },
-  //   links: {},
-  //   images: [],
-  //   color: '#6366F1',
-  //   thumbnail: '/portfolio/youandus/1.webp',
-  // },
+  },
 ];
 
 export const portfolioProjects: PortfolioProject[] = [

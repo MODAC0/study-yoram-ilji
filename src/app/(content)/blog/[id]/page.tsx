@@ -118,7 +118,7 @@ export default async function PostPage({ params }: Props) {
           />
         )}
       </div>
-      <div className="max-w-4xl mx-auto py-20 px-4">
+      <div className="max-w-4xl mx-auto py-20 px-4 ">
         <div className="flex flex-col gap-2">
           {category && (
             <span className="w-fit text-xs font-medium rounded-full backdrop-blur-sm px-2 py-1 border-point-light border text-point-light">
@@ -139,7 +139,7 @@ export default async function PostPage({ params }: Props) {
           <span>·</span>
           <ViewCounter postId={id} />
         </div>
-        <article>
+        <article className="text-dark-900 dark:text-point-light">
           {content.results.map((block) => (
             <NotionBlock
               key={block.id}
