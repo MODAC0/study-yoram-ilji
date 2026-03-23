@@ -170,7 +170,7 @@ export default function NotionBlock({
 
     case 'quote':
       return (
-        <blockquote className="my-4 p-4 border-l-4 border-gray-300 bg-gray-50 dark:bg-gray-800 italic">
+        <blockquote className="my-4 py-1 pl-4 border-l-4 border-black leading-loose dark:border-white whitespace-pre-wrap">
           <RichText richTexts={block.quote.rich_text} />
           <RenderChildren
             children={block.children}

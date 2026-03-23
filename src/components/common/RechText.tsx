@@ -1,5 +1,5 @@
-import { RichTextItemResponse } from "@notionhq/client/build/src/api-endpoints";
-import React from "react";
+import { RichTextItemResponse } from '@notionhq/client/build/src/api-endpoints';
+import React from 'react';
 
 export default function RichText({
   richTexts,
@@ -17,7 +17,7 @@ export default function RichText({
         let content: React.ReactNode = plain_text;
 
         if (annotations.bold) {
-          content = <strong>{content}</strong>;
+          content = <strong className="text-point">{content}</strong>;
         }
         if (annotations.italic) {
           content = <em>{content}</em>;
@@ -42,8 +42,7 @@ export default function RichText({
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-point hover:underline"
-            >
+              className="text-point hover:underline">
               {content}
             </a>
           );
