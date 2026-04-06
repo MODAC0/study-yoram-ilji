@@ -111,3 +111,115 @@
   animation: var(--animate-scroll-chevron);
   animation-delay: 0.3s;
 }
+
+/* PrismJS Dark Theme (One Dark) */
+.prism-dark .token.comment,
+.prism-dark .token.prolog,
+.prism-dark .token.doctype,
+.prism-dark .token.cdata {
+  color: #5c6370;
+}
+
+.prism-dark .token.punctuation {
+  color: #abb2bf;
+}
+
+.prism-dark .token.property,
+.prism-dark .token.tag,
+.prism-dark .token.boolean,
+.prism-dark .token.number,
+.prism-dark .token.constant,
+.prism-dark .token.symbol,
+.prism-dark .token.deleted {
+  color: #d19a66;
+}
+
+.prism-dark .token.selector,
+.prism-dark .token.attr-name,
+.prism-dark .token.string,
+.prism-dark .token.char,
+.prism-dark .token.builtin,
+.prism-dark .token.inserted {
+  color: #98c379;
+}
+
+.prism-dark .token.operator,
+.prism-dark .token.entity,
+.prism-dark .token.url,
+.prism-dark .language-css .token.string,
+.prism-dark .style .token.string {
+  color: #56b6c2;
+}
+
+.prism-dark .token.atrule,
+.prism-dark .token.attr-value,
+.prism-dark .token.keyword {
+  color: #c678dd;
+}
+
+.prism-dark .token.function,
+.prism-dark .token.class-name {
+  color: #61afef;
+}
+
+.prism-dark .token.regex,
+.prism-dark .token.important,
+.prism-dark .token.variable {
+  color: #e06c75;
+}
+
+/* PrismJS Light Theme */
+.prism-light .token.comment,
+.prism-light .token.prolog,
+.prism-light .token.doctype,
+.prism-light .token.cdata {
+  color: #708090;
+}
+
+.prism-light .token.punctuation {
+  color: #383a42;
+}
+
+.prism-light .token.property,
+.prism-light .token.tag,
+.prism-light .token.boolean,
+.prism-light .token.number,
+.prism-light .token.constant,
+.prism-light .token.symbol,
+.prism-light .token.deleted {
+  color: #986801;
+}
+
+.prism-light .token.selector,
+.prism-light .token.attr-name,
+.prism-light .token.string,
+.prism-light .token.char,
+.prism-light .token.builtin,
+.prism-light .token.inserted {
+  color: #50a14f;
+}
+
+.prism-light .token.operator,
+.prism-light .token.entity,
+.prism-light .token.url,
+.prism-light .language-css .token.string,
+.prism-light .style .token.string {
+  color: #0184bc;
+}
+
+.prism-light .token.atrule,
+.prism-light .token.attr-value,
+.prism-light .token.keyword {
+  color: #a626a4;
+}
+
+.prism-light .token.function,
+.prism-light .token.class-name {
+  color: #4078f2;
+}
+
+.prism-light .token.regex,
+.prism-light .token.important,
+.prism-light .token.variable {
+  color: #e45649;
+}
